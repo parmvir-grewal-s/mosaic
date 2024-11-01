@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "entity_deleted_event",
+  "description": "An entity was deleted as part of a background job schema.",
+  "additionalProperties": false,
+  "required": [
+    "table_name",
+    "primary_key_name",
+    "entity_id"
+  ],
+  "properties": {
+    "table_name": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^$|.*\\S.*",
+      "description": "A string with at least one character and not only whitespace characters."
+    },
+    "primary_key_name": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^$|.*\\S.*",
+      "description": "A string with at least one character and not only whitespace characters."
+    },
+    "entity_id": {
+      "type": "integer",
+      "description": "Id of the entity that was deleted."
+    }
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "vhosts": {
+    "vhost-name": {
+      "assert": false,
+      "exchanges": {
+        "command": {
+          "type": "topic"
+        },
+        "event": {
+          "type": "topic"
+        },
+        "delay": {
+          "type": "topic"
+        },
+        "retry": {
+          "type": "topic"
+        },
+        "dead_letter": {
+          "type": "topic"
+        }
+      },
+      "queues": {
+        "delay:10s": {
+          "options": {
+            "arguments": {
+              "x-message-ttl": 10000,
+              "x-dead-letter-exchange": "retry",
+              "x-queue-type": "quorum"
+            }
+          }
+        },
+        "delay:30s": {
+          "options": {
+            "arguments": {
+              "x-message-ttl": 30000,
+              "x-dead-letter-exchange": "retry",
+              "x-queue-type": "quorum"
+            }
+          }
+        },
+        "catalog-service:dead_letter": {
+          "options": {
+            "arguments": {
+              "x-queue-type": "quorum"
+            }
+          }
+        },
+        "catalog-service:inbox": {
+          "options": {
+            "arguments": {
+              "x-dead-letter-exchange": "dead_letter",
+              "x-dead-letter-routing-key": "catalog-service.dead_letter",
+              "x-queue-type": "quorum"
+            }
+          }
+        }
+      },
+      "bindings": {
+        "catalog-service:dead_letter": {
+          "source": "dead_letter",
+          "bindingKey": "catalog-service.dead_letter",
+          "destination": "catalog-service:dead_letter"
+        },
+        "delay:10s": {
+          "source": "delay",
+          "bindingKey": "delay.10s",
+          "destination": "delay:10s"
+        },
+        "delay:30s": {
+          "source": "delay",
+          "bindingKey": "delay.30s",
+          "destination": "delay:30s"
+        },
+        "retry:catalog-service:inbox": {
+          "source": "retry",
+          "bindingKey": "catalog-service:inbox.#",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.movie.published": {
+          "source": "event",
+          "bindingKey": "media-service.movie.published",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.movie.unpublished": {
+          "source": "event",
+          "bindingKey": "media-service.movie.unpublished",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.movie-genres.published": {
+          "source": "event",
+          "bindingKey": "media-service.movie-genres.published",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.movie-genres.unpublished": {
+          "source": "event",
+          "bindingKey": "media-service.movie-genres.unpublished",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.tvshow-genres.published": {
+          "source": "event",
+          "bindingKey": "media-service.tvshow-genres.published",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.tvshow-genres.unpublished": {
+          "source": "event",
+          "bindingKey": "media-service.tvshow-genres.unpublished",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.tvshow.published": {
+          "source": "event",
+          "bindingKey": "media-service.tvshow.published",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.tvshow.unpublished": {
+          "source": "event",
+          "bindingKey": "media-service.tvshow.unpublished",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.season.published": {
+          "source": "event",
+          "bindingKey": "media-service.season.published",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.season.unpublished": {
+          "source": "event",
+          "bindingKey": "media-service.season.unpublished",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.episode.published": {
+          "source": "event",
+          "bindingKey": "media-service.episode.published",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.episode.unpublished": {
+          "source": "event",
+          "bindingKey": "media-service.episode.unpublished",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.collection.published": {
+          "source": "event",
+          "bindingKey": "media-service.collection.published",
+          "destination": "catalog-service:inbox"
+        },
+        "media-service.collection.unpublished": {
+          "source": "event",
+          "bindingKey": "media-service.collection.unpublished",
+          "destination": "catalog-service:inbox"
+        },
+        "channel-service.channel.published": {
+          "source": "event",
+          "bindingKey": "channel-service.channel.published",
+          "destination": "catalog-service:inbox"
+        },
+        "channel-service.channel.unpublished": {
+          "source": "event",
+          "bindingKey": "channel-service.channel.unpublished",
+          "destination": "catalog-service:inbox"
+        },
+        "channel-service.playlist.published": {
+          "source": "event",
+          "bindingKey": "channel-service.playlist.published",
+          "destination": "catalog-service:inbox"
+        },
+        "channel-service.playlist.unpublished": {
+          "source": "event",
+          "bindingKey": "channel-service.playlist.unpublished",
+          "destination": "catalog-service:inbox"
+        },
+        "vod-to-live-service.channel.check_job_status_succeeded": {
+          "source": "event",
+          "bindingKey": "vod-to-live-service.channel.check_job_status_succeeded",
+          "destination": "catalog-service:inbox"
+        },
+        "vod-to-live-service.channel.check_job_status_failed": {
+          "source": "event",
+          "bindingKey": "vod-to-live-service.channel.check_job_status_failed",
+          "destination": "catalog-service:inbox"
+        },
+        "vod-to-live-service.channel.protection_key_created": {
+          "source": "event",
+          "bindingKey": "vod-to-live-service.channel.protection_key_created",
+          "destination": "catalog-service:inbox"
+        }
+      },
+      "publications": {
+        "retry_in_10sec": {
+          "exchange": "delay",
+          "options": {
+            "CC": [
+              "delay.10s"
+            ]
+          }
+        },
+        "retry_in_30sec": {
+          "exchange": "delay",
+          "options": {
+            "CC": [
+              "delay.30s"
+            ]
+          }
+        }
+      },
+      "subscriptions": {
+        "Inbox": {
+          "queue": "catalog-service:inbox",
+          "prefetch": 10,
+          "recovery": "deferred_retry",
+          "redeliveries": {
+            "limit": 5,
+            "counter": "mosaic",
+            "timeout": 10000
+          }
+        }
+      }
+    }
+  },
+  "recovery": {
+    "deferred_retry": [
+      {
+        "strategy": "forward",
+        "attempts": 4,
+        "publication": "retry_in_10sec",
+        "xDeathFix": true
+      },
+      {
+        "strategy": "forward",
+        "attempts": 8,
+        "publication": "retry_in_30sec",
+        "xDeathFix": true
+      },
+      {
+        "strategy": "forward",
+        "attempts": 9,
+        "publication": "retry_in_30sec",
+        "options": {
+          "options": {
+            "headers": {
+              "mosaic_final_error": true
+            }
+          }
+        }
+      },
+      {
+        "strategy": "nack"
+      }
+    ]
+  },
+  "redeliveries": {
+    "counters": {
+      "mosaic": {
+        "type": "postgresCounter"
+      }
+    }
+  }
+}

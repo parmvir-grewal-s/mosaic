@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "tvshow_published_event",
+  "description": "Definition of the TV show publish format.",
+  "properties": {
+    "content_id": {
+      "$ref": "./common.json#/definitions/tvshow_id"
+    },
+    "original_title": {
+      "description": "Original title of the TV show.",
+      "type": "string"
+    },
+    "studio": {
+      "description": "Name of the producing studio.",
+      "type": "string"
+    },
+    "released": {
+      "description": "Date of first release.",
+      "$ref": "./common.json#/definitions/release_date"
+    },
+    "cast": {
+      "description": "Cast of the TV show.",
+      "type": "array",
+      "additionalItems": false,
+      "items": {
+        "type": "string"
+      }
+    },
+    "production_countries": {
+      "$ref": "./common.json#/definitions/production_countries"
+    },
+    "tags": {
+      "$ref": "./common.json#/definitions/tags"
+    },
+    "images": {
+      "$ref": "./common.json#/definitions/images"
+    },
+    "licenses": {
+      "$ref": "./common.json#/definitions/licenses"
+    },
+    "genre_ids": {
+      "description": "Sorted array of genre IDs assigned to a TV show.",
+      "type": "array",
+      "additionalItems": false,
+      "items": {
+        "$ref": "./common.json#/definitions/tvshow_genre_id"
+      }
+    },
+    "videos": {
+      "$ref": "./common.json#/definitions/trailers"
+    },
+    "localizations": {
+      "description": "Localizations for every defined locale.",
+      "type": "array",
+      "additionalItems": false,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "tvshow_localization",
+        "required": ["is_default_locale", "language_tag", "title"],
+        "properties": {
+          "is_default_locale": {
+            "type": "boolean",
+            "description": "Boolean flag to indicate if locale is default or not."
+          },
+          "language_tag": {
+            "type": "string",
+            "description": "The locale for which the values are localized."
+          },
+          "title": {
+            "type": "string",
+            "description": "The localized title of this TV show."
+          },
+          "description": {
+            "type": ["string", "null"],
+            "description": "The localized description of this TV show."
+          },
+          "synopsis": {
+            "type": ["string", "null"],
+            "description": "The localized synopsis of this TV show."
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "content_id",
+    "licenses",
+    "genre_ids",
+    "images",
+    "videos",
+    "localizations"
+  ],
+  "additionalProperties": false
+}

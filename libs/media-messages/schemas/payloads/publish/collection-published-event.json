@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "collection_published_event",
+  "description": "Definition of the collection publish format.",
+  "properties": {
+    "content_id": {
+      "$ref": "./common.json#/definitions/collection_id"
+    },
+    "tags": {
+      "$ref": "./common.json#/definitions/tags"
+    },
+    "images": {
+      "$ref": "./common.json#/definitions/images"
+    },
+    "related_items": {
+      "description": "Array of content related items metadata.",
+      "type": "array",
+      "additionalItems": false,
+      "items": {
+        "description": "Related item metadata.",
+        "type": "object",
+        "title": "related_item",
+        "properties": {
+          "movie_id": {
+            "$ref": "./common.json#/definitions/movie_id"
+          },
+          "tvshow_id": {
+            "$ref": "./common.json#/definitions/tvshow_id"
+          },
+          "season_id": {
+            "$ref": "./common.json#/definitions/season_id"
+          },
+          "episode_id": {
+            "$ref": "./common.json#/definitions/episode_id"
+          },
+          "order_no": {
+            "description": "Ordering number for the genre.",
+            "type": "integer"
+          },
+          "relation_type": {
+            "description": "Textual representation of relation type.",
+            "type": "string",
+            "title": "relation_type",
+            "enum": ["MOVIE", "TVSHOW", "SEASON", "EPISODE"]
+          }
+        },
+        "required": ["order_no", "relation_type"],
+        "additionalProperties": false
+      }
+    },
+    "localizations": {
+      "description": "Localizations for every defined locale.",
+      "type": "array",
+      "additionalItems": false,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "collection_localization",
+        "required": ["is_default_locale", "language_tag", "title"],
+        "properties": {
+          "is_default_locale": {
+            "type": "boolean",
+            "description": "Boolean flag to indicate if locale is default or not."
+          },
+          "language_tag": {
+            "type": "string",
+            "description": "The locale for which the values are localized."
+          },
+          "title": {
+            "type": "string",
+            "description": "The localized title of this collection."
+          },
+          "description": {
+            "type": ["string", "null"],
+            "description": "The localized description of this collection."
+          },
+          "synopsis": {
+            "type": ["string", "null"],
+            "description": "The localized synopsis of this collection."
+          }
+        }
+      }
+    }
+  },
+  "required": ["content_id", "related_items", "localizations"],
+  "additionalProperties": false
+}

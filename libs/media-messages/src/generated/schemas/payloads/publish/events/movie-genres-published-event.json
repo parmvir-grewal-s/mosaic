@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "movie_genres_published_event",
+  "description": "Definition of the movie genre publish format.",
+  "properties": {
+    "genres": {
+      "description": "List of movie genres.",
+      "type": "array",
+      "additionalItems": false,
+      "items": {
+        "description": "An individual movie genre object.",
+        "type": "object",
+        "title": "movie_genre",
+        "required": [
+          "content_id",
+          "order_no",
+          "localizations"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "content_id": {
+            "description": "Content ID of a movie genre. Must match the pattern `^(movie_genre)-([a-zA-Z0-9_-]+)$`.",
+            "type": "string",
+            "pattern": "^(movie_genre)-([a-zA-Z0-9_-]+)$"
+          },
+          "order_no": {
+            "description": "Global ordering number for the genre.",
+            "type": "integer"
+          },
+          "localizations": {
+            "description": "Localizations for every defined locale.",
+            "type": "array",
+            "additionalItems": false,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "movie_genre_localization",
+              "required": [
+                "is_default_locale",
+                "language_tag",
+                "title"
+              ],
+              "properties": {
+                "is_default_locale": {
+                  "type": "boolean",
+                  "description": "Boolean flag to indicate if locale is default or not."
+                },
+                "language_tag": {
+                  "type": "string",
+                  "description": "The locale for which the values are localized."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "The localized title of this movie genre."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "genres"
+  ],
+  "additionalProperties": false
+}
