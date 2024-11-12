@@ -2215,9 +2215,9 @@ declare module 'zapatos/schema' {
       /**
       * **programs.video_id**
       * - `uuid` in database
-      * - `NOT NULL`, no default
+      * - Nullable, no default
       */
-      video_id: string;
+      video_id: string | null;
       /**
       * **programs.video_duration_in_seconds**
       * - `numeric` in database
@@ -2295,9 +2295,9 @@ declare module 'zapatos/schema' {
       /**
       * **programs.video_id**
       * - `uuid` in database
-      * - `NOT NULL`, no default
+      * - Nullable, no default
       */
-      video_id: string;
+      video_id: string | null;
       /**
       * **programs.video_duration_in_seconds**
       * - `numeric` in database
@@ -2375,7 +2375,7 @@ declare module 'zapatos/schema' {
       /**
       * **programs.video_id**
       * - `uuid` in database
-      * - `NOT NULL`, no default
+      * - Nullable, no default
       */
       video_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
@@ -2455,9 +2455,9 @@ declare module 'zapatos/schema' {
       /**
       * **programs.video_id**
       * - `uuid` in database
-      * - `NOT NULL`, no default
+      * - Nullable, no default
       */
-      video_id: string | db.Parameter<string> | db.SQLFragment;
+      video_id?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
       * **programs.video_duration_in_seconds**
       * - `numeric` in database
@@ -2535,9 +2535,9 @@ declare module 'zapatos/schema' {
       /**
       * **programs.video_id**
       * - `uuid` in database
-      * - `NOT NULL`, no default
+      * - Nullable, no default
       */
-      video_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      video_id?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
       * **programs.video_duration_in_seconds**
       * - `numeric` in database

@@ -101,9 +101,6 @@ export const ProgramManagement: React.FC = () => {
             'Video duration is required',
           ),
           imageId: Yup.string().nullable(),
-          videoId: Yup.string()
-            .required()
-            .typeError('Entity has no valid video'),
           programCuePoints: Yup.object().shape({
             nodes: Yup.array().of(
               Yup.object().shape({

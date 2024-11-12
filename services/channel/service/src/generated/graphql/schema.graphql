@@ -1535,7 +1535,7 @@ type Program {
   sortIndex: Int!
   title: String!
   imageId: UUID
-  videoId: UUID!
+  videoId: UUID
   videoDurationInSeconds: Float!
   entityId: String!
   entityType: EntityType!
@@ -2646,7 +2646,7 @@ input ProgramInput {
   sortIndex: Int!
   title: String!
   imageId: UUID
-  videoId: UUID!
+  videoId: UUID
   videoDurationInSeconds: Float!
   entityId: String!
   entityType: EntityType!
