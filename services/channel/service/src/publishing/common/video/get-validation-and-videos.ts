@@ -18,7 +18,7 @@ export type GqlVideo = NonNullable<GetVideosQuery['videos']>['nodes'][0];
 
 export interface SelectedVideo {
   /** The ID of the video in the Video Service */
-  videoId: string;
+  videoId: string | null;
   /** The owning entity e.g. the channel name or program item name */
   source?: string;
 }
