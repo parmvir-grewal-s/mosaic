@@ -1,6 +1,5 @@
 import {
   EncodingState,
-  getVideoCuePointsData,
   VideoData,
 } from '@axinom/mosaic-managed-workflow-integration';
 import { StationError } from '@axinom/mosaic-ui';
@@ -38,17 +37,6 @@ export const generateProgram = async (
 ): Promise<NewProgram[]> => {
   const currentPrograms = currentNodes ?? [];
 
-  const videoIds: string[] = newPrograms.map((programItem) => {
-    // check if entity's video has been assigned
-    if (!programItem.videoId) {
-      throw createInvalidVideoError(programItem);
-    }
-    return programItem.videoId;
-  });
-
-  // fetch the video's cue points and duration from the video service
-  const data = await getVideoCuePointsData(videoIds, filteredCuePointTypeKeys);
-
   // Find the maximum sortIndex in the currentPrograms array
   const maxSortIndex = currentPrograms.reduce((maxIndex, program) => {
     return program.sortIndex > maxIndex ? program.sortIndex : maxIndex;
@@ -57,7 +45,10 @@ export const generateProgram = async (
   return newPrograms.map((newProgram, index) => {
     const { title, entityId, entityType, imageId, videoId } = newProgram;
 
-    const video = data.find((video) => video.id === videoId);
+    const video = {
+      lengthInSeconds: 99, // expected video length
+      cuePoints: {},
+    };
 
     // check if the video fetched from the video service has a valid duration (lengthInSeconds) and Ready state
     if (
