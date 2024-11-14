@@ -23,7 +23,7 @@
     "quick-deploy": "yarn util:load-vars ts-node ./scripts/quick-deploy-service.ts",
     "lint": "eslint \"{services,libs}/**/src/**/*.{ts,tsx,js}\" --fix",
     "dev:libs": "wsrun -p '*-messages' -c dev",
-    "dev:services": "wsrun -p '*-service' -x vod-to-live-service -x channel-service -c dev",
+    "dev:services": "wsrun -p '*-service' -x vod-to-live-service -c dev",
     "dev:services:all": "wsrun -p '*-service' -c dev",
     "dev:workflows": "yarn util:portal-version-check && yarn util:load-vars cross-env-shell pilet debug 'services/[!channel]*/workflows/src/index.tsx' --feed '\\$MICRO_FRONTEND_SERVICE_BASE_URL/v1/pilets/\\$TENANT_ID/\\$ENVIRONMENT_ID' --port 10053",
     "dev:workflows:all": "yarn util:portal-version-check && yarn util:load-vars cross-env-shell pilet debug 'services/*/workflows/src/index.tsx' --feed '\\$MICRO_FRONTEND_SERVICE_BASE_URL/v1/pilets/\\$TENANT_ID/\\$ENVIRONMENT_ID' --port 10054",

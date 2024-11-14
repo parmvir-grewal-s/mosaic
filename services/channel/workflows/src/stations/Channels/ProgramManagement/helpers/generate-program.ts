@@ -47,7 +47,7 @@ export const generateProgram = async (
 
     const video: VideoData = {
       id: '', // dummy video id
-      lengthInSeconds: 99, // expected video length
+      lengthInSeconds: 3600, // expected video length
       cuePoints: {
         nodes: [],
       },
