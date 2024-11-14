@@ -45,19 +45,24 @@ export const generateProgram = async (
   return newPrograms.map((newProgram, index) => {
     const { title, entityId, entityType, imageId, videoId } = newProgram;
 
-    const video = {
+    const video: VideoData = {
+      id: '', // dummy video id
       lengthInSeconds: 99, // expected video length
-      cuePoints: {},
+      cuePoints: {
+        nodes: [],
+      },
+      encodingState: EncodingState.NotStarted,
     };
-
     // check if the video fetched from the video service has a valid duration (lengthInSeconds) and Ready state
+    // We do not need to perform this validation now, since a video is not required to create a program
+    /*
     if (
       !video ||
       typeof video.lengthInSeconds !== 'number' ||
       video.encodingState !== EncodingState.Ready
     ) {
       throw createInvalidVideoDurationError(video);
-    }
+    }*/
 
     const midCuePoints: NewCuePointNode[] = (video.cuePoints?.nodes ?? []).map(
       ({ id, timeInSeconds }) => ({
