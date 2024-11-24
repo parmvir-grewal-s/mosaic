@@ -1,4 +1,3 @@
---! Message: 000006-remove_video_id_not_null
+--! Message: replace-with-migration-name
 
-ALTER TABLE app_public.programs
-ALTER COLUMN video_id DROP NOT NULL;
+-- Remove this comment line and write your migration here. Make sure to keep one empty line between 'Message' header and first migration line to properly name future migration file.
