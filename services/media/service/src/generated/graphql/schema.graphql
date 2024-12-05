@@ -554,6 +554,40 @@ type Query {
     filter: IngestItemFilter
   ): IngestItemsConnection
 
+  """Reads and enables pagination through a set of `Interstitial`."""
+  interstitials(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Interstitial`."""
+    orderBy: [InterstitialsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: InterstitialCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: InterstitialFilter
+  ): InterstitialsConnection
+
   """Reads and enables pagination through a set of `MovieGenre`."""
   movieGenres(
     """Only read the first `n` values of the set."""
@@ -1599,6 +1633,7 @@ type Query {
   ingestDocument(id: Int!): IngestDocument
   ingestItemStep(id: UUID!): IngestItemStep
   ingestItem(id: Int!): IngestItem
+  interstitial(id: Int!): Interstitial
   movieGenre(id: Int!): MovieGenre
   movie(id: Int!): Movie
   movieByExternalId(externalId: String!): Movie
@@ -12732,6 +12767,133 @@ input IngestDocumentCondition {
 }
 
 """
+A connection to a list of `Interstitial` values.
+@permissions: INTERSTITIALS_VIEW,INTERSTITIALS_EDIT,ADMIN
+"""
+type InterstitialsConnection {
+  """A list of `Interstitial` objects."""
+  nodes: [Interstitial!]!
+
+  """
+  A list of edges which contains the `Interstitial` and cursor to aid in pagination.
+  """
+  edges: [InterstitialsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Interstitial` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""@permissions: INTERSTITIALS_VIEW,INTERSTITIALS_EDIT,ADMIN"""
+type Interstitial {
+  id: Int!
+  title: String!
+  externalId: String
+  createdDate: Datetime!
+  updatedDate: Datetime!
+  createdUser: String!
+  updatedUser: String!
+}
+
+"""A `Interstitial` edge in the connection."""
+type InterstitialsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Interstitial` at the end of the edge."""
+  node: Interstitial!
+}
+
+"""Methods to use when ordering `Interstitial`."""
+enum InterstitialsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  TITLE_ASC
+  TITLE_DESC
+  EXTERNAL_ID_ASC
+  EXTERNAL_ID_DESC
+  CREATED_DATE_ASC
+  CREATED_DATE_DESC
+  UPDATED_DATE_ASC
+  UPDATED_DATE_DESC
+  CREATED_USER_ASC
+  CREATED_USER_DESC
+  UPDATED_USER_ASC
+  UPDATED_USER_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A condition to be used against `Interstitial` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input InterstitialCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: Int
+
+  """
+  Checks for equality with the object’s `title` field.
+  @maxLength(100)
+  @notEmpty()
+  """
+  title: String
+
+  """Checks for equality with the object’s `externalId` field."""
+  externalId: String
+
+  """Checks for equality with the object’s `createdDate` field."""
+  createdDate: Datetime
+
+  """Checks for equality with the object’s `updatedDate` field."""
+  updatedDate: Datetime
+
+  """Checks for equality with the object’s `createdUser` field."""
+  createdUser: String
+
+  """Checks for equality with the object’s `updatedUser` field."""
+  updatedUser: String
+}
+
+"""
+A filter to be used against `Interstitial` object types. All fields are combined with a logical ‘and.’
+"""
+input InterstitialFilter {
+  """Filter by the object’s `id` field."""
+  id: IntFilter
+
+  """Filter by the object’s `title` field."""
+  title: StringFilter
+
+  """Filter by the object’s `externalId` field."""
+  externalId: StringFilter
+
+  """Filter by the object’s `createdDate` field."""
+  createdDate: DatetimeFilter
+
+  """Filter by the object’s `updatedDate` field."""
+  updatedDate: DatetimeFilter
+
+  """Filter by the object’s `createdUser` field."""
+  createdUser: StringFilter
+
+  """Filter by the object’s `updatedUser` field."""
+  updatedUser: StringFilter
+
+  """Checks for all expressions in this list."""
+  and: [InterstitialFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [InterstitialFilter!]
+
+  """Negates the expression."""
+  not: InterstitialFilter
+}
+
+"""
 A connection to a list of `MovieGenre` values.
 @permissions: MOVIES_VIEW,SETTINGS_VIEW,SETTINGS_EDIT,ADMIN
 """
@@ -13877,6 +14039,14 @@ type Mutation {
     input: CreateEpisodesTvshowGenreInput!
   ): CreateEpisodesTvshowGenrePayload
 
+  """Creates a single `Interstitial`."""
+  createInterstitial(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateInterstitialInput!
+  ): CreateInterstitialPayload
+
   """Creates a single `MovieGenre`."""
   createMovieGenre(
     """
@@ -14225,6 +14395,14 @@ type Mutation {
     input: UpdateIngestDocumentInput!
   ): UpdateIngestDocumentPayload
 
+  """Updates a single `Interstitial` using a unique key and a patch."""
+  updateInterstitial(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateInterstitialInput!
+  ): UpdateInterstitialPayload
+
   """Updates a single `MovieGenre` using a unique key and a patch."""
   updateMovieGenre(
     """
@@ -14564,6 +14742,14 @@ type Mutation {
     """
     input: DeleteEpisodesTvshowGenreInput!
   ): DeleteEpisodesTvshowGenrePayload
+
+  """Deletes a single `Interstitial` using a unique key."""
+  deleteInterstitial(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteInterstitialInput!
+  ): DeleteInterstitialPayload
 
   """Deletes a single `MovieGenre` using a unique key."""
   deleteMovieGenre(
@@ -15723,6 +15909,54 @@ input CreateEpisodesTvshowGenreInput {
 input EpisodesTvshowGenreInput {
   episodeId: Int!
   tvshowGenresId: Int!
+}
+
+"""The output of our create `Interstitial` mutation."""
+type CreateInterstitialPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Interstitial` that was created by this mutation."""
+  interstitial: Interstitial
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Interstitial`. May be used by Relay 1."""
+  interstitialEdge(
+    """The method to use when ordering `Interstitial`."""
+    orderBy: [InterstitialsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): InterstitialsEdge
+}
+
+"""
+All input for the create `Interstitial` mutation.
+@permissions: INTERSTITIALS_EDIT,ADMIN
+"""
+input CreateInterstitialInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Interstitial` to be created by this mutation."""
+  interstitial: InterstitialInput!
+}
+
+"""An input for mutations affecting `Interstitial`"""
+input InterstitialInput {
+  """
+  @maxLength(100)
+  @notEmpty()
+  """
+  title: String!
+  externalId: String
 }
 
 """The output of our create `MovieGenre` mutation."""
@@ -17878,6 +18112,59 @@ input IngestDocumentPatch {
   title: String
 }
 
+"""The output of our update `Interstitial` mutation."""
+type UpdateInterstitialPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Interstitial` that was updated by this mutation."""
+  interstitial: Interstitial
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Interstitial`. May be used by Relay 1."""
+  interstitialEdge(
+    """The method to use when ordering `Interstitial`."""
+    orderBy: [InterstitialsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): InterstitialsEdge
+}
+
+"""
+All input for the `updateInterstitial` mutation.
+@permissions: INTERSTITIALS_EDIT,ADMIN
+"""
+input UpdateInterstitialInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Interstitial` being updated.
+  """
+  patch: InterstitialPatch!
+  id: Int!
+}
+
+"""
+Represents an update to a `Interstitial`. Fields that are set will be updated.
+"""
+input InterstitialPatch {
+  """
+  @maxLength(100)
+  @notEmpty()
+  """
+  title: String
+  externalId: String
+}
+
 """The output of our update `MovieGenre` mutation."""
 type UpdateMovieGenrePayload {
   """
@@ -19783,6 +20070,43 @@ input DeleteEpisodesTvshowGenreInput {
   clientMutationId: String
   episodeId: Int!
   tvshowGenresId: Int!
+}
+
+"""The output of our delete `Interstitial` mutation."""
+type DeleteInterstitialPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Interstitial` that was deleted by this mutation."""
+  interstitial: Interstitial
+  deletedInterstitialNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Interstitial`. May be used by Relay 1."""
+  interstitialEdge(
+    """The method to use when ordering `Interstitial`."""
+    orderBy: [InterstitialsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): InterstitialsEdge
+}
+
+"""
+All input for the `deleteInterstitial` mutation.
+@permissions: INTERSTITIALS_EDIT,ADMIN
+"""
+input DeleteInterstitialInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: Int!
 }
 
 """The output of our delete `MovieGenre` mutation."""

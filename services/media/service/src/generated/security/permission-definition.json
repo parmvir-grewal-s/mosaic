@@ -344,7 +344,29 @@
         "updateIngestDocument",
         "populateMovies",
         "populateTvshows",
-        "populateCollections"
+        "populateCollections",
+        "interstitial",
+        "interstitials",
+        "createInterstitial",
+        "deleteInterstitial",
+        "updateInterstitial"
+      ]
+    },
+    {
+      "key": "INTERSTITIALS_VIEW",
+      "title": "Interstitials: View",
+      "gqlOperations": [
+        "interstitial",
+        "interstitials"
+      ]
+    },
+    {
+      "key": "INTERSTITIALS_EDIT",
+      "title": "Interstitials: Edit",
+      "gqlOperations": [
+        "createInterstitial",
+        "deleteInterstitial",
+        "updateInterstitial"
       ]
     },
     {

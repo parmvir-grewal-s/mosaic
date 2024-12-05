@@ -11,6 +11,7 @@ import { sortTiles } from './sortTiles/sortTiles';
 import { register as registerCollections } from './Stations/Collections/registrations';
 import { register as registerEpisodes } from './Stations/Episodes/registrations';
 import { register as registerIngest } from './Stations/Ingest/registrations';
+import { register as registerInterstitials } from './Stations/Interstitials/registrations';
 import { register as registerMovies } from './Stations/Movies/registrations';
 import { register as registerSnapshotRegistry } from './Stations/Publishing/registrations';
 import { register as registerSeasons } from './Stations/Seasons/registrations';
@@ -61,4 +62,5 @@ export function setup(app: PiletApi): void {
   registerSnapshotRegistry(app, extensions);
   registerCollections(app, extensions);
   registerFASTProviders(app);
+  registerInterstitials(app, extensions);
 }
