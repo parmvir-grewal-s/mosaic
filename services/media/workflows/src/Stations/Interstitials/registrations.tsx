@@ -1,6 +1,10 @@
 import { PiletApi } from '@axinom/mosaic-portal';
 import React from 'react';
 import { Extensions } from '../../externals';
+import { InterstitialCreate } from './InterstitialCreate/InterstitialCreate';
+import { InterstitialDetails } from './InterstitialDetails/InterstitialDetails';
+import { InterstitialDetailsCrumb } from './InterstitialDetails/InterstitialDetailsCrumb';
+import { InterstitialsExplorer } from './InterstitialsExplorer/InterstitialsExplorer';
 
 export function register(app: PiletApi, extensions: Extensions): void {
   app.registerTile({
@@ -22,5 +26,17 @@ export function register(app: PiletApi, extensions: Extensions): void {
       </svg>
     ),
     type: 'large',
+  });
+
+  app.registerPage('/interstitials', InterstitialsExplorer, {
+    breadcrumb: () => 'Interstitials',
+  });
+
+  app.registerPage('/interstitials/create', InterstitialCreate, {
+    breadcrumb: () => 'New Interstitial',
+  });
+
+  app.registerPage('/interstitials/:interstitialId', InterstitialDetails, {
+    breadcrumb: InterstitialDetailsCrumb,
   });
 }

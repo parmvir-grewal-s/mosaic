@@ -1,0 +1,32 @@
+query Interstitial($id: Int!) {
+  interstitial(id: $id) {
+    title
+    externalId
+    id
+    createdDate
+    createdUser
+    updatedDate
+    updatedUser
+  }
+}
+
+mutation UpdateInterstitial($input: UpdateInterstitialInput!) {
+  updateInterstitial(input: $input) {
+    interstitial {
+      id
+      title
+    }
+  }
+}
+
+mutation DeleteInterstitial($input: DeleteInterstitialInput!) {
+  deleteInterstitial(input: $input) {
+    clientMutationId
+  }
+}
+
+query InterstitialTitle($id: Int!) {
+  interstitial(id: $id) {
+    title
+  }
+}

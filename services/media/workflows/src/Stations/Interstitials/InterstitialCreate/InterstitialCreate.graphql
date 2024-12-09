@@ -1,0 +1,7 @@
+mutation CreateInterstitial($input: CreateInterstitialInput!) {
+  createInterstitial(input: $input) {
+    interstitial {
+      id
+    }
+  }
+}

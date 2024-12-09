@@ -1,0 +1,28 @@
+query Interstitials(
+  $filter: InterstitialFilter
+  $orderBy: [InterstitialsOrderBy!]
+  $after: Cursor
+) {
+  filtered: interstitials(
+    filter: $filter
+    orderBy: $orderBy
+    first: 30
+    after: $after
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      id
+      title
+      externalId
+      createdDate
+      updatedDate
+    }
+  }
+  nonFiltered: interstitials {
+    totalCount
+  }
+}

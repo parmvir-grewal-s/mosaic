@@ -1325,6 +1325,42 @@ export type CreateEpisodesTvshowGenrePayloadEpisodesTvshowGenreEdgeArgs = {
 };
 
 /**
+ * All input for the create `Interstitial` mutation.
+ * @permissions: INTERSTITIALS_EDIT,ADMIN
+ */
+export type CreateInterstitialInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** The `Interstitial` to be created by this mutation. */
+  interstitial: InterstitialInput;
+};
+
+/** The output of our create `Interstitial` mutation. */
+export type CreateInterstitialPayload = {
+  __typename?: 'CreateInterstitialPayload';
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Interstitial` that was created by this mutation. */
+  interstitial?: Maybe<Interstitial>;
+  /** An edge for our `Interstitial`. May be used by Relay 1. */
+  interstitialEdge?: Maybe<InterstitialsEdge>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our create `Interstitial` mutation. */
+export type CreateInterstitialPayloadInterstitialEdgeArgs = {
+  orderBy?: InputMaybe<Array<InterstitialsOrderBy>>;
+};
+
+/**
  * All input for the create `MovieGenre` mutation.
  * @permissions: SETTINGS_EDIT,ADMIN
  */
@@ -3015,6 +3051,42 @@ export type DeleteEpisodesTvshowGenrePayload = {
 /** The output of our delete `EpisodesTvshowGenre` mutation. */
 export type DeleteEpisodesTvshowGenrePayloadEpisodesTvshowGenreEdgeArgs = {
   orderBy?: InputMaybe<Array<EpisodesTvshowGenresOrderBy>>;
+};
+
+/**
+ * All input for the `deleteInterstitial` mutation.
+ * @permissions: INTERSTITIALS_EDIT,ADMIN
+ */
+export type DeleteInterstitialInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  id: Scalars['Int'];
+};
+
+/** The output of our delete `Interstitial` mutation. */
+export type DeleteInterstitialPayload = {
+  __typename?: 'DeleteInterstitialPayload';
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  deletedInterstitialNodeId?: Maybe<Scalars['ID']>;
+  /** The `Interstitial` that was deleted by this mutation. */
+  interstitial?: Maybe<Interstitial>;
+  /** An edge for our `Interstitial`. May be used by Relay 1. */
+  interstitialEdge?: Maybe<InterstitialsEdge>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our delete `Interstitial` mutation. */
+export type DeleteInterstitialPayloadInterstitialEdgeArgs = {
+  orderBy?: InputMaybe<Array<InterstitialsOrderBy>>;
 };
 
 /**
@@ -5734,6 +5806,8 @@ export enum ErrorCodesEnum {
   UnhandledDatabaseError = 'UNHANDLED_DATABASE_ERROR',
   /** An unhandled error has occurred. Please contact the service support. */
   UnhandledError = 'UNHANDLED_ERROR',
+  /** Attempt to create or update an element failed, as it would have resulted in a duplicate element. */
+  UniqueConstraintError = 'UNIQUE_CONSTRAINT_ERROR',
   /** Attempt to unpublish media has failed. */
   UnpublishError = 'UNPUBLISH_ERROR',
   /** Unable to generate display title for ingest item. Ingest media type '%s' is not supported. */
@@ -6023,6 +6097,7 @@ export type IngestDocument = {
   inProgressCount: Scalars['Int'];
   itemsCount: Scalars['Int'];
   name: Scalars['String'];
+  startedCount: Scalars['Int'];
   status: IngestStatus;
   successCount: Scalars['Int'];
   title: Scalars['String'];
@@ -6068,6 +6143,8 @@ export type IngestDocumentCondition = {
   itemsCount?: InputMaybe<Scalars['Int']>;
   /** Checks for equality with the object’s `name` field. */
   name?: InputMaybe<Scalars['String']>;
+  /** Checks for equality with the object’s `startedCount` field. */
+  startedCount?: InputMaybe<Scalars['Int']>;
   /** Checks for equality with the object’s `status` field. */
   status?: InputMaybe<IngestStatus>;
   /** Checks for equality with the object’s `successCount` field. */
@@ -6116,6 +6193,8 @@ export type IngestDocumentFilter = {
   not?: InputMaybe<IngestDocumentFilter>;
   /** Checks for any expressions in this list. */
   or?: InputMaybe<Array<IngestDocumentFilter>>;
+  /** Filter by the object’s `startedCount` field. */
+  startedCount?: InputMaybe<IntFilter>;
   /** Filter by the object’s `status` field. */
   status?: InputMaybe<IngestStatusFilter>;
   /** Filter by the object’s `successCount` field. */
@@ -6223,6 +6302,8 @@ export enum IngestDocumentsOrderBy {
   Natural = 'NATURAL',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  StartedCountAsc = 'STARTED_COUNT_ASC',
+  StartedCountDesc = 'STARTED_COUNT_DESC',
   StatusAsc = 'STATUS_ASC',
   StatusDesc = 'STATUS_DESC',
   SuccessCountAsc = 'SUCCESS_COUNT_ASC',
@@ -6841,6 +6922,133 @@ export type IngestStatusFilter = {
   /** Not included in the specified list. */
   notIn?: InputMaybe<Array<IngestStatus>>;
 };
+
+/** @permissions: INTERSTITIALS_VIEW,INTERSTITIALS_EDIT,ADMIN */
+export type Interstitial = {
+  __typename?: 'Interstitial';
+  createdDate: Scalars['Datetime'];
+  createdUser: Scalars['String'];
+  externalId?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  title: Scalars['String'];
+  updatedDate: Scalars['Datetime'];
+  updatedUser: Scalars['String'];
+};
+
+/**
+ * A condition to be used against `Interstitial` object types. All fields are
+ * tested for equality and combined with a logical ‘and.’
+ */
+export type InterstitialCondition = {
+  /** Checks for equality with the object’s `createdDate` field. */
+  createdDate?: InputMaybe<Scalars['Datetime']>;
+  /** Checks for equality with the object’s `createdUser` field. */
+  createdUser?: InputMaybe<Scalars['String']>;
+  /** Checks for equality with the object’s `externalId` field. */
+  externalId?: InputMaybe<Scalars['String']>;
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['Int']>;
+  /**
+   * Checks for equality with the object’s `title` field.
+   * @maxLength(100)
+   * @notEmpty()
+   */
+  title?: InputMaybe<Scalars['String']>;
+  /** Checks for equality with the object’s `updatedDate` field. */
+  updatedDate?: InputMaybe<Scalars['Datetime']>;
+  /** Checks for equality with the object’s `updatedUser` field. */
+  updatedUser?: InputMaybe<Scalars['String']>;
+};
+
+/** A filter to be used against `Interstitial` object types. All fields are combined with a logical ‘and.’ */
+export type InterstitialFilter = {
+  /** Checks for all expressions in this list. */
+  and?: InputMaybe<Array<InterstitialFilter>>;
+  /** Filter by the object’s `createdDate` field. */
+  createdDate?: InputMaybe<DatetimeFilter>;
+  /** Filter by the object’s `createdUser` field. */
+  createdUser?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `externalId` field. */
+  externalId?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `id` field. */
+  id?: InputMaybe<IntFilter>;
+  /** Negates the expression. */
+  not?: InputMaybe<InterstitialFilter>;
+  /** Checks for any expressions in this list. */
+  or?: InputMaybe<Array<InterstitialFilter>>;
+  /** Filter by the object’s `title` field. */
+  title?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `updatedDate` field. */
+  updatedDate?: InputMaybe<DatetimeFilter>;
+  /** Filter by the object’s `updatedUser` field. */
+  updatedUser?: InputMaybe<StringFilter>;
+};
+
+/** An input for mutations affecting `Interstitial` */
+export type InterstitialInput = {
+  externalId?: InputMaybe<Scalars['String']>;
+  /**
+   * @maxLength(100)
+   * @notEmpty()
+   */
+  title: Scalars['String'];
+};
+
+/** Represents an update to a `Interstitial`. Fields that are set will be updated. */
+export type InterstitialPatch = {
+  externalId?: InputMaybe<Scalars['String']>;
+  /**
+   * @maxLength(100)
+   * @notEmpty()
+   */
+  title?: InputMaybe<Scalars['String']>;
+};
+
+/**
+ * A connection to a list of `Interstitial` values.
+ * @permissions: INTERSTITIALS_VIEW,INTERSTITIALS_EDIT,ADMIN
+ */
+export type InterstitialsConnection = {
+  __typename?: 'InterstitialsConnection';
+  /** A list of edges which contains the `Interstitial` and cursor to aid in pagination. */
+  edges: Array<InterstitialsEdge>;
+  /** A list of `Interstitial` objects. */
+  nodes: Array<Interstitial>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Interstitial` you could get from the connection. */
+  totalCount: Scalars['Int'];
+};
+
+/** A `Interstitial` edge in the connection. */
+export type InterstitialsEdge = {
+  __typename?: 'InterstitialsEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']>;
+  /** The `Interstitial` at the end of the edge. */
+  node: Interstitial;
+};
+
+/** Methods to use when ordering `Interstitial`. */
+export enum InterstitialsOrderBy {
+  CreatedDateAsc = 'CREATED_DATE_ASC',
+  CreatedDateDesc = 'CREATED_DATE_DESC',
+  CreatedUserAsc = 'CREATED_USER_ASC',
+  CreatedUserDesc = 'CREATED_USER_DESC',
+  ExternalIdAsc = 'EXTERNAL_ID_ASC',
+  ExternalIdDesc = 'EXTERNAL_ID_DESC',
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  TitleAsc = 'TITLE_ASC',
+  TitleDesc = 'TITLE_DESC',
+  UpdatedDateAsc = 'UPDATED_DATE_ASC',
+  UpdatedDateDesc = 'UPDATED_DATE_DESC',
+  UpdatedUserAsc = 'UPDATED_USER_ASC',
+  UpdatedUserDesc = 'UPDATED_USER_DESC'
+}
 
 /** A filter to be used against Int fields. All fields are combined with a logical ‘and.’ */
 export type IntFilter = {
@@ -8743,6 +8951,8 @@ export type Mutation = {
   createEpisodesTrailer?: Maybe<CreateEpisodesTrailerPayload>;
   /** Creates a single `EpisodesTvshowGenre`. */
   createEpisodesTvshowGenre?: Maybe<CreateEpisodesTvshowGenrePayload>;
+  /** Creates a single `Interstitial`. */
+  createInterstitial?: Maybe<CreateInterstitialPayload>;
   /** Creates a single `Movie`. */
   createMovie?: Maybe<CreateMoviePayload>;
   /** Creates a single `MovieGenre`. */
@@ -8848,6 +9058,8 @@ export type Mutation = {
   deleteEpisodesTrailer?: Maybe<DeleteEpisodesTrailerPayload>;
   /** Deletes a single `EpisodesTvshowGenre` using a unique key. */
   deleteEpisodesTvshowGenre?: Maybe<DeleteEpisodesTvshowGenrePayload>;
+  /** Deletes a single `Interstitial` using a unique key. */
+  deleteInterstitial?: Maybe<DeleteInterstitialPayload>;
   /** Deletes a single `Movie` using a unique key. */
   deleteMovie?: Maybe<DeleteMoviePayload>;
   /** Deletes a single `Movie` using a unique key. */
@@ -8998,6 +9210,8 @@ export type Mutation = {
   updateEpisodesTag?: Maybe<UpdateEpisodesTagPayload>;
   /** Updates a single `IngestDocument` using a unique key and a patch. */
   updateIngestDocument?: Maybe<UpdateIngestDocumentPayload>;
+  /** Updates a single `Interstitial` using a unique key and a patch. */
+  updateInterstitial?: Maybe<UpdateInterstitialPayload>;
   /** Updates a single `Movie` using a unique key and a patch. */
   updateMovie?: Maybe<UpdateMoviePayload>;
   /** Updates a single `Movie` using a unique key and a patch. */
@@ -9152,6 +9366,12 @@ export type MutationCreateEpisodesTrailerArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateEpisodesTvshowGenreArgs = {
   input: CreateEpisodesTvshowGenreInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateInterstitialArgs = {
+  input: CreateInterstitialInput;
 };
 
 
@@ -9476,6 +9696,12 @@ export type MutationDeleteEpisodesTrailerArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteEpisodesTvshowGenreArgs = {
   input: DeleteEpisodesTvshowGenreInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteInterstitialArgs = {
+  input: DeleteInterstitialInput;
 };
 
 
@@ -9990,6 +10216,12 @@ export type MutationUpdateIngestDocumentArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateInterstitialArgs = {
+  input: UpdateInterstitialInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateMovieArgs = {
   input: UpdateMovieInput;
 };
@@ -10267,6 +10499,9 @@ export type Query = {
   ingestItemStep?: Maybe<IngestItemStep>;
   /** Reads and enables pagination through a set of `IngestItemStep`. */
   ingestItemSteps?: Maybe<IngestItemStepsConnection>;
+  interstitial?: Maybe<Interstitial>;
+  /** Reads and enables pagination through a set of `Interstitial`. */
+  interstitials?: Maybe<InterstitialsConnection>;
   movie?: Maybe<Movie>;
   movieByExternalId?: Maybe<Movie>;
   movieGenre?: Maybe<MovieGenre>;
@@ -10816,6 +11051,25 @@ export type QueryIngestItemStepsArgs = {
   last?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<Array<IngestItemStepsOrderBy>>;
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryInterstitialArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryInterstitialsArgs = {
+  after?: InputMaybe<Scalars['Cursor']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  condition?: InputMaybe<InterstitialCondition>;
+  filter?: InputMaybe<InterstitialFilter>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Array<InterstitialsOrderBy>>;
 };
 
 
@@ -15638,6 +15892,43 @@ export type UpdateIngestDocumentPayloadIngestDocumentEdgeArgs = {
 };
 
 /**
+ * All input for the `updateInterstitial` mutation.
+ * @permissions: INTERSTITIALS_EDIT,ADMIN
+ */
+export type UpdateInterstitialInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  id: Scalars['Int'];
+  /** An object where the defined keys will be set on the `Interstitial` being updated. */
+  patch: InterstitialPatch;
+};
+
+/** The output of our update `Interstitial` mutation. */
+export type UpdateInterstitialPayload = {
+  __typename?: 'UpdateInterstitialPayload';
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Interstitial` that was updated by this mutation. */
+  interstitial?: Maybe<Interstitial>;
+  /** An edge for our `Interstitial`. May be used by Relay 1. */
+  interstitialEdge?: Maybe<InterstitialsEdge>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our update `Interstitial` mutation. */
+export type UpdateInterstitialPayloadInterstitialEdgeArgs = {
+  orderBy?: InputMaybe<Array<InterstitialsOrderBy>>;
+};
+
+/**
  * All input for the `updateMovieByExternalId` mutation.
  * @permissions: MOVIES_EDIT,ADMIN
  */
@@ -16993,6 +17284,50 @@ export type IngestDocumentsMutatedSubscriptionVariables = Exact<{ [key: string]:
 
 
 export type IngestDocumentsMutatedSubscription = { __typename?: 'Subscription', ingestDocumentMutated?: { __typename?: 'IngestDocumentSubscriptionPayload', id: number, eventKey?: IngestDocumentSubscriptionEventKey | null, ingestDocument?: { __typename?: 'IngestDocument', id: number, title: string, status: IngestStatus, itemsCount: number, errorCount: number, successCount: number, inProgressCount: number, createdDate: any, updatedDate: any } | null } | null };
+
+export type CreateInterstitialMutationVariables = Exact<{
+  input: CreateInterstitialInput;
+}>;
+
+
+export type CreateInterstitialMutation = { __typename?: 'Mutation', createInterstitial?: { __typename?: 'CreateInterstitialPayload', interstitial?: { __typename?: 'Interstitial', id: number } | null } | null };
+
+export type InterstitialQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type InterstitialQuery = { __typename?: 'Query', interstitial?: { __typename?: 'Interstitial', title: string, externalId?: string | null, id: number, createdDate: any, createdUser: string, updatedDate: any, updatedUser: string } | null };
+
+export type UpdateInterstitialMutationVariables = Exact<{
+  input: UpdateInterstitialInput;
+}>;
+
+
+export type UpdateInterstitialMutation = { __typename?: 'Mutation', updateInterstitial?: { __typename?: 'UpdateInterstitialPayload', interstitial?: { __typename?: 'Interstitial', id: number, title: string } | null } | null };
+
+export type DeleteInterstitialMutationVariables = Exact<{
+  input: DeleteInterstitialInput;
+}>;
+
+
+export type DeleteInterstitialMutation = { __typename?: 'Mutation', deleteInterstitial?: { __typename?: 'DeleteInterstitialPayload', clientMutationId?: string | null } | null };
+
+export type InterstitialTitleQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type InterstitialTitleQuery = { __typename?: 'Query', interstitial?: { __typename?: 'Interstitial', title: string } | null };
+
+export type InterstitialsQueryVariables = Exact<{
+  filter?: InputMaybe<InterstitialFilter>;
+  orderBy?: InputMaybe<Array<InterstitialsOrderBy> | InterstitialsOrderBy>;
+  after?: InputMaybe<Scalars['Cursor']>;
+}>;
+
+
+export type InterstitialsQuery = { __typename?: 'Query', filtered?: { __typename?: 'InterstitialsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: any | null }, nodes: Array<{ __typename?: 'Interstitial', id: number, title: string, externalId?: string | null, createdDate: any, updatedDate: any }> } | null, nonFiltered?: { __typename?: 'InterstitialsConnection', totalCount: number } | null };
 
 export type CreateMovieMutationVariables = Exact<{
   input: CreateMovieInput;
@@ -19742,6 +20077,242 @@ export function useIngestDocumentsMutatedSubscription(baseOptions?: Apollo.Subsc
       }
 export type IngestDocumentsMutatedSubscriptionHookResult = ReturnType<typeof useIngestDocumentsMutatedSubscription>;
 export type IngestDocumentsMutatedSubscriptionResult = Apollo.SubscriptionResult<IngestDocumentsMutatedSubscription>;
+export const CreateInterstitialDocument = gql`
+    mutation CreateInterstitial($input: CreateInterstitialInput!) {
+  createInterstitial(input: $input) {
+    interstitial {
+      id
+    }
+  }
+}
+    `;
+export type CreateInterstitialMutationFn = Apollo.MutationFunction<CreateInterstitialMutation, CreateInterstitialMutationVariables>;
+
+/**
+ * __useCreateInterstitialMutation__
+ *
+ * To run a mutation, you first call `useCreateInterstitialMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateInterstitialMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createInterstitialMutation, { data, loading, error }] = useCreateInterstitialMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateInterstitialMutation(baseOptions?: Apollo.MutationHookOptions<CreateInterstitialMutation, CreateInterstitialMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateInterstitialMutation, CreateInterstitialMutationVariables>(CreateInterstitialDocument, options);
+      }
+export type CreateInterstitialMutationHookResult = ReturnType<typeof useCreateInterstitialMutation>;
+export type CreateInterstitialMutationResult = Apollo.MutationResult<CreateInterstitialMutation>;
+export type CreateInterstitialMutationOptions = Apollo.BaseMutationOptions<CreateInterstitialMutation, CreateInterstitialMutationVariables>;
+export const InterstitialDocument = gql`
+    query Interstitial($id: Int!) {
+  interstitial(id: $id) {
+    title
+    externalId
+    id
+    createdDate
+    createdUser
+    updatedDate
+    updatedUser
+  }
+}
+    `;
+
+/**
+ * __useInterstitialQuery__
+ *
+ * To run a query within a React component, call `useInterstitialQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInterstitialQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInterstitialQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useInterstitialQuery(baseOptions: Apollo.QueryHookOptions<InterstitialQuery, InterstitialQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<InterstitialQuery, InterstitialQueryVariables>(InterstitialDocument, options);
+      }
+export function useInterstitialLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<InterstitialQuery, InterstitialQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<InterstitialQuery, InterstitialQueryVariables>(InterstitialDocument, options);
+        }
+export type InterstitialQueryHookResult = ReturnType<typeof useInterstitialQuery>;
+export type InterstitialLazyQueryHookResult = ReturnType<typeof useInterstitialLazyQuery>;
+export type InterstitialQueryResult = Apollo.QueryResult<InterstitialQuery, InterstitialQueryVariables>;
+export const UpdateInterstitialDocument = gql`
+    mutation UpdateInterstitial($input: UpdateInterstitialInput!) {
+  updateInterstitial(input: $input) {
+    interstitial {
+      id
+      title
+    }
+  }
+}
+    `;
+export type UpdateInterstitialMutationFn = Apollo.MutationFunction<UpdateInterstitialMutation, UpdateInterstitialMutationVariables>;
+
+/**
+ * __useUpdateInterstitialMutation__
+ *
+ * To run a mutation, you first call `useUpdateInterstitialMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateInterstitialMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateInterstitialMutation, { data, loading, error }] = useUpdateInterstitialMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateInterstitialMutation(baseOptions?: Apollo.MutationHookOptions<UpdateInterstitialMutation, UpdateInterstitialMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateInterstitialMutation, UpdateInterstitialMutationVariables>(UpdateInterstitialDocument, options);
+      }
+export type UpdateInterstitialMutationHookResult = ReturnType<typeof useUpdateInterstitialMutation>;
+export type UpdateInterstitialMutationResult = Apollo.MutationResult<UpdateInterstitialMutation>;
+export type UpdateInterstitialMutationOptions = Apollo.BaseMutationOptions<UpdateInterstitialMutation, UpdateInterstitialMutationVariables>;
+export const DeleteInterstitialDocument = gql`
+    mutation DeleteInterstitial($input: DeleteInterstitialInput!) {
+  deleteInterstitial(input: $input) {
+    clientMutationId
+  }
+}
+    `;
+export type DeleteInterstitialMutationFn = Apollo.MutationFunction<DeleteInterstitialMutation, DeleteInterstitialMutationVariables>;
+
+/**
+ * __useDeleteInterstitialMutation__
+ *
+ * To run a mutation, you first call `useDeleteInterstitialMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteInterstitialMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteInterstitialMutation, { data, loading, error }] = useDeleteInterstitialMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteInterstitialMutation(baseOptions?: Apollo.MutationHookOptions<DeleteInterstitialMutation, DeleteInterstitialMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteInterstitialMutation, DeleteInterstitialMutationVariables>(DeleteInterstitialDocument, options);
+      }
+export type DeleteInterstitialMutationHookResult = ReturnType<typeof useDeleteInterstitialMutation>;
+export type DeleteInterstitialMutationResult = Apollo.MutationResult<DeleteInterstitialMutation>;
+export type DeleteInterstitialMutationOptions = Apollo.BaseMutationOptions<DeleteInterstitialMutation, DeleteInterstitialMutationVariables>;
+export const InterstitialTitleDocument = gql`
+    query InterstitialTitle($id: Int!) {
+  interstitial(id: $id) {
+    title
+  }
+}
+    `;
+
+/**
+ * __useInterstitialTitleQuery__
+ *
+ * To run a query within a React component, call `useInterstitialTitleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInterstitialTitleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInterstitialTitleQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useInterstitialTitleQuery(baseOptions: Apollo.QueryHookOptions<InterstitialTitleQuery, InterstitialTitleQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<InterstitialTitleQuery, InterstitialTitleQueryVariables>(InterstitialTitleDocument, options);
+      }
+export function useInterstitialTitleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<InterstitialTitleQuery, InterstitialTitleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<InterstitialTitleQuery, InterstitialTitleQueryVariables>(InterstitialTitleDocument, options);
+        }
+export type InterstitialTitleQueryHookResult = ReturnType<typeof useInterstitialTitleQuery>;
+export type InterstitialTitleLazyQueryHookResult = ReturnType<typeof useInterstitialTitleLazyQuery>;
+export type InterstitialTitleQueryResult = Apollo.QueryResult<InterstitialTitleQuery, InterstitialTitleQueryVariables>;
+export const InterstitialsDocument = gql`
+    query Interstitials($filter: InterstitialFilter, $orderBy: [InterstitialsOrderBy!], $after: Cursor) {
+  filtered: interstitials(
+    filter: $filter
+    orderBy: $orderBy
+    first: 30
+    after: $after
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      id
+      title
+      externalId
+      createdDate
+      updatedDate
+    }
+  }
+  nonFiltered: interstitials {
+    totalCount
+  }
+}
+    `;
+
+/**
+ * __useInterstitialsQuery__
+ *
+ * To run a query within a React component, call `useInterstitialsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInterstitialsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInterstitialsQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *      orderBy: // value for 'orderBy'
+ *      after: // value for 'after'
+ *   },
+ * });
+ */
+export function useInterstitialsQuery(baseOptions?: Apollo.QueryHookOptions<InterstitialsQuery, InterstitialsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<InterstitialsQuery, InterstitialsQueryVariables>(InterstitialsDocument, options);
+      }
+export function useInterstitialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<InterstitialsQuery, InterstitialsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<InterstitialsQuery, InterstitialsQueryVariables>(InterstitialsDocument, options);
+        }
+export type InterstitialsQueryHookResult = ReturnType<typeof useInterstitialsQuery>;
+export type InterstitialsLazyQueryHookResult = ReturnType<typeof useInterstitialsLazyQuery>;
+export type InterstitialsQueryResult = Apollo.QueryResult<InterstitialsQuery, InterstitialsQueryVariables>;
 export const CreateMovieDocument = gql`
     mutation CreateMovie($input: CreateMovieInput!) {
   createMovie(input: $input) {
