@@ -6930,6 +6930,7 @@ export type Interstitial = {
   createdUser: Scalars['String'];
   externalId?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
+  mainVideoId?: Maybe<Scalars['UUID']>;
   title: Scalars['String'];
   updatedDate: Scalars['Datetime'];
   updatedUser: Scalars['String'];
@@ -6948,6 +6949,8 @@ export type InterstitialCondition = {
   externalId?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `id` field. */
   id?: InputMaybe<Scalars['Int']>;
+  /** Checks for equality with the object’s `mainVideoId` field. */
+  mainVideoId?: InputMaybe<Scalars['UUID']>;
   /**
    * Checks for equality with the object’s `title` field.
    * @maxLength(100)
@@ -6972,6 +6975,8 @@ export type InterstitialFilter = {
   externalId?: InputMaybe<StringFilter>;
   /** Filter by the object’s `id` field. */
   id?: InputMaybe<IntFilter>;
+  /** Filter by the object’s `mainVideoId` field. */
+  mainVideoId?: InputMaybe<UuidFilter>;
   /** Negates the expression. */
   not?: InputMaybe<InterstitialFilter>;
   /** Checks for any expressions in this list. */
@@ -6987,6 +6992,7 @@ export type InterstitialFilter = {
 /** An input for mutations affecting `Interstitial` */
 export type InterstitialInput = {
   externalId?: InputMaybe<Scalars['String']>;
+  mainVideoId?: InputMaybe<Scalars['UUID']>;
   /**
    * @maxLength(100)
    * @notEmpty()
@@ -6997,6 +7003,7 @@ export type InterstitialInput = {
 /** Represents an update to a `Interstitial`. Fields that are set will be updated. */
 export type InterstitialPatch = {
   externalId?: InputMaybe<Scalars['String']>;
+  mainVideoId?: InputMaybe<Scalars['UUID']>;
   /**
    * @maxLength(100)
    * @notEmpty()
@@ -7039,6 +7046,8 @@ export enum InterstitialsOrderBy {
   ExternalIdDesc = 'EXTERNAL_ID_DESC',
   IdAsc = 'ID_ASC',
   IdDesc = 'ID_DESC',
+  MainVideoIdAsc = 'MAIN_VIDEO_ID_ASC',
+  MainVideoIdDesc = 'MAIN_VIDEO_ID_DESC',
   Natural = 'NATURAL',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
@@ -17327,7 +17336,9 @@ export type InterstitialsQueryVariables = Exact<{
 }>;
 
 
-export type InterstitialsQuery = { __typename?: 'Query', filtered?: { __typename?: 'InterstitialsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: any | null }, nodes: Array<{ __typename?: 'Interstitial', id: number, title: string, externalId?: string | null, createdDate: any, updatedDate: any }> } | null, nonFiltered?: { __typename?: 'InterstitialsConnection', totalCount: number } | null };
+export type InterstitialsQuery = { __typename?: 'Query', filtered?: { __typename?: 'InterstitialsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: any | null }, nodes: Array<{
+  mainVideoId: any; __typename?: 'Interstitial', id: number, title: string, externalId?: string | null, createdDate: any, updatedDate: any 
+}> } | null, nonFiltered?: { __typename?: 'InterstitialsConnection', totalCount: number } | null };
 
 export type CreateMovieMutationVariables = Exact<{
   input: CreateMovieInput;

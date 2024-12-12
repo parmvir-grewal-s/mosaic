@@ -12791,6 +12791,7 @@ type Interstitial {
   id: Int!
   title: String!
   externalId: String
+  mainVideoId: UUID
   createdDate: Datetime!
   updatedDate: Datetime!
   createdUser: String!
@@ -12815,6 +12816,8 @@ enum InterstitialsOrderBy {
   TITLE_DESC
   EXTERNAL_ID_ASC
   EXTERNAL_ID_DESC
+  MAIN_VIDEO_ID_ASC
+  MAIN_VIDEO_ID_DESC
   CREATED_DATE_ASC
   CREATED_DATE_DESC
   UPDATED_DATE_ASC
@@ -12845,6 +12848,9 @@ input InterstitialCondition {
   """Checks for equality with the object’s `externalId` field."""
   externalId: String
 
+  """Checks for equality with the object’s `mainVideoId` field."""
+  mainVideoId: UUID
+
   """Checks for equality with the object’s `createdDate` field."""
   createdDate: Datetime
 
@@ -12870,6 +12876,9 @@ input InterstitialFilter {
 
   """Filter by the object’s `externalId` field."""
   externalId: StringFilter
+
+  """Filter by the object’s `mainVideoId` field."""
+  mainVideoId: UUIDFilter
 
   """Filter by the object’s `createdDate` field."""
   createdDate: DatetimeFilter
@@ -15957,6 +15966,7 @@ input InterstitialInput {
   """
   title: String!
   externalId: String
+  mainVideoId: UUID
 }
 
 """The output of our create `MovieGenre` mutation."""
@@ -18163,6 +18173,7 @@ input InterstitialPatch {
   """
   title: String
   externalId: String
+  mainVideoId: UUID
 }
 
 """The output of our update `MovieGenre` mutation."""

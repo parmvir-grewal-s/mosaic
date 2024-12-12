@@ -1,10 +1,10 @@
 import { PiletApi } from '@axinom/mosaic-portal';
 import React from 'react';
-import { Extensions } from '../../externals';
+import { Extensions, ExtensionsContext } from '../../externals';
 import { InterstitialCreate } from './InterstitialCreate/InterstitialCreate';
 import { InterstitialDetails } from './InterstitialDetails/InterstitialDetails';
 import { InterstitialDetailsCrumb } from './InterstitialDetails/InterstitialDetailsCrumb';
-import { InterstitialsExplorer } from './InterstitialsExplorer/InterstitialsExplorer';
+import { Interstitials } from './InterstitialExplorer/Interstitials';
 
 export function register(app: PiletApi, extensions: Extensions): void {
   app.registerTile({
@@ -28,9 +28,28 @@ export function register(app: PiletApi, extensions: Extensions): void {
     type: 'large',
   });
 
-  app.registerPage('/interstitials', InterstitialsExplorer, {
-    breadcrumb: () => 'Interstitials',
-  });
+  // app.registerPage(
+  //   '/interstitials',
+  //   InterstitialExplorer((kind = 'NavigationExplorer')),
+  //   {
+  //     breadcrumb: () => 'Interstitials',
+  //   },
+  // );
+
+  app.registerPage(
+    '/interstitials',
+    () => (
+      <ExtensionsContext.Provider value={extensions}>
+        <Interstitials />
+      </ExtensionsContext.Provider>
+    ),
+    {
+      breadcrumb: () => 'Interstitials',
+      permissions: {
+        'media-service': ['ADMIN', 'INTERSTITIALS_EDIT', 'INTERSTITIALS_VIEW'],
+      },
+    },
+  );
 
   app.registerPage('/interstitials/create', InterstitialCreate, {
     breadcrumb: () => 'New Interstitial',

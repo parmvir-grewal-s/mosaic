@@ -4533,6 +4533,12 @@ declare module 'zapatos/schema' {
       */
       external_id: string | null;
       /**
+      * **interstitials.main_video_id**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      main_video_id: string | null;
+      /**
       * **interstitials.created_date**
       * - `timestamptz` in database
       * - `NOT NULL`, default: `(now() AT TIME ZONE 'utc'::text)`
@@ -4576,6 +4582,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       external_id: string | null;
+      /**
+      * **interstitials.main_video_id**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      main_video_id: string | null;
       /**
       * **interstitials.created_date**
       * - `timestamptz` in database
@@ -4621,6 +4633,12 @@ declare module 'zapatos/schema' {
       */
       external_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
+      * **interstitials.main_video_id**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      main_video_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
       * **interstitials.created_date**
       * - `timestamptz` in database
       * - `NOT NULL`, default: `(now() AT TIME ZONE 'utc'::text)`
@@ -4665,6 +4683,12 @@ declare module 'zapatos/schema' {
       */
       external_id?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
+      * **interstitials.main_video_id**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      main_video_id?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
       * **interstitials.created_date**
       * - `timestamptz` in database
       * - `NOT NULL`, default: `(now() AT TIME ZONE 'utc'::text)`
@@ -4708,6 +4732,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       external_id?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **interstitials.main_video_id**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      main_video_id?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
       * **interstitials.created_date**
       * - `timestamptz` in database

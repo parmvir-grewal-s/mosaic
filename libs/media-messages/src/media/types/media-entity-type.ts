@@ -1,1 +1,6 @@
-export type MediaEntityType = 'MOVIE' | 'TVSHOW' | 'SEASON' | 'EPISODE';
+export type MediaEntityType =
+  | 'MOVIE'
+  | 'TVSHOW'
+  | 'SEASON'
+  | 'EPISODE'
+  | 'INTERSTITIAL';

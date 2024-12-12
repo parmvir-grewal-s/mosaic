@@ -3,6 +3,7 @@ import {
   DateRenderer,
   ExplorerDataProvider,
   NavigationExplorer,
+  SelectionExplorer,
   sortToPostGraphileOrderBy,
 } from '@axinom/mosaic-ui';
 import React from 'react';
@@ -14,12 +15,17 @@ import {
   InterstitialsQuery,
   InterstitialsQueryVariables,
 } from '../../../generated/graphql';
+import { useInterstitialsFilters } from './InterstitialExplorer.filters';
+import { InterstitialExplorerProps } from './InterstitialExplorer.types';
 
 type InterstitialData = NonNullable<
   InterstitialsQuery['filtered']
 >['nodes'][number];
 
-export const InterstitialsExplorer: React.FC = () => {
+export const InterstitialExplorer: React.FC<InterstitialExplorerProps> = (
+  props,
+) => {
+  const { transformFilters, filterOptions } = useInterstitialsFilters();
   const history = useHistory();
   // Columns
   const explorerColumns: Column<InterstitialData>[] = [
@@ -31,13 +37,20 @@ export const InterstitialsExplorer: React.FC = () => {
 
   // Data provider
   const dataProvider: ExplorerDataProvider<InterstitialData> = {
-    loadData: async ({ pagingInformation, sorting }) => {
+    loadData: async ({ pagingInformation, sorting, filters }) => {
+      let filterWithExclusions = filters;
+
+      if (props.excludeItems) {
+        filterWithExclusions = { id: props.excludeItems, ...filters };
+      }
+
       const result = await client.query<
         InterstitialsQuery,
         InterstitialsQueryVariables
       >({
         query: InterstitialsDocument,
         variables: {
+          filter: transformFilters(filterWithExclusions, props.excludeItems),
           orderBy: sortToPostGraphileOrderBy(sorting, InterstitialsOrderBy),
           after: pagingInformation,
         },
@@ -54,18 +67,27 @@ export const InterstitialsExplorer: React.FC = () => {
     },
   };
 
-  return (
-    <NavigationExplorer<InterstitialData>
-      title="Interstitials"
-      stationKey="InterstitialsExplorer"
-      columns={explorerColumns}
-      dataProvider={dataProvider}
-      onCreateAction={() => {
-        history.push(`/interstitials/create`);
-      }}
-      calculateNavigateUrl={({ id }) => {
-        return `/interstitials/${id}`;
-      }}
-    />
-  );
+  switch (props.kind) {
+    case 'NavigationExplorer':
+      return (
+        <NavigationExplorer<InterstitialData>
+          {...props}
+          columns={explorerColumns}
+          dataProvider={dataProvider}
+          defaultSortOrder={{ column: 'updatedDate', direction: 'desc' }}
+        />
+      );
+    case 'SelectionExplorer':
+      return (
+        <SelectionExplorer<InterstitialData>
+          {...props}
+          columns={explorerColumns}
+          dataProvider={dataProvider}
+          defaultSortOrder={{ column: 'updatedDate', direction: 'desc' }}
+          generateItemLink={(item) => `/interstitials/${item.id}`}
+        />
+      );
+    default:
+      return <div>Explorer type is not defined</div>;
+  }
 };
