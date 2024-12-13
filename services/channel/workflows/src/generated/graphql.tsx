@@ -1975,6 +1975,7 @@ export type ProgramInput = {
 export type ProgramPatch = {
   sortIndex?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
+  videoDurationInSeconds?: InputMaybe<Scalars['Float']>;
 };
 
 /**

@@ -74,6 +74,7 @@ export const InterstitialExplorer: React.FC<InterstitialExplorerProps> = (
           {...props}
           columns={explorerColumns}
           dataProvider={dataProvider}
+          filterOptions={filterOptions}
           defaultSortOrder={{ column: 'updatedDate', direction: 'desc' }}
         />
       );
@@ -83,6 +84,7 @@ export const InterstitialExplorer: React.FC<InterstitialExplorerProps> = (
           {...props}
           columns={explorerColumns}
           dataProvider={dataProvider}
+          filterOptions={filterOptions}
           defaultSortOrder={{ column: 'updatedDate', direction: 'desc' }}
           generateItemLink={(item) => `/interstitials/${item.id}`}
         />
