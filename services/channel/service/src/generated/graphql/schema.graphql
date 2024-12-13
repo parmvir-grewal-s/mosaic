@@ -1189,6 +1189,9 @@ enum EntityType {
 
   """Episode"""
   EPISODE
+
+  """Interstitial"""
+  INTERSTITIAL
 }
 
 """
@@ -2932,6 +2935,7 @@ Represents an update to a `Program`. Fields that are set will be updated.
 input ProgramPatch {
   sortIndex: Int
   title: String
+  videoDurationInSeconds: Float
 }
 
 """The output of our delete `ChannelImage` mutation."""

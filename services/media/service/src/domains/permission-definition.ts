@@ -37,6 +37,11 @@ import {
   TvShowsReadOperations,
 } from './tvshows';
 
+import {
+  InterstitialsMutateOperations,
+  InterstitialsReadOperations,
+} from './interstitials/operation-groups';
+
 /**
  * **IMPORTANT**
  *
@@ -76,7 +81,19 @@ const permissions = [
       ...MoviesDevOperations,
       ...TvshowsDevOperations,
       ...CollectionDevOperations,
+      ...InterstitialsReadOperations,
+      ...InterstitialsMutateOperations,
     ],
+  },
+  {
+    key: 'INTERSTITIALS_VIEW',
+    title: 'Interstitials: View',
+    gqlOperations: [...InterstitialsReadOperations],
+  },
+  {
+    key: 'INTERSTITIALS_EDIT',
+    title: 'Interstitials: Edit',
+    gqlOperations: [...InterstitialsMutateOperations],
   },
   {
     key: 'SETTINGS_VIEW',

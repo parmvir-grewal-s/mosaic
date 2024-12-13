@@ -2,6 +2,7 @@ import { PiletApi } from '@axinom/mosaic-portal';
 import { IconName } from '@axinom/mosaic-ui';
 import React from 'react';
 import { EpisodeExplorer } from '../Stations/Episodes/EpisodeExplorerBase/EpisodeExplorer';
+import { InterstitialExplorer } from '../Stations/Interstitials/InterstitialExplorer/InterstitialExplorer';
 import { MovieExplorer } from '../Stations/Movies/MovieExplorerBase/MovieExplorer';
 
 export function register(app: PiletApi): void {
@@ -81,5 +82,37 @@ export function register(app: PiletApi): void {
       />
     ),
     detailsResolver: ({ entityId }) => `/episodes/${entityId}`,
+  });
+
+  app.addProvider('fast-provider', {
+    type: 'INTERSTITIAL',
+    label: 'Interstitial',
+    selectionComponent: ({ onSelected, onClose }) => (
+      <InterstitialExplorer
+        kind="SelectionExplorer"
+        title="Select Interstitial"
+        stationKey="FASTInterstitialSelection"
+        onSelection={(selection) => {
+          const items =
+            selection.mode === 'SINGLE_ITEMS' ? selection.items ?? [] : [];
+          onSelected(
+            items.map((e) => ({
+              title: e.title,
+              videoId: e.mainVideoId,
+              entityId: String(e.id),
+              externalId: e.externalId, // Optional: if you need externalId
+            })),
+          );
+        }}
+        actions={[
+          {
+            label: 'Cancel',
+            icon: IconName.X,
+            onClick: onClose,
+          },
+        ]}
+      />
+    ),
+    detailsResolver: ({ entityId }) => `/interstitials/${entityId}`,
   });
 }
