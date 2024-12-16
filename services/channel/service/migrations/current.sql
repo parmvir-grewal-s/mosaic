@@ -1,7 +1,3 @@
---! Message: adding-interstitials-as-entity-type
+--! Message: replace-with-migration-name
 
-INSERT INTO app_public.entity_type (value, description)
-VALUES ('INTERSTITIAL', 'Interstitial')
-ON CONFLICT (value) DO NOTHING;
-
-GRANT UPDATE (video_duration_in_seconds) ON app_public.programs TO ":DATABASE_GQL_ROLE";
+-- Remove this comment line and write your migration here. Make sure to keep one empty line between 'Message' header and first migration line to properly name future migration file.

@@ -26,6 +26,7 @@
     "dist"
   ],
   "dependencies": {
+    "@axinom/mosaic-portal": "0.37.1",
     "@apollo/client": "^3.7.10",
     "@axinom/mosaic-managed-workflow-integration": "0.21.0",
     "@axinom/mosaic-ui": "0.53.0",
@@ -40,7 +41,6 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@axinom/mosaic-portal": "0.37.1",
     "@dbeining/react-atom": "^4.1.21",
     "@graphql-codegen/cli": "^2.13.4",
     "@graphql-codegen/typescript": "^2.7.3",
