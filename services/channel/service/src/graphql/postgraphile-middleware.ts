@@ -53,6 +53,7 @@ import {
   ValidateChannelPlugin,
   ValidatePlaylistPlugin,
 } from '../domains';
+import { AllInterstitialPlugins } from '../domains/interstitials/plugins/all-interstitial-plugins';
 import { ExtendedGraphQLContext } from './models';
 import {
   CuePointScheduleBigFloatToFloatPlugin,
@@ -95,6 +96,7 @@ export function buildPostgraphileOptions(
       plugin: makePluginByCombiningPlugins(
         SubscriptionsPluginFactory('channels', 'Channel', 'UUID'),
         SubscriptionsPluginFactory('playlists', 'Playlist', 'UUID'),
+        SubscriptionsPluginFactory('programs', 'Program', 'UUID'),
       ),
       websocketMiddlewares,
     })
@@ -107,6 +109,7 @@ export function buildPostgraphileOptions(
       ValidationDirectivesPlugin,
       ConnectionFilterPlugin,
       PublishChannelPlugin,
+      AllInterstitialPlugins,
       PublishPlaylistPlugin,
       UnpublishChannelPlugin,
       UnpublishPlaylistPlugin,
