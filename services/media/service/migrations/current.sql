@@ -1,3 +1,6 @@
---! Message: replace-with-migration-name
+--! Message: add-duration-to-interstitial
 
--- Remove this comment line and write your migration here. Make sure to keep one empty line between 'Message' header and first migration line to properly name future migration file.
+ALTER TABLE app_public.interstitials ADD COLUMN duration NUMERIC(13, 5);
+
+GRANT INSERT (duration) ON app_public.interstitials TO ":DATABASE_GQL_ROLE";
+GRANT UPDATE (duration) ON app_public.interstitials TO ":DATABASE_GQL_ROLE";

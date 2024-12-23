@@ -12796,7 +12796,13 @@ type Interstitial {
   updatedDate: Datetime!
   createdUser: String!
   updatedUser: String!
+  duration: BigFloat
 }
+
+"""
+A floating point number that requires more precision than IEEE 754 binary 64
+"""
+scalar BigFloat
 
 """A `Interstitial` edge in the connection."""
 type InterstitialsEdge {
@@ -12826,6 +12832,8 @@ enum InterstitialsOrderBy {
   CREATED_USER_DESC
   UPDATED_USER_ASC
   UPDATED_USER_DESC
+  DURATION_ASC
+  DURATION_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -12862,6 +12870,9 @@ input InterstitialCondition {
 
   """Checks for equality with the object’s `updatedUser` field."""
   updatedUser: String
+
+  """Checks for equality with the object’s `duration` field."""
+  duration: BigFloat
 }
 
 """
@@ -12892,6 +12903,9 @@ input InterstitialFilter {
   """Filter by the object’s `updatedUser` field."""
   updatedUser: StringFilter
 
+  """Filter by the object’s `duration` field."""
+  duration: BigFloatFilter
+
   """Checks for all expressions in this list."""
   and: [InterstitialFilter!]
 
@@ -12900,6 +12914,48 @@ input InterstitialFilter {
 
   """Negates the expression."""
   not: InterstitialFilter
+}
+
+"""
+A filter to be used against BigFloat fields. All fields are combined with a logical ‘and.’
+"""
+input BigFloatFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: BigFloat
+
+  """Not equal to the specified value."""
+  notEqualTo: BigFloat
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: BigFloat
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: BigFloat
+
+  """Included in the specified list."""
+  in: [BigFloat!]
+
+  """Not included in the specified list."""
+  notIn: [BigFloat!]
+
+  """Less than the specified value."""
+  lessThan: BigFloat
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: BigFloat
+
+  """Greater than the specified value."""
+  greaterThan: BigFloat
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: BigFloat
 }
 
 """
@@ -15967,6 +16023,7 @@ input InterstitialInput {
   title: String!
   externalId: String
   mainVideoId: UUID
+  duration: BigFloat
 }
 
 """The output of our create `MovieGenre` mutation."""
@@ -18174,6 +18231,7 @@ input InterstitialPatch {
   title: String
   externalId: String
   mainVideoId: UUID
+  duration: BigFloat
 }
 
 """The output of our update `MovieGenre` mutation."""
