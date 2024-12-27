@@ -418,6 +418,7 @@ const Form: React.FC<{ genreOptions?: string[] }> = ({ genreOptions }) => {
         liveSuggestionsResolver={productionCountriesResolver}
         as={CustomTagsField}
       />
+      <Field name="duration" label="Duration" as={SingleLineTextField} />
       <Field name="studio" label="Studio" as={SingleLineTextField} />
     </>
   );

@@ -47,6 +47,7 @@ query Movie($id: Int!) {
     publishStatus
     publishedDate
     publishedUser
+    duration
   }
 
   movieGenres {

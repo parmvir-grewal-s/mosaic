@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  BigFloat: any;
   Cursor: any;
   Date: any;
   Datetime: any;
@@ -21,6 +22,32 @@ export type Scalars = {
   JSON: any;
   Upload: any;
   UUID: any;
+};
+
+/** A filter to be used against BigFloat fields. All fields are combined with a logical ‘and.’ */
+export type BigFloatFilter = {
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: InputMaybe<Scalars['BigFloat']>;
+  /** Equal to the specified value. */
+  equalTo?: InputMaybe<Scalars['BigFloat']>;
+  /** Greater than the specified value. */
+  greaterThan?: InputMaybe<Scalars['BigFloat']>;
+  /** Greater than or equal to the specified value. */
+  greaterThanOrEqualTo?: InputMaybe<Scalars['BigFloat']>;
+  /** Included in the specified list. */
+  in?: InputMaybe<Array<Scalars['BigFloat']>>;
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: InputMaybe<Scalars['Boolean']>;
+  /** Less than the specified value. */
+  lessThan?: InputMaybe<Scalars['BigFloat']>;
+  /** Less than or equal to the specified value. */
+  lessThanOrEqualTo?: InputMaybe<Scalars['BigFloat']>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: InputMaybe<Scalars['BigFloat']>;
+  /** Not equal to the specified value. */
+  notEqualTo?: InputMaybe<Scalars['BigFloat']>;
+  /** Not included in the specified list. */
+  notIn?: InputMaybe<Array<Scalars['BigFloat']>>;
 };
 
 /** A filter to be used against Boolean fields. All fields are combined with a logical ‘and.’ */
@@ -4348,6 +4375,7 @@ export type Episode = {
   createdDate: Scalars['Datetime'];
   createdUser: Scalars['String'];
   description?: Maybe<Scalars['String']>;
+  duration?: Maybe<Scalars['BigFloat']>;
   /** Reads and enables pagination through a set of `EpisodesCast`. */
   episodesCasts: EpisodesCastsConnection;
   /** Reads and enables pagination through a set of `EpisodesImage`. */
@@ -4508,6 +4536,8 @@ export type EpisodeCondition = {
   createdUser?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `description` field. */
   description?: InputMaybe<Scalars['String']>;
+  /** Checks for equality with the object’s `duration` field. */
+  duration?: InputMaybe<Scalars['BigFloat']>;
   /** Checks for equality with the object’s `externalId` field. */
   externalId?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `id` field. */
@@ -4558,6 +4588,8 @@ export type EpisodeFilter = {
   createdUser?: InputMaybe<StringFilter>;
   /** Filter by the object’s `description` field. */
   description?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `duration` field. */
+  duration?: InputMaybe<BigFloatFilter>;
   /** Filter by the object’s `episodesCasts` relation. */
   episodesCasts?: InputMaybe<EpisodeToManyEpisodesCastFilter>;
   /** Some related `episodesCasts` exist. */
@@ -4666,6 +4698,7 @@ export type EpisodeImageTypeFilter = {
 /** An input for mutations affecting `Episode` */
 export type EpisodeInput = {
   description?: InputMaybe<Scalars['String']>;
+  duration?: InputMaybe<Scalars['BigFloat']>;
   externalId?: InputMaybe<Scalars['String']>;
   index: Scalars['Int'];
   mainVideoId?: InputMaybe<Scalars['UUID']>;
@@ -4684,6 +4717,7 @@ export type EpisodeInput = {
 /** Represents an update to a `Episode`. Fields that are set will be updated. */
 export type EpisodePatch = {
   description?: InputMaybe<Scalars['String']>;
+  duration?: InputMaybe<Scalars['BigFloat']>;
   externalId?: InputMaybe<Scalars['String']>;
   index?: InputMaybe<Scalars['Int']>;
   mainVideoId?: InputMaybe<Scalars['UUID']>;
@@ -5139,6 +5173,8 @@ export enum EpisodesOrderBy {
   CreatedUserDesc = 'CREATED_USER_DESC',
   DescriptionAsc = 'DESCRIPTION_ASC',
   DescriptionDesc = 'DESCRIPTION_DESC',
+  DurationAsc = 'DURATION_ASC',
+  DurationDesc = 'DURATION_DESC',
   ExternalIdAsc = 'EXTERNAL_ID_ASC',
   ExternalIdDesc = 'EXTERNAL_ID_DESC',
   IdAsc = 'ID_ASC',
@@ -6928,6 +6964,7 @@ export type Interstitial = {
   __typename?: 'Interstitial';
   createdDate: Scalars['Datetime'];
   createdUser: Scalars['String'];
+  duration?: Maybe<Scalars['BigFloat']>;
   externalId?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   mainVideoId?: Maybe<Scalars['UUID']>;
@@ -6945,6 +6982,8 @@ export type InterstitialCondition = {
   createdDate?: InputMaybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `createdUser` field. */
   createdUser?: InputMaybe<Scalars['String']>;
+  /** Checks for equality with the object’s `duration` field. */
+  duration?: InputMaybe<Scalars['BigFloat']>;
   /** Checks for equality with the object’s `externalId` field. */
   externalId?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `id` field. */
@@ -6971,6 +7010,8 @@ export type InterstitialFilter = {
   createdDate?: InputMaybe<DatetimeFilter>;
   /** Filter by the object’s `createdUser` field. */
   createdUser?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `duration` field. */
+  duration?: InputMaybe<BigFloatFilter>;
   /** Filter by the object’s `externalId` field. */
   externalId?: InputMaybe<StringFilter>;
   /** Filter by the object’s `id` field. */
@@ -6991,6 +7032,7 @@ export type InterstitialFilter = {
 
 /** An input for mutations affecting `Interstitial` */
 export type InterstitialInput = {
+  duration?: InputMaybe<Scalars['BigFloat']>;
   externalId?: InputMaybe<Scalars['String']>;
   mainVideoId?: InputMaybe<Scalars['UUID']>;
   /**
@@ -7002,6 +7044,7 @@ export type InterstitialInput = {
 
 /** Represents an update to a `Interstitial`. Fields that are set will be updated. */
 export type InterstitialPatch = {
+  duration?: InputMaybe<Scalars['BigFloat']>;
   externalId?: InputMaybe<Scalars['String']>;
   mainVideoId?: InputMaybe<Scalars['UUID']>;
   /**
@@ -7042,6 +7085,8 @@ export enum InterstitialsOrderBy {
   CreatedDateDesc = 'CREATED_DATE_DESC',
   CreatedUserAsc = 'CREATED_USER_ASC',
   CreatedUserDesc = 'CREATED_USER_DESC',
+  DurationAsc = 'DURATION_ASC',
+  DurationDesc = 'DURATION_DESC',
   ExternalIdAsc = 'EXTERNAL_ID_ASC',
   ExternalIdDesc = 'EXTERNAL_ID_DESC',
   IdAsc = 'ID_ASC',
@@ -7411,6 +7456,7 @@ export type Movie = {
   createdDate: Scalars['Datetime'];
   createdUser: Scalars['String'];
   description?: Maybe<Scalars['String']>;
+  duration?: Maybe<Scalars['BigFloat']>;
   externalId?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   mainVideoId?: Maybe<Scalars['UUID']>;
@@ -7567,6 +7613,8 @@ export type MovieCondition = {
   createdUser?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `description` field. */
   description?: InputMaybe<Scalars['String']>;
+  /** Checks for equality with the object’s `duration` field. */
+  duration?: InputMaybe<Scalars['BigFloat']>;
   /** Checks for equality with the object’s `externalId` field. */
   externalId?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `id` field. */
@@ -7613,6 +7661,8 @@ export type MovieFilter = {
   createdUser?: InputMaybe<StringFilter>;
   /** Filter by the object’s `description` field. */
   description?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `duration` field. */
+  duration?: InputMaybe<BigFloatFilter>;
   /** Filter by the object’s `externalId` field. */
   externalId?: InputMaybe<StringFilter>;
   /** Filter by the object’s `id` field. */
@@ -7887,6 +7937,7 @@ export type MovieImageTypeFilter = {
 /** An input for mutations affecting `Movie` */
 export type MovieInput = {
   description?: InputMaybe<Scalars['String']>;
+  duration?: InputMaybe<Scalars['BigFloat']>;
   externalId?: InputMaybe<Scalars['String']>;
   mainVideoId?: InputMaybe<Scalars['UUID']>;
   originalTitle?: InputMaybe<Scalars['String']>;
@@ -7903,6 +7954,7 @@ export type MovieInput = {
 /** Represents an update to a `Movie`. Fields that are set will be updated. */
 export type MoviePatch = {
   description?: InputMaybe<Scalars['String']>;
+  duration?: InputMaybe<Scalars['BigFloat']>;
   externalId?: InputMaybe<Scalars['String']>;
   mainVideoId?: InputMaybe<Scalars['UUID']>;
   originalTitle?: InputMaybe<Scalars['String']>;
@@ -8438,6 +8490,8 @@ export enum MoviesOrderBy {
   CreatedUserDesc = 'CREATED_USER_DESC',
   DescriptionAsc = 'DESCRIPTION_ASC',
   DescriptionDesc = 'DESCRIPTION_DESC',
+  DurationAsc = 'DURATION_ASC',
+  DurationDesc = 'DURATION_DESC',
   ExternalIdAsc = 'EXTERNAL_ID_ASC',
   ExternalIdDesc = 'EXTERNAL_ID_DESC',
   IdAsc = 'ID_ASC',
@@ -17088,7 +17142,7 @@ export type EpisodeQueryVariables = Exact<{
 }>;
 
 
-export type EpisodeQuery = { __typename?: 'Query', episode?: { __typename?: 'Episode', title: string, originalTitle?: string | null, index: number, synopsis?: string | null, description?: string | null, externalId?: string | null, studio?: string | null, released?: any | null, id: number, createdDate: any, createdUser: string, updatedDate: any, updatedUser: string, mainVideoId?: any | null, publishStatus: PublishStatus, publishedDate?: any | null, publishedUser?: string | null, episodesTags: { __typename?: 'EpisodesTagsConnection', nodes: Array<{ __typename?: 'EpisodesTag', name: string }> }, episodesTvshowGenres: { __typename?: 'EpisodesTvshowGenresConnection', nodes: Array<{ __typename?: 'EpisodesTvshowGenre', tvshowGenres?: { __typename?: 'TvshowGenre', title: string } | null }> }, episodesCasts: { __typename?: 'EpisodesCastsConnection', nodes: Array<{ __typename?: 'EpisodesCast', name: string }> }, episodesProductionCountries: { __typename?: 'EpisodesProductionCountriesConnection', nodes: Array<{ __typename?: 'EpisodesProductionCountry', name: string }> }, episodesTrailers: { __typename?: 'EpisodesTrailersConnection', totalCount: number }, episodesImages: { __typename?: 'EpisodesImagesConnection', nodes: Array<{ __typename?: 'EpisodesImage', imageType: EpisodeImageType, imageId: any }> }, season?: { __typename?: 'Season', id: number, index: number, seasonsImages: { __typename?: 'SeasonsImagesConnection', nodes: Array<{ __typename?: 'SeasonsImage', imageId: any }> }, tvshow?: { __typename?: 'Tvshow', title: string } | null } | null } | null, tvshowGenres?: { __typename?: 'TvshowGenresConnection', nodes: Array<{ __typename?: 'TvshowGenre', title: string, id: number }> } | null };
+export type EpisodeQuery = { __typename?: 'Query', episode?: { __typename?: 'Episode', title: string, originalTitle?: string | null, index: number, synopsis?: string | null, description?: string | null, externalId?: string | null, studio?: string | null, released?: any | null, id: number, createdDate: any, createdUser: string, updatedDate: any, updatedUser: string, mainVideoId?: any | null, publishStatus: PublishStatus, publishedDate?: any | null, publishedUser?: string | null, duration?: any | null, episodesTags: { __typename?: 'EpisodesTagsConnection', nodes: Array<{ __typename?: 'EpisodesTag', name: string }> }, episodesTvshowGenres: { __typename?: 'EpisodesTvshowGenresConnection', nodes: Array<{ __typename?: 'EpisodesTvshowGenre', tvshowGenres?: { __typename?: 'TvshowGenre', title: string } | null }> }, episodesCasts: { __typename?: 'EpisodesCastsConnection', nodes: Array<{ __typename?: 'EpisodesCast', name: string }> }, episodesProductionCountries: { __typename?: 'EpisodesProductionCountriesConnection', nodes: Array<{ __typename?: 'EpisodesProductionCountry', name: string }> }, episodesTrailers: { __typename?: 'EpisodesTrailersConnection', totalCount: number }, episodesImages: { __typename?: 'EpisodesImagesConnection', nodes: Array<{ __typename?: 'EpisodesImage', imageType: EpisodeImageType, imageId: any }> }, season?: { __typename?: 'Season', id: number, index: number, seasonsImages: { __typename?: 'SeasonsImagesConnection', nodes: Array<{ __typename?: 'SeasonsImage', imageId: any }> }, tvshow?: { __typename?: 'Tvshow', title: string } | null } | null } | null, tvshowGenres?: { __typename?: 'TvshowGenresConnection', nodes: Array<{ __typename?: 'TvshowGenre', title: string, id: number }> } | null };
 
 export type UpdateEpisodeMutationVariables = Exact<{
   input: UpdateEpisodeInput;
@@ -17306,7 +17360,7 @@ export type InterstitialQueryVariables = Exact<{
 }>;
 
 
-export type InterstitialQuery = { __typename?: 'Query', interstitial?: { __typename?: 'Interstitial', title: string, externalId?: string | null, id: number, createdDate: any, createdUser: string, updatedDate: any, updatedUser: string } | null };
+export type InterstitialQuery = { __typename?: 'Query', interstitial?: { __typename?: 'Interstitial', title: string, externalId?: string | null, id: number, createdDate: any, createdUser: string, updatedDate: any, updatedUser: string, duration?: any | null } | null };
 
 export type UpdateInterstitialMutationVariables = Exact<{
   input: UpdateInterstitialInput;
@@ -17336,9 +17390,7 @@ export type InterstitialsQueryVariables = Exact<{
 }>;
 
 
-export type InterstitialsQuery = { __typename?: 'Query', filtered?: { __typename?: 'InterstitialsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: any | null }, nodes: Array<{
-  mainVideoId: any; __typename?: 'Interstitial', id: number, title: string, externalId?: string | null, createdDate: any, updatedDate: any 
-}> } | null, nonFiltered?: { __typename?: 'InterstitialsConnection', totalCount: number } | null };
+export type InterstitialsQuery = { __typename?: 'Query', filtered?: { __typename?: 'InterstitialsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: any | null }, nodes: Array<{ __typename?: 'Interstitial', id: number, title: string, externalId?: string | null, createdDate: any, updatedDate: any }> } | null, nonFiltered?: { __typename?: 'InterstitialsConnection', totalCount: number } | null };
 
 export type CreateMovieMutationVariables = Exact<{
   input: CreateMovieInput;
@@ -17352,7 +17404,7 @@ export type MovieQueryVariables = Exact<{
 }>;
 
 
-export type MovieQuery = { __typename?: 'Query', movie?: { __typename?: 'Movie', title: string, originalTitle?: string | null, synopsis?: string | null, description?: string | null, externalId?: string | null, released?: any | null, studio?: string | null, mainVideoId?: any | null, id: number, createdDate: any, createdUser: string, updatedDate: any, updatedUser: string, publishStatus: PublishStatus, publishedDate?: any | null, publishedUser?: string | null, moviesTags: { __typename?: 'MoviesTagsConnection', nodes: Array<{ __typename?: 'MoviesTag', name: string }> }, moviesMovieGenres: { __typename?: 'MoviesMovieGenresConnection', nodes: Array<{ __typename?: 'MoviesMovieGenre', movieGenres?: { __typename?: 'MovieGenre', title: string } | null }> }, moviesCasts: { __typename?: 'MoviesCastsConnection', nodes: Array<{ __typename?: 'MoviesCast', name: string }> }, moviesProductionCountries: { __typename?: 'MoviesProductionCountriesConnection', nodes: Array<{ __typename?: 'MoviesProductionCountry', name: string }> }, moviesTrailers: { __typename?: 'MoviesTrailersConnection', totalCount: number }, moviesImages: { __typename?: 'MoviesImagesConnection', nodes: Array<{ __typename?: 'MoviesImage', imageType: MovieImageType, imageId: any }> } } | null, movieGenres?: { __typename?: 'MovieGenresConnection', nodes: Array<{ __typename?: 'MovieGenre', title: string, id: number }> } | null };
+export type MovieQuery = { __typename?: 'Query', movie?: { __typename?: 'Movie', title: string, originalTitle?: string | null, synopsis?: string | null, description?: string | null, externalId?: string | null, released?: any | null, studio?: string | null, mainVideoId?: any | null, id: number, createdDate: any, createdUser: string, updatedDate: any, updatedUser: string, publishStatus: PublishStatus, publishedDate?: any | null, publishedUser?: string | null, duration?: any | null, moviesTags: { __typename?: 'MoviesTagsConnection', nodes: Array<{ __typename?: 'MoviesTag', name: string }> }, moviesMovieGenres: { __typename?: 'MoviesMovieGenresConnection', nodes: Array<{ __typename?: 'MoviesMovieGenre', movieGenres?: { __typename?: 'MovieGenre', title: string } | null }> }, moviesCasts: { __typename?: 'MoviesCastsConnection', nodes: Array<{ __typename?: 'MoviesCast', name: string }> }, moviesProductionCountries: { __typename?: 'MoviesProductionCountriesConnection', nodes: Array<{ __typename?: 'MoviesProductionCountry', name: string }> }, moviesTrailers: { __typename?: 'MoviesTrailersConnection', totalCount: number }, moviesImages: { __typename?: 'MoviesImagesConnection', nodes: Array<{ __typename?: 'MoviesImage', imageType: MovieImageType, imageId: any }> } } | null, movieGenres?: { __typename?: 'MovieGenresConnection', nodes: Array<{ __typename?: 'MovieGenre', title: string, id: number }> } | null };
 
 export type DeleteMovieMutationVariables = Exact<{
   input: DeleteMovieInput;
@@ -18984,6 +19036,7 @@ export const EpisodeDocument = gql`
     publishStatus
     publishedDate
     publishedUser
+    duration
     season {
       id
       index
@@ -20133,6 +20186,7 @@ export const InterstitialDocument = gql`
     createdUser
     updatedDate
     updatedUser
+    duration
   }
 }
     `;
@@ -20410,6 +20464,7 @@ export const MovieDocument = gql`
     publishStatus
     publishedDate
     publishedUser
+    duration
   }
   movieGenres {
     nodes {

@@ -104,6 +104,7 @@ const Form: React.FC = () => {
     <>
       <Field name="title" label="Title" as={SingleLineTextField} />
       <Field name="externalId" label="External ID" as={SingleLineTextField} />
+      <Field name="duration" label="Duration" as={SingleLineTextField} />
     </>
   );
 };
