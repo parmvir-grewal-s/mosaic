@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { makeWrapResolversPlugin } from 'graphile-utils';
 import { GraphQLClient } from 'graphql-request';
 import { requestServiceAccountToken } from '../../../common/utils/token-utils';
@@ -6,14 +5,9 @@ import { requestServiceAccountToken } from '../../../common/utils/token-utils';
 export const SetProgramDurationPlugin = makeWrapResolversPlugin({
   Mutation: {
     createProgram: async (resolve, source, args, context, resolveInfo) => {
-      console.log('createProgram plugin triggered'); // Check if the plugin is invoked
-      console.log('Args received:', args); // Log the input arguments
+      const programInput = args.input.program;
 
-      const { entityId, entityType } = args.input.program;
-
-      // If the entity type is INTERSTITIAL
-      console.log('Entity type:', entityType);
-      if (entityType === 'INTERSTITIAL') {
+      if (programInput.entityType && programInput.entityId) {
         const config = {
           idServiceAuthBaseUrl: process.env.ID_SERVICE_AUTH_BASE_URL || '',
           serviceAccountClientId: process.env.SERVICE_ACCOUNT_CLIENT_ID || '',
@@ -21,49 +15,43 @@ export const SetProgramDurationPlugin = makeWrapResolversPlugin({
             process.env.SERVICE_ACCOUNT_CLIENT_SECRET || '',
         };
 
-        // Generate an access token for Media Service
+        // Generate the access token
         const accessToken = await requestServiceAccountToken(config);
-        console.log('Access token generated:', accessToken); // Verify token generation
 
-        // Fetch the interstitial duration from Media Service
+        // Set up GraphQL client for media-service
         const client = new GraphQLClient(process.env.MEDIA_SERVICE_URL || '', {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
 
-        const getInterstitialDurationQuery = `
-          query interstitial($id: Int!) {
-            interstitial(id: $id) {
+        // GraphQL query to fetch entity's duration
+        const getEntityDurationQuery = `
+          query GetEntity($id: Int!) {
+            ${programInput.entityType.toLowerCase()}(id: $id) {
               duration
             }
           }
         `;
 
-        const result = await client.request(getInterstitialDurationQuery, {
-          id: parseInt(entityId, 10),
-        });
+        // Ensure the `entityId` is an integer
+        const entityId = parseInt(programInput.entityId, 10);
 
-        console.log('Fetched interstitial duration:', result); // Log the fetched data
+        // Fetch the duration for the entity
+        const entityTypeLower = programInput.entityType.toLowerCase();
+        const { [entityTypeLower]: entity } = await client.request(
+          getEntityDurationQuery,
+          {
+            id: entityId,
+          },
+        );
 
-        const duration = result.interstitial?.duration;
-
-        console.log('Calculated duration:', duration);
-
-        // If duration exists, set it in videoDurationInSeconds
-        if (duration) {
-          args.input.program.videoDurationInSeconds = parseFloat(duration);
-          console.log(
-            'Updated videoDurationInSeconds:',
-            args.input.program.videoDurationInSeconds,
-          );
+        if (entity && entity.duration) {
+          programInput.videoDurationInSeconds = entity.duration;
         }
       }
 
-      // Pass modified args to the original resolver
-      const result = await resolve(source, args, context, resolveInfo);
-      console.log('Final result:', result);
-      return result;
+      return resolve(source, args, context, resolveInfo);
     },
   },
 });

@@ -53,7 +53,7 @@ import {
   ValidateChannelPlugin,
   ValidatePlaylistPlugin,
 } from '../domains';
-import { AllInterstitialPlugins } from '../domains/interstitials/plugins/all-interstitial-plugins';
+import { AllEntityPlugins } from '../domains/interstitials/plugins/all-interstitial-plugins';
 import { ExtendedGraphQLContext } from './models';
 import {
   CuePointScheduleBigFloatToFloatPlugin,
@@ -109,7 +109,7 @@ export function buildPostgraphileOptions(
       ValidationDirectivesPlugin,
       ConnectionFilterPlugin,
       PublishChannelPlugin,
-      AllInterstitialPlugins,
+      AllEntityPlugins,
       PublishPlaylistPlugin,
       UnpublishChannelPlugin,
       UnpublishPlaylistPlugin,

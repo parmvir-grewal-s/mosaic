@@ -1,7 +1,7 @@
 import { SubscriptionsPluginFactory } from '@axinom/mosaic-graphql-common';
 import { makePluginByCombiningPlugins } from 'graphile-utils';
 import { AllCollectionDevPlugins, AllCollectionPlugins } from './collections';
-import { AllInterstitialPlugins } from './interstitials/plugins/all-interstitial-plugins';
+import { AllEntityPlugins } from './interstitials/plugins/all-entity-plugins';
 import { AllMovieDevPlugins, AllMoviePlugins } from './movies';
 import { AllTvshowDevPlugins, AllTvshowPlugins } from './tvshows';
 
@@ -9,14 +9,14 @@ export const AllModulesPlugins = makePluginByCombiningPlugins(
   AllCollectionPlugins,
   AllMoviePlugins,
   AllTvshowPlugins,
-  AllInterstitialPlugins,
+  AllEntityPlugins,
 );
 
 export const AllModulesDevPlugins = makePluginByCombiningPlugins(
   AllCollectionDevPlugins,
   AllMovieDevPlugins,
   AllTvshowDevPlugins,
-  AllInterstitialPlugins,
+  AllEntityPlugins,
 );
 
 export const AllSubscriptionsPlugins = makePluginByCombiningPlugins(
