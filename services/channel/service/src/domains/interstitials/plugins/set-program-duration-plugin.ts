@@ -52,10 +52,10 @@ export const SetProgramDurationPlugin = makeWrapResolversPlugin({
 
         // If duration exists, set it in videoDurationInSeconds
         if (duration) {
-          args.input.videoDurationInSeconds = parseFloat(duration);
+          args.input.program.videoDurationInSeconds = parseFloat(duration);
           console.log(
             'Updated videoDurationInSeconds:',
-            args.input.videoDurationInSeconds,
+            args.input.program.videoDurationInSeconds,
           );
         }
       }
