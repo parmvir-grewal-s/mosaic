@@ -1379,6 +1379,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       ingest_correlation_id: number | null;
+      /**
+      * **episodes.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration: number | null;
     }
     export interface JSONSelectable {
       /**
@@ -1497,6 +1503,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       ingest_correlation_id: number | null;
+      /**
+      * **episodes.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration: number | null;
     }
     export interface Whereable {
       /**
@@ -1615,6 +1627,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       ingest_correlation_id?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **episodes.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
@@ -1733,6 +1751,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       ingest_correlation_id?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **episodes.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
@@ -1851,6 +1875,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       ingest_correlation_id?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **episodes.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment>;
     }
     export type UniqueIndex = 'episodes_external_id_key' | 'episodes_pkey';
     export type Column = keyof Selectable;
@@ -4562,6 +4592,12 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `'Unknown'::text`
       */
       updated_user: string;
+      /**
+      * **interstitials.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration: number | null;
     }
     export interface JSONSelectable {
       /**
@@ -4612,6 +4648,12 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `'Unknown'::text`
       */
       updated_user: string;
+      /**
+      * **interstitials.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration: number | null;
     }
     export interface Whereable {
       /**
@@ -4662,6 +4704,12 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `'Unknown'::text`
       */
       updated_user?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **interstitials.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
@@ -4712,6 +4760,12 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `'Unknown'::text`
       */
       updated_user?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **interstitials.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
@@ -4762,6 +4816,12 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `'Unknown'::text`
       */
       updated_user?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **interstitials.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment>;
     }
     export type UniqueIndex = 'interstitials_external_id_is_unique' | 'interstitials_external_id_key' | 'interstitials_pkey';
     export type Column = keyof Selectable;
@@ -5264,6 +5324,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       ingest_correlation_id: number | null;
+      /**
+      * **movies.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration: number | null;
     }
     export interface JSONSelectable {
       /**
@@ -5370,6 +5436,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       ingest_correlation_id: number | null;
+      /**
+      * **movies.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration: number | null;
     }
     export interface Whereable {
       /**
@@ -5476,6 +5548,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       ingest_correlation_id?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **movies.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
@@ -5582,6 +5660,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       ingest_correlation_id?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **movies.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
@@ -5688,6 +5772,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       ingest_correlation_id?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **movies.duration**
+      * - `numeric` in database
+      * - Nullable, no default
+      */
+      duration?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment>;
     }
     export type UniqueIndex = 'movies_external_id_key' | 'movies_pkey';
     export type Column = keyof Selectable;

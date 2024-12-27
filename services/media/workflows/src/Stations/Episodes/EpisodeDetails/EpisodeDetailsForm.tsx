@@ -459,6 +459,7 @@ const Form: React.FC<{ genreOptions?: string[] }> = ({ genreOptions }) => {
         as={DateTimeTextField}
         modifyTime={false}
       />
+      <Field name="duration" label="Duration" as={SingleLineTextField} />
     </>
   );
 };

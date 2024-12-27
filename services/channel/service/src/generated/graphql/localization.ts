@@ -813,6 +813,8 @@ export enum ErrorCodesEnum {
   UnhandledDatabaseError = 'UNHANDLED_DATABASE_ERROR',
   /** An unhandled error has occurred. Please contact the service support. */
   UnhandledError = 'UNHANDLED_ERROR',
+  /** Attempt to create or update an element failed, as it would have resulted in a duplicate element. */
+  UniqueConstraintError = 'UNIQUE_CONSTRAINT_ERROR',
   /** User is not authorized to access the operation. */
   UserNotAuthorized = 'USER_NOT_AUTHORIZED',
   /** The User service is not accessible. Please contact Axinom support. */
@@ -1541,8 +1543,6 @@ export type Mutation = {
   /** Deletes a single `LocalizationSourceEntity` using a unique key. */
   deleteLocalizationSourceEntity?: Maybe<DeleteLocalizationSourceEntityPayload>;
   localizeEntity?: Maybe<LocalizeEntityPayload>;
-  populateLocalizations?: Maybe<PopulatePayload>;
-  truncateLocalizations?: Maybe<TruncateLocalizationsPayload>;
   /** Updates a single `Locale` using a unique key and a patch. */
   updateLocale?: Maybe<UpdateLocalePayload>;
   /** Updates a single `LocalizationSourceEntity` using a unique key and a patch. */
@@ -1588,12 +1588,6 @@ export type MutationLocalizeEntityArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationPopulateLocalizationsArgs = {
-  input: PopulateInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateLocaleArgs = {
   input: UpdateLocaleInput;
 };
@@ -1621,25 +1615,6 @@ export type PageInfo = {
   hasPreviousPage: Scalars['Boolean'];
   /** When paginating backwards, the cursor to continue. */
   startCursor?: Maybe<Scalars['Cursor']>;
-};
-
-/** Populate Localizations input type */
-export type PopulateInput = {
-  /** Define how many entity definitions with fields should be created. */
-  entityDefinitionsCount?: InputMaybe<Scalars['Int']>;
-  /** Define how many locales should be created (if any). No matter the count it will always ensure there is one default locale creating en-US if none exists. */
-  localesCount?: InputMaybe<Scalars['Int']>;
-  /** Define how many source entities should be created. This would also create the corresponding localized entities and fields. */
-  sourceEntitiesCount?: InputMaybe<Scalars['Int']>;
-};
-
-export type PopulatePayload = {
-  __typename?: 'PopulatePayload';
-  entityDefinitionsCount: Scalars['Int'];
-  localesCount: Scalars['Int'];
-  localizedEntitiesCount: Scalars['Int'];
-  query?: Maybe<Query>;
-  sourceEntitiesCount: Scalars['Int'];
 };
 
 /** The input to prepare localizations of a specific entity for publishing. */
@@ -1866,11 +1841,6 @@ export type Subscription = {
   localizationSourceEntityMutated?: Maybe<LocalizationSourceEntitySubscriptionPayload>;
   /** Triggered when a LocalizedEntity is mutated (insert, update or delete).  */
   localizedEntityMutated?: Maybe<LocalizedEntitySubscriptionPayload>;
-};
-
-export type TruncateLocalizationsPayload = {
-  __typename?: 'TruncateLocalizationsPayload';
-  completed: Scalars['Boolean'];
 };
 
 export enum UiFieldType {

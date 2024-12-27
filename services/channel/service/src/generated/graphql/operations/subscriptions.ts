@@ -1,4 +1,5 @@
 export enum Subscriptions {
   channelMutated = 'channelMutated',
-  playlistMutated = 'playlistMutated'
+  playlistMutated = 'playlistMutated',
+  programMutated = 'programMutated'
 }

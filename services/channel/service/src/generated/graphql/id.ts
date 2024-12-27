@@ -67,39 +67,6 @@ export type AuthenticateServiceAccountPayload = {
   tokenType: Scalars['String'];
 };
 
-export type CreateDevServiceAccountInput = {
-  /** Optional Environment ID to use for service account. If not specified will default to configured dev value. */
-  environmentId?: InputMaybe<Scalars['String']>;
-  /**
-   * Example:
-   *
-   * permissionStructure: [
-   *   {
-   *     serviceId: "media-service",
-   *     permissions: ["ADMIN", "MOVIES_EDIT"]
-   *   },
-   *   {
-   *     serviceId: "ax-video-service",
-   *     permissions: ["ADMIN", "VIDEOS_EDIT"]
-   *   }
-   * ]
-   */
-  permissionStructure: Array<InputMaybe<DevPermissionStructureInput>>;
-  /** Service account name. */
-  serviceAccountName: Scalars['String'];
-  /** Optional tenant ID to use for service account. If not specified will default to configured dev value. */
-  tenantId?: InputMaybe<Scalars['String']>;
-};
-
-export type CreateDevServiceAccountPayload = {
-  __typename?: 'CreateDevServiceAccountPayload';
-  clientId: Scalars['String'];
-  clientSecret: Scalars['String'];
-  environmentId: Scalars['String'];
-  serviceAccountName: Scalars['String'];
-  tenantId: Scalars['String'];
-};
-
 export type DevDeleteServiceAccountInput = {
   /** Client ID of the Service Account to be deleted */
   clientId: Scalars['String'];
@@ -141,11 +108,6 @@ export type DevGenerateUserAccessTokenWithPermissionsPayload = {
   accessToken: Scalars['String'];
   expiresInSeconds: Scalars['Int'];
   tokenType: Scalars['String'];
-};
-
-export type DevPermissionStructureInput = {
-  permissions?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  serviceId: Scalars['String'];
 };
 
 export type DevSetupServiceAccountWithPermissionsInput = {
@@ -216,6 +178,8 @@ export enum ErrorCodesEnum {
   AccessTokenRequired = 'ACCESS_TOKEN_REQUIRED',
   /** Access token verification failed */
   AccessTokenVerificationFailed = 'ACCESS_TOKEN_VERIFICATION_FAILED',
+  /** The email has not yet been verified for use. Please check your inbox for verification instructions. */
+  AccountNotVerified = 'ACCOUNT_NOT_VERIFIED',
   /** An active signing key already exists for the application. */
   ActiveSigningKeyExists = 'ACTIVE_SIGNING_KEY_EXISTS',
   /** The assertion check for the identifier %s failed. */
@@ -244,12 +208,16 @@ export enum ErrorCodesEnum {
   CannotDisableCoreService = 'CANNOT_DISABLE_CORE_SERVICE',
   /** Unable to enable Tenant as there are currently no Tenant Administrators in active state. */
   CannotEnableTenant = 'CANNOT_ENABLE_TENANT',
+  /** Client ID and Client Secret are required to enable the identity provider. */
+  ClientIdSecretRequired = 'CLIENT_ID_SECRET_REQUIRED',
   /** Error updating service account client secret. */
   ClientSecretUpdateFailed = 'CLIENT_SECRET_UPDATE_FAILED',
   /** The service [%s] does not support the [%s] command. */
   CommandNotSupported = 'COMMAND_NOT_SUPPORTED',
   /** Contains invalid permissions. */
   ContainsInvalidPermissions = 'CONTAINS_INVALID_PERMISSIONS',
+  /** Custom branding is not allowed for this identity provider. */
+  CustomBrandingNotAllowed = 'CUSTOM_BRANDING_NOT_ALLOWED',
   /** customStepFunctionName missing in orchestration step. */
   CustomStepFunctionNameMissing = 'CUSTOM_STEP_FUNCTION_NAME_MISSING',
   /** A database operation has failed because of a lock timeout. */
@@ -290,6 +258,8 @@ export enum ErrorCodesEnum {
   IdpAuthUrlGenerationError = 'IDP_AUTH_URL_GENERATION_ERROR',
   /** IDP configuration does not exist. */
   IdpConfigDoesNotExist = 'IDP_CONFIG_DOES_NOT_EXIST',
+  /** Invalid IDP Configuration. */
+  IdpConfigInvalid = 'IDP_CONFIG_INVALID',
   /** Built in IDP configuration is only available for Google IDP. */
   IdpConfigOnlyAvailableForGoogle = 'IDP_CONFIG_ONLY_AVAILABLE_FOR_GOOGLE',
   /** An error occurred while validating IDP Configuration. */
@@ -392,6 +362,12 @@ export enum ErrorCodesEnum {
   ServiceAccountNotExists = 'SERVICE_ACCOUNT_NOT_EXISTS',
   /** The service-id is required for service-state-change-events. */
   ServiceIdNotFound = 'SERVICE_ID_NOT_FOUND',
+  /** Sign in with credentials failed with an error message: [%s]. */
+  SignInWithCredentialsAuthFlowError = 'SIGN_IN_WITH_CREDENTIALS_AUTH_FLOW_ERROR',
+  /** Sign In With Credentials call failed. */
+  SignInWithCredentialsFailed = 'SIGN_IN_WITH_CREDENTIALS_FAILED',
+  /** Invalid username or password. Please try again. */
+  SignInWithCredentialsInvalidCredentials = 'SIGN_IN_WITH_CREDENTIALS_INVALID_CREDENTIALS',
   /** Could not find a matching signing key to verify the access token. The signing key used to create the token may have been revoked or the Tenant/Environment/Application configuration is erroneous. */
   SigningKeyNotFound = 'SIGNING_KEY_NOT_FOUND',
   /** An error occurred while rotating signing keys. */
@@ -430,10 +406,14 @@ export enum ErrorCodesEnum {
   Unauthorized = 'UNAUTHORIZED',
   /** Unexpected null or undefined value received. */
   UnexpectedNullUndefined = 'UNEXPECTED_NULL_UNDEFINED',
+  /** Unhandled Axios error. */
+  UnhandledAxiosError = 'UNHANDLED_AXIOS_ERROR',
   /** An unhandled database-related error has occurred. Please contact the service support. */
   UnhandledDatabaseError = 'UNHANDLED_DATABASE_ERROR',
   /** An unhandled error has occurred. Please contact the service support. */
   UnhandledError = 'UNHANDLED_ERROR',
+  /** Attempt to create or update an element failed, as it would have resulted in a duplicate element. */
+  UniqueConstraintError = 'UNIQUE_CONSTRAINT_ERROR',
   /** Environment created with an unsupported template [%s]. */
   UnsupportedTemplate = 'UNSUPPORTED_TEMPLATE',
   /** Unsupported token type received to generateLongLivedToken. The token must be a JWT type. */
@@ -451,41 +431,6 @@ export enum ErrorCodesEnum {
   /** An error occurred while resolving the well-known-config URLs. */
   WellKnownConfigUrlResolveError = 'WELL_KNOWN_CONFIG_URL_RESOLVE_ERROR'
 }
-
-export type GenerateDevAccessTokenInput = {
-  /** Optional Environment ID to use for service account. If not specified will default to configured dev value. */
-  environmentId?: InputMaybe<Scalars['String']>;
-  /**
-   * Example:
-   *
-   * permissionStructure: [
-   *   {
-   *     serviceId: "media-service",
-   *     permissions: ["ADMIN", "MOVIES_EDIT"]
-   *   },
-   *   {
-   *     serviceId: "ax-video-service",
-   *     permissions: ["ADMIN", "VIDEOS_EDIT"]
-   *   }
-   * ]
-   */
-  permissionStructure?: InputMaybe<Array<InputMaybe<DevPermissionStructureInput>>>;
-  /**
-   * Example:
-   *
-   * tags: ["LK_MANAGER", "DE_MANAGER"]
-   */
-  tags?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  /** Optional tenant ID to use for service account. If not specified will default to configured dev value. */
-  tenantId?: InputMaybe<Scalars['String']>;
-};
-
-export type GenerateDevAccessTokenPayload = {
-  __typename?: 'GenerateDevAccessTokenPayload';
-  accessToken: Scalars['String'];
-  expiresInSeconds: Scalars['Int'];
-  tokenType: Scalars['String'];
-};
 
 export type GenerateLongLivedTokenInput = {
   /** User access token to extend the validity period for. */
@@ -507,12 +452,6 @@ export type GenerateLongLivedTokenPayload = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
   __typename?: 'Mutation';
-  /** Creates a development-time service account with SYNCHRONIZE_PERMISSIONS granted. */
-  _DEV_createServiceAccount?: Maybe<CreateDevServiceAccountPayload>;
-  /** Generates development-time user access tokens with specified PERMISSIONS. */
-  _DEV_generateUserAccessToken?: Maybe<GenerateDevAccessTokenPayload>;
-  /** Creates development-time tenant, environment & idp-configuration basic data. Re-running will reset all data. */
-  _DEV_setupIdBasicData?: Maybe<SetupDevBasicDataPayload>;
   /** Authenticates a Managed Service Account */
   authenticateManagedServiceAccount: AuthenticateManagedServiceAccountPayload;
   /**
@@ -535,24 +474,6 @@ export type Mutation = {
   generateLongLivedToken: GenerateLongLivedTokenPayload;
   /** Update Service Account Name */
   updateServiceAccount: UpdateServiceAccountPayload;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type Mutation_Dev_CreateServiceAccountArgs = {
-  input: CreateDevServiceAccountInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type Mutation_Dev_GenerateUserAccessTokenArgs = {
-  input: GenerateDevAccessTokenInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type Mutation_Dev_SetupIdBasicDataArgs = {
-  input: SetupDevBasicDataInput;
 };
 
 
@@ -624,31 +545,6 @@ export type Query = {
    * which can only query top level fields if they are in a particular form.
    */
   query: Query;
-};
-
-export type SetupDevBasicDataInput = {
-  /** Email given here will be setup as the tenant administrator email, as well as user administrator email. */
-  adminEmail: Scalars['String'];
-  /** Password given here will be setup as the tenant administrator password. */
-  adminPassword: Scalars['String'];
-  /** Optional Environment ID to generate basic data with. If not specified will default to configured dev value. */
-  environmentId?: InputMaybe<Scalars['String']>;
-  /** environmentTemplateId */
-  environmentTemplateId: Scalars['String'];
-  /** Google IDP Configuration - Client ID. */
-  googleClientId: Scalars['String'];
-  /** Google IDP Configuration - Client Secret. */
-  googleClientSecret: Scalars['String'];
-  /** Optional tenant ID to generate basic data with. If not specified will default to configured dev value. */
-  tenantId?: InputMaybe<Scalars['String']>;
-};
-
-export type SetupDevBasicDataPayload = {
-  __typename?: 'SetupDevBasicDataPayload';
-  /** Development Environment ID to be used in ID Service integration. */
-  environmentId: Scalars['String'];
-  /** Development Tenant ID to be used in ID Service integration. */
-  tenantId: Scalars['String'];
 };
 
 export type UpdateServiceAccountInput = {
