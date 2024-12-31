@@ -17390,7 +17390,9 @@ export type InterstitialsQueryVariables = Exact<{
 }>;
 
 
-export type InterstitialsQuery = { __typename?: 'Query', filtered?: { __typename?: 'InterstitialsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: any | null }, nodes: Array<{ __typename?: 'Interstitial', id: number, title: string, externalId?: string | null, createdDate: any, updatedDate: any }> } | null, nonFiltered?: { __typename?: 'InterstitialsConnection', totalCount: number } | null };
+export type InterstitialsQuery = { __typename?: 'Query', filtered?: { __typename?: 'InterstitialsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: any | null }, nodes: Array<{
+  mainVideoId: any; __typename?: 'Interstitial', id: number, title: string, externalId?: string | null, createdDate: any, updatedDate: any 
+}> } | null, nonFiltered?: { __typename?: 'InterstitialsConnection', totalCount: number } | null };
 
 export type CreateMovieMutationVariables = Exact<{
   input: CreateMovieInput;
