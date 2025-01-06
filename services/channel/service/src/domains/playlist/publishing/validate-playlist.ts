@@ -3,6 +3,7 @@ import { MosaicError } from '@axinom/mosaic-service-common';
 import { DetailedVideo, PlaylistPublishedEvent } from 'media-messages';
 import Hasher from 'node-object-hash';
 import { ClientBase } from 'pg';
+import { createVideo } from 'src/domains/channel';
 import { selectExactlyOne } from 'zapatos/db';
 import {
   CommonErrors,
@@ -11,11 +12,7 @@ import {
   LOCALIZATION_PROGRAM_TYPE,
   ValidationErrors,
 } from '../../../common';
-import {
-  getValidationAndImages,
-  getValidationAndVideos,
-  SelectedVideo,
-} from '../../../publishing';
+import { getValidationAndImages, SelectedVideo } from '../../../publishing';
 import { getProgramValidationAndLocalizations } from '../../../publishing/common/localization';
 import {
   calculateValidationStatus,
@@ -106,19 +103,12 @@ export async function validatePlaylist(
 
   const [
     { images, validations: imageValidations },
-    { videos, validations: videoValidations },
     isLocalizationServiceEnabled,
   ] = await Promise.all([
     getValidationAndImages(
       config.imageServiceBaseUrl,
       jwtToken,
       imagesIds,
-      false,
-    ),
-    getValidationAndVideos(
-      config.videoServiceBaseUrl,
-      jwtToken,
-      selectedVideos,
       false,
     ),
     isManagedServiceEnabled(
@@ -129,8 +119,7 @@ export async function validatePlaylist(
   ]);
   validations.push(
     ...imageValidations,
-    ...videoValidations,
-    ...validatePlaylistMetadata(publishDto, videos, config),
+    ...validatePlaylistMetadata(publishDto, config),
   );
 
   const localizedPublishDto = publishDto as LocalizedPlaylistPublishDto;
@@ -164,7 +153,7 @@ export async function validatePlaylist(
   const publishPayload = createPlaylistPublishPayload(
     localizedPublishDto,
     images,
-    videos,
+    createVideo(),
   );
 
   const validationStatus = calculateValidationStatus(validations);
@@ -180,7 +169,6 @@ export async function validatePlaylist(
 
 const validatePlaylistMetadata = (
   publishDto: PlaylistPublishDto,
-  videos: DetailedVideo[],
   config: Config,
 ): PublishValidationMessage[] => {
   const validations: PublishValidationMessage[] = [];
@@ -270,17 +258,6 @@ const validatePlaylistMetadata = (
       pushValidationError(
         ValidationErrors.PlaylistCannotStartAndEndWithAdPod.message,
         'METADATA',
-      );
-    }
-
-    // Check for all videos in playlist to have at least one mutual stream format.
-    // Mutual video stream format(s) are required to create a consistent live stream.
-    const mutualStreams = extractSharedVideoStreamFormats(videos);
-    if (mutualStreams.length < 1) {
-      pushValidationError(
-        ValidationErrors.PlaceholderAndPlaylistVideosHaveNoMutualStreams
-          .message,
-        'VIDEOS',
       );
     }
   }

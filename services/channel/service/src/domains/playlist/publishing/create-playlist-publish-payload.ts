@@ -36,6 +36,7 @@ export const createPlaylistPublishPayload = (
             sort_index: s.sort_index,
             duration_in_seconds: s.duration_in_seconds,
             video: videos.filter((video) => video.id === s.video_id)[0],
+
             type: s.type,
           })),
         })),

@@ -18,14 +18,14 @@ import { ChannelPublishDto } from './aggregate-channel-publish-dto';
 export const createChannelPublishPayload = (
   { id, is_drm_protected }: ChannelPublishDto,
   images: DetailedImage[],
-  video: DetailedVideo,
+  placeholder_video: DetailedVideo,
   localizations: ChannelLocalization[],
 ): ChannelPublishedEvent => {
   return {
     content_id: buildPublishingId('CHANNEL', id),
     is_drm_protected,
     images,
-    placeholder_video: video,
+    placeholder_video,
     localizations,
   };
 };
