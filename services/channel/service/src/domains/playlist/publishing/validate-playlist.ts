@@ -3,7 +3,6 @@ import { MosaicError } from '@axinom/mosaic-service-common';
 import { DetailedVideo, PlaylistPublishedEvent } from 'media-messages';
 import Hasher from 'node-object-hash';
 import { ClientBase } from 'pg';
-import { createVideo } from 'src/domains/channel';
 import { selectExactlyOne } from 'zapatos/db';
 import {
   CommonErrors,
@@ -153,7 +152,6 @@ export async function validatePlaylist(
   const publishPayload = createPlaylistPublishPayload(
     localizedPublishDto,
     images,
-    createVideo(),
   );
 
   const validationStatus = calculateValidationStatus(validations);

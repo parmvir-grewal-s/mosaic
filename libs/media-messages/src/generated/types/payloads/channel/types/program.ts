@@ -21,7 +21,7 @@ export interface Program {
   /**
    * Video details to be used to enable live streaming.
    */
-  video: DetailedVideo;
+  video?: DetailedVideo;
   /**
    * Duration of the video in seconds.
    */

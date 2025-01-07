@@ -95,7 +95,7 @@ export async function validateChannel(
   const publishPayload = createChannelPublishPayload(
     publishDto,
     images,
-    createVideo(),
+    createVideo() ?? undefined,
     localizationsToPublish,
   );
 

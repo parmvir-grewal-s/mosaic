@@ -49,7 +49,6 @@
         "required": [
           "content_id",
           "sort_index",
-          "video",
           "video_duration_in_seconds",
           "entity_content_id",
           "localizations"
