@@ -20,7 +20,7 @@ export interface ChannelPublishedEvent {
   /**
    * Video details to be used to enable live streaming.
    */
-  placeholder_video: DetailedVideo;
+  placeholder_video?: DetailedVideo;
   /**
    * Localizations for every active locale.
    */

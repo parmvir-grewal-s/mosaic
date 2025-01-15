@@ -2,7 +2,6 @@ import {
   ChannelLocalization,
   ChannelPublishedEvent,
   DetailedImage,
-  DetailedVideo,
 } from 'media-messages';
 import { buildPublishingId } from '../../../publishing';
 import { ChannelPublishDto } from './aggregate-channel-publish-dto';
@@ -18,14 +17,12 @@ import { ChannelPublishDto } from './aggregate-channel-publish-dto';
 export const createChannelPublishPayload = (
   { id, is_drm_protected }: ChannelPublishDto,
   images: DetailedImage[],
-  placeholder_video: DetailedVideo,
   localizations: ChannelLocalization[],
 ): ChannelPublishedEvent => {
   return {
     content_id: buildPublishingId('CHANNEL', id),
     is_drm_protected,
     images,
-    placeholder_video,
     localizations,
   };
 };

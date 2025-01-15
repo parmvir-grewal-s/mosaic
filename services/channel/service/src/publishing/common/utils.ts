@@ -4,7 +4,13 @@
  * @param entityId - ID of the content entity.
  */
 export function buildPublishingId(
-  entityType: 'CHANNEL' | 'PLAYLIST' | 'PROGRAM' | 'MOVIE' | 'EPISODE',
+  entityType:
+    | 'CHANNEL'
+    | 'PLAYLIST'
+    | 'PROGRAM'
+    | 'MOVIE'
+    | 'EPISODE'
+    | 'INTERSTITIAL',
   entityId: number | string,
 ): string {
   return `${entityType.toLowerCase()}-${entityId}`;

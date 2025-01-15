@@ -1,13 +1,8 @@
 import { LocalizationServiceMessagingSettings } from '@axinom/mosaic-messages';
 import { MosaicError } from '@axinom/mosaic-service-common';
-import {
-  ChannelLocalization,
-  ChannelPublishedEvent,
-  DetailedVideo,
-} from 'media-messages';
+import { ChannelLocalization, ChannelPublishedEvent } from 'media-messages';
 import Hasher from 'node-object-hash';
 import { ClientBase } from 'pg';
-import { v4 as uuid } from 'uuid';
 import { select } from 'zapatos/db';
 import {
   CommonErrors,
@@ -95,7 +90,6 @@ export async function validateChannel(
   const publishPayload = createChannelPublishPayload(
     publishDto,
     images,
-    createVideo() ?? undefined,
     localizationsToPublish,
   );
 
@@ -109,36 +103,3 @@ export async function validateChannel(
     validationStatus,
   };
 }
-
-export const createVideo = (): DetailedVideo => {
-  const videoId = uuid();
-  return {
-    id: videoId,
-    custom_id: 'custom_id',
-    title: `Video ${videoId}`,
-    source_location: `source/folder/video-${videoId}`,
-    is_archived: false,
-    videos_tags: [videoId, 'video', 'channel'],
-    video_encoding: {
-      is_protected: false,
-      encoding_state: 'READY',
-      output_format: 'CMAF',
-      preview_status: 'APPROVED',
-      audio_languages: [],
-      caption_languages: [],
-      subtitle_languages: [],
-      video_streams: [
-        {
-          label: 'audio',
-          file: 'audio.mp4',
-          format: 'CMAF',
-        },
-        {
-          label: 'SD',
-          file: 'video.mp4',
-          format: 'CMAF',
-        },
-      ],
-    },
-  };
-};

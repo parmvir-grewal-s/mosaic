@@ -7,7 +7,6 @@
   "required": [
     "content_id",
     "is_drm_protected",
-    "placeholder_video",
     "images",
     "localizations"
   ],
