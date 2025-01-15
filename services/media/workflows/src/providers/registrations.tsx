@@ -92,6 +92,7 @@ export function register(app: PiletApi): void {
         kind="SelectionExplorer"
         title="Select Interstitial"
         stationKey="FASTInterstitialSelection"
+        allowBulkSelect={true}
         onSelection={(selection) => {
           const items =
             selection.mode === 'SINGLE_ITEMS' ? selection.items ?? [] : [];
