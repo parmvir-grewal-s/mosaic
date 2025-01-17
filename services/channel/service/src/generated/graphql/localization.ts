@@ -17,6 +17,7 @@ export type Scalars = {
   Cursor: any;
   Datetime: any;
   JSON: any;
+  UiFieldCustomDefinitionObject: any;
   UUID: any;
 };
 
@@ -410,6 +411,7 @@ export type EntityFieldDefinition = {
   isActive: Scalars['Boolean'];
   sortIndex: Scalars['Int'];
   title: Scalars['String'];
+  uiFieldCustomDefinition?: Maybe<Scalars['UiFieldCustomDefinitionObject']>;
   uiFieldType: UiFieldType;
   updatedDate: Scalars['Datetime'];
   updatedUser: Scalars['String'];
@@ -456,6 +458,8 @@ export type EntityFieldDefinitionCondition = {
    * @notEmpty()
    */
   title?: InputMaybe<Scalars['String']>;
+  /** Checks for equality with the object’s `uiFieldCustomDefinition` field. */
+  uiFieldCustomDefinition?: InputMaybe<Scalars['UiFieldCustomDefinitionObject']>;
   /** Checks for equality with the object’s `uiFieldType` field. */
   uiFieldType?: InputMaybe<UiFieldType>;
   /** Checks for equality with the object’s `updatedDate` field. */
@@ -544,6 +548,8 @@ export enum EntityFieldDefinitionsOrderBy {
   SortIndexDesc = 'SORT_INDEX_DESC',
   TitleAsc = 'TITLE_ASC',
   TitleDesc = 'TITLE_DESC',
+  UiFieldCustomDefinitionAsc = 'UI_FIELD_CUSTOM_DEFINITION_ASC',
+  UiFieldCustomDefinitionDesc = 'UI_FIELD_CUSTOM_DEFINITION_DESC',
   UiFieldTypeAsc = 'UI_FIELD_TYPE_ASC',
   UiFieldTypeDesc = 'UI_FIELD_TYPE_DESC',
   UpdatedDateAsc = 'UPDATED_DATE_ASC',
@@ -1844,6 +1850,8 @@ export type Subscription = {
 };
 
 export enum UiFieldType {
+  /** Custom */
+  Custom = 'CUSTOM',
   /** Textarea */
   Textarea = 'TEXTAREA',
   /** Textbox */

@@ -13,6 +13,7 @@ export enum Mutations {
   deletePlaylist = 'deletePlaylist',
   deleteProgram = 'deleteProgram',
   deleteProgramCuePoint = 'deleteProgramCuePoint',
+  duplicatePlaylist = 'duplicatePlaylist',
   publishChannel = 'publishChannel',
   publishPlaylist = 'publishPlaylist',
   unpublishChannel = 'unpublishChannel',
