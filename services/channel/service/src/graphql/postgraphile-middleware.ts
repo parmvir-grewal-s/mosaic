@@ -110,6 +110,7 @@ export function buildPostgraphileOptions(
       ValidationDirectivesPlugin,
       ConnectionFilterPlugin,
       PublishChannelPlugin,
+      DuplicatePlaylistPlugin,
       AllEntityPlugins,
       PublishPlaylistPlugin,
       UnpublishChannelPlugin,
@@ -119,7 +120,6 @@ export function buildPostgraphileOptions(
       ValidateChannelPlugin,
       ValidatePlaylistPlugin,
       RenameImageMutationsPlugin,
-      DuplicatePlaylistPlugin,
     )
     .addConditionalPlugins(
       config.isDev,
