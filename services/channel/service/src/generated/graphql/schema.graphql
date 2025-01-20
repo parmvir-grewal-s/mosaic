@@ -2383,6 +2383,12 @@ type Mutation {
     """
     input: PublishChannelInput!
   ): PublishChannelPayload!
+  duplicatePlaylist(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DuplicatePlaylistInput!
+  ): DuplicatePlaylistPayload!
 
   """Publish a playlist."""
   publishPlaylist(
@@ -2550,6 +2556,12 @@ input PlaylistInput {
   title: String!
   startDateTime: Datetime!
   calculatedDurationInSeconds: Float!
+  publishedDate: Datetime
+  publishedUser: String
+  createdDate: Datetime
+  updatedDate: Datetime
+  updatedUser: String
+  publicationState: PublicationState
 }
 
 """The output of our create `ProgramCuePoint` mutation."""
@@ -2645,6 +2657,7 @@ input CreateProgramInput {
 
 """An input for mutations affecting `Program`"""
 input ProgramInput {
+  id: UUID
   playlistId: UUID!
   sortIndex: Int!
   title: String!
@@ -2653,6 +2666,10 @@ input ProgramInput {
   videoDurationInSeconds: Float!
   entityId: String!
   entityType: EntityType!
+  createdDate: Datetime
+  updatedDate: Datetime
+  createdUser: String
+  updatedUser: String
 }
 
 """The output of our update `ChannelImage` mutation."""
@@ -2825,9 +2842,18 @@ input UpdatePlaylistInput {
 Represents an update to a `Playlist`. Fields that are set will be updated.
 """
 input PlaylistPatch {
+  id: UUID
+  channelId: UUID
   title: String
   startDateTime: Datetime
   calculatedDurationInSeconds: Float
+  publishedDate: Datetime
+  publishedUser: String
+  createdDate: Datetime
+  updatedDate: Datetime
+  createdUser: String
+  updatedUser: String
+  publicationState: PublicationState
 }
 
 """The output of our update `ProgramCuePoint` mutation."""
@@ -2933,9 +2959,19 @@ input UpdateProgramInput {
 Represents an update to a `Program`. Fields that are set will be updated.
 """
 input ProgramPatch {
+  id: UUID
+  playlistId: UUID
   sortIndex: Int
   title: String
+  imageId: UUID
+  videoId: UUID
   videoDurationInSeconds: Float
+  entityId: String
+  entityType: EntityType
+  createdDate: Datetime
+  updatedDate: Datetime
+  createdUser: String
+  updatedUser: String
 }
 
 """The output of our delete `ChannelImage` mutation."""
@@ -3368,6 +3404,16 @@ input PublishChannelInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
+}
+
+type DuplicatePlaylistPayload {
+  newPlaylistId: UUID!
+}
+
+input DuplicatePlaylistInput {
+  playlistId: UUID!
+  startDate: String!
+  startTime: String!
 }
 
 """The playlist published in defined format."""
