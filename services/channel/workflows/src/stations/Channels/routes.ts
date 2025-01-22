@@ -34,6 +34,7 @@ export const routes = {
   playlistPublishing: '/channels/:channelId/playlists/:playlistId/publishing',
   playlistStartTime: '/channels/:channelId/playlists/:playlistId/starttime',
   programs: '/channels/:channelId/playlists/:playlistId/programs',
+  duplicate: '/channels/:channelId/playlists/:playlistId/duplicate',
   programDetails:
     '/channels/:channelId/playlists/:playlistId/programs/:programId',
   programLocalizationRoot:

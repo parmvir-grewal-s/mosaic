@@ -5,6 +5,7 @@ import { client } from '../../../apolloClient';
 import {
   PlaylistPatch,
   useDeletePlaylistMutation,
+  useDuplicatePlaylistMutation,
   useUnpublishPlaylistMutation,
 } from '../../../generated/graphql';
 import { routes } from '../routes';
@@ -17,6 +18,11 @@ export function useActions(
   readonly actions: FormActionData<PlaylistPatch>[];
 } {
   const history = useHistory();
+
+  const [duplicatePlaylistMutation] = useDuplicatePlaylistMutation({
+    client,
+    fetchPolicy: 'no-cache',
+  });
 
   const [deletePlaylistMutation] = useDeletePlaylistMutation({
     client,
@@ -41,6 +47,13 @@ export function useActions(
     {
       label: 'Programs',
       path: routes.generate(routes.programs, {
+        channelId,
+        playlistId,
+      }),
+    },
+    {
+      label: 'Duplicate',
+      path: routes.generate(routes.duplicate, {
         channelId,
         playlistId,
       }),
