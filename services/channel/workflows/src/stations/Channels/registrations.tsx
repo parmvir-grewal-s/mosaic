@@ -18,6 +18,7 @@ import { ChannelPublishing } from './ChannelPublishing/ChannelPublishing';
 import { Channels } from './ChannelsExplorer/Channels';
 import { ChannelVideoManagement } from './ChannelVideoManagement/ChannelVideoManagement';
 import { PlaylistCreate } from './PlaylistCreate/PlaylistCreate';
+import { DuplicatePlaylist } from './PlaylistDetails/DuplicatePlaylist';
 import { PlaylistDetails } from './PlaylistDetails/PlaylistDetails';
 import { PlaylistDetailsCrumb } from './PlaylistDetails/PlaylistDetailsCrumb';
 import { PlaylistPublishing } from './PlaylistPublishing/PlaylistPublishing';
@@ -128,6 +129,11 @@ export function register(app: PiletApi, extensions: Extensions): void {
 
   app.registerPage(routes.channelPublishing, ChannelPublishing, {
     breadcrumb: () => 'Publishing',
+    permissions,
+  });
+
+  app.registerPage(routes.duplicate, DuplicatePlaylist, {
+    breadcrumb: () => 'Duplicate',
     permissions,
   });
 

@@ -1126,6 +1126,17 @@ export type DeleteProgramPayloadProgramEdgeArgs = {
   orderBy?: InputMaybe<Array<ProgramsOrderBy>>;
 };
 
+export type DuplicatePlaylistInput = {
+  playlistId: Scalars['UUID'];
+  startDate: Scalars['String'];
+  startTime: Scalars['String'];
+};
+
+export type DuplicatePlaylistPayload = {
+  __typename?: 'DuplicatePlaylistPayload';
+  newPlaylistId: Scalars['UUID'];
+};
+
 export enum EntityType {
   /** Episode */
   Episode = 'EPISODE',
@@ -1242,6 +1253,7 @@ export type Mutation = {
   deleteProgram?: Maybe<DeleteProgramPayload>;
   /** Deletes a single `ProgramCuePoint` using a unique key. */
   deleteProgramCuePoint?: Maybe<DeleteProgramCuePointPayload>;
+  duplicatePlaylist: DuplicatePlaylistPayload;
   /** Publish a channel. */
   publishChannel: PublishChannelPayload;
   /** Publish a playlist. */
@@ -1348,6 +1360,12 @@ export type MutationDeleteProgramArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteProgramCuePointArgs = {
   input: DeleteProgramCuePointInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDuplicatePlaylistArgs = {
+  input: DuplicatePlaylistInput;
 };
 
 
@@ -1547,15 +1565,30 @@ export type PlaylistFilter = {
 export type PlaylistInput = {
   calculatedDurationInSeconds: Scalars['Float'];
   channelId: Scalars['UUID'];
+  createdDate?: InputMaybe<Scalars['Datetime']>;
+  publicationState?: InputMaybe<PublicationState>;
+  publishedDate?: InputMaybe<Scalars['Datetime']>;
+  publishedUser?: InputMaybe<Scalars['String']>;
   startDateTime: Scalars['Datetime'];
   title: Scalars['String'];
+  updatedDate?: InputMaybe<Scalars['Datetime']>;
+  updatedUser?: InputMaybe<Scalars['String']>;
 };
 
 /** Represents an update to a `Playlist`. Fields that are set will be updated. */
 export type PlaylistPatch = {
   calculatedDurationInSeconds?: InputMaybe<Scalars['Float']>;
+  channelId?: InputMaybe<Scalars['UUID']>;
+  createdDate?: InputMaybe<Scalars['Datetime']>;
+  createdUser?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['UUID']>;
+  publicationState?: InputMaybe<PublicationState>;
+  publishedDate?: InputMaybe<Scalars['Datetime']>;
+  publishedUser?: InputMaybe<Scalars['String']>;
   startDateTime?: InputMaybe<Scalars['Datetime']>;
   title?: InputMaybe<Scalars['String']>;
+  updatedDate?: InputMaybe<Scalars['Datetime']>;
+  updatedUser?: InputMaybe<Scalars['String']>;
 };
 
 /**
@@ -1961,21 +1994,36 @@ export type ProgramFilter = {
 
 /** An input for mutations affecting `Program` */
 export type ProgramInput = {
+  createdDate?: InputMaybe<Scalars['Datetime']>;
+  createdUser?: InputMaybe<Scalars['String']>;
   entityId: Scalars['String'];
   entityType: EntityType;
+  id?: InputMaybe<Scalars['UUID']>;
   imageId?: InputMaybe<Scalars['UUID']>;
   playlistId: Scalars['UUID'];
   sortIndex: Scalars['Int'];
   title: Scalars['String'];
+  updatedDate?: InputMaybe<Scalars['Datetime']>;
+  updatedUser?: InputMaybe<Scalars['String']>;
   videoDurationInSeconds: Scalars['Float'];
   videoId?: InputMaybe<Scalars['UUID']>;
 };
 
 /** Represents an update to a `Program`. Fields that are set will be updated. */
 export type ProgramPatch = {
+  createdDate?: InputMaybe<Scalars['Datetime']>;
+  createdUser?: InputMaybe<Scalars['String']>;
+  entityId?: InputMaybe<Scalars['String']>;
+  entityType?: InputMaybe<EntityType>;
+  id?: InputMaybe<Scalars['UUID']>;
+  imageId?: InputMaybe<Scalars['UUID']>;
+  playlistId?: InputMaybe<Scalars['UUID']>;
   sortIndex?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
+  updatedDate?: InputMaybe<Scalars['Datetime']>;
+  updatedUser?: InputMaybe<Scalars['String']>;
   videoDurationInSeconds?: InputMaybe<Scalars['Float']>;
+  videoId?: InputMaybe<Scalars['UUID']>;
 };
 
 /**
@@ -2894,6 +2942,13 @@ export type UnpublishPlaylistMutationVariables = Exact<{
 
 export type UnpublishPlaylistMutation = { __typename?: 'Mutation', unpublishPlaylist?: { __typename?: 'UnpublishPlaylistPayload', playlist?: { __typename?: 'Playlist', id: any } | null } | null };
 
+export type DuplicatePlaylistMutationVariables = Exact<{
+  input: DuplicatePlaylistInput;
+}>;
+
+
+export type DuplicatePlaylistMutation = { __typename?: 'Mutation', duplicatePlaylist: { __typename?: 'DuplicatePlaylistPayload', newPlaylistId: any } };
+
 export type PlaylistTitleQueryVariables = Exact<{
   id: Scalars['UUID'];
 }>;
@@ -3598,6 +3653,39 @@ export function useUnpublishPlaylistMutation(baseOptions?: Apollo.MutationHookOp
 export type UnpublishPlaylistMutationHookResult = ReturnType<typeof useUnpublishPlaylistMutation>;
 export type UnpublishPlaylistMutationResult = Apollo.MutationResult<UnpublishPlaylistMutation>;
 export type UnpublishPlaylistMutationOptions = Apollo.BaseMutationOptions<UnpublishPlaylistMutation, UnpublishPlaylistMutationVariables>;
+export const DuplicatePlaylistDocument = gql`
+    mutation DuplicatePlaylist($input: DuplicatePlaylistInput!) {
+  duplicatePlaylist(input: $input) {
+    newPlaylistId
+  }
+}
+    `;
+export type DuplicatePlaylistMutationFn = Apollo.MutationFunction<DuplicatePlaylistMutation, DuplicatePlaylistMutationVariables>;
+
+/**
+ * __useDuplicatePlaylistMutation__
+ *
+ * To run a mutation, you first call `useDuplicatePlaylistMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDuplicatePlaylistMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [duplicatePlaylistMutation, { data, loading, error }] = useDuplicatePlaylistMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDuplicatePlaylistMutation(baseOptions?: Apollo.MutationHookOptions<DuplicatePlaylistMutation, DuplicatePlaylistMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DuplicatePlaylistMutation, DuplicatePlaylistMutationVariables>(DuplicatePlaylistDocument, options);
+      }
+export type DuplicatePlaylistMutationHookResult = ReturnType<typeof useDuplicatePlaylistMutation>;
+export type DuplicatePlaylistMutationResult = Apollo.MutationResult<DuplicatePlaylistMutation>;
+export type DuplicatePlaylistMutationOptions = Apollo.BaseMutationOptions<DuplicatePlaylistMutation, DuplicatePlaylistMutationVariables>;
 export const PlaylistTitleDocument = gql`
     query PlaylistTitle($id: UUID!) {
   playlist(id: $id) {

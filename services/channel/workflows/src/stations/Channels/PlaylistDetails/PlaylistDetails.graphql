@@ -44,9 +44,17 @@ mutation UnpublishPlaylist($input: UnpublishPlaylistInput!) {
   }
 }
 
+mutation DuplicatePlaylist($input: DuplicatePlaylistInput!) {
+  duplicatePlaylist(input: $input) {
+    newPlaylistId
+  }
+}
+
 query PlaylistTitle($id: UUID!) {
   playlist(id: $id) {
     id
     title
   }
 }
+
+

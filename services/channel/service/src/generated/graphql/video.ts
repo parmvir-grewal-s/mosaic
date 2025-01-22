@@ -2084,6 +2084,10 @@ export type EncodingProcessingProfile = {
   subtitleChunksPattern?: Maybe<Scalars['String']>;
   subtitleFileLanguageExpression?: Maybe<Scalars['String']>;
   tarMode: TarMode;
+  thumbDurationInSeconds?: Maybe<Scalars['Int']>;
+  thumbGenerate: Scalars['Boolean'];
+  thumbHeight?: Maybe<Scalars['Int']>;
+  thumbWidth?: Maybe<Scalars['Int']>;
   title: Scalars['String'];
   updatedDate: Scalars['Datetime'];
   updatedUser: Scalars['String'];
@@ -2228,6 +2232,14 @@ export type EncodingProcessingProfileCondition = {
   subtitleFileLanguageExpression?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `tarMode` field. */
   tarMode?: InputMaybe<TarMode>;
+  /** Checks for equality with the object’s `thumbDurationInSeconds` field. */
+  thumbDurationInSeconds?: InputMaybe<Scalars['Int']>;
+  /** Checks for equality with the object’s `thumbGenerate` field. */
+  thumbGenerate?: InputMaybe<Scalars['Boolean']>;
+  /** Checks for equality with the object’s `thumbHeight` field. */
+  thumbHeight?: InputMaybe<Scalars['Int']>;
+  /** Checks for equality with the object’s `thumbWidth` field. */
+  thumbWidth?: InputMaybe<Scalars['Int']>;
   /**
    * Checks for equality with the object’s `title` field.
    * @isTrimmed()
@@ -2340,6 +2352,14 @@ export type EncodingProcessingProfileFilter = {
   subtitleFileLanguageExpression?: InputMaybe<StringFilter>;
   /** Filter by the object’s `tarMode` field. */
   tarMode?: InputMaybe<TarModeFilter>;
+  /** Filter by the object’s `thumbDurationInSeconds` field. */
+  thumbDurationInSeconds?: InputMaybe<IntFilter>;
+  /** Filter by the object’s `thumbGenerate` field. */
+  thumbGenerate?: InputMaybe<BooleanFilter>;
+  /** Filter by the object’s `thumbHeight` field. */
+  thumbHeight?: InputMaybe<IntFilter>;
+  /** Filter by the object’s `thumbWidth` field. */
+  thumbWidth?: InputMaybe<IntFilter>;
   /** Filter by the object’s `title` field. */
   title?: InputMaybe<StringFilter>;
   /** Filter by the object’s `updatedDate` field. */
@@ -2407,6 +2427,10 @@ export type EncodingProcessingProfileInput = {
   /** @isTrimmed() */
   subtitleFileLanguageExpression?: InputMaybe<Scalars['String']>;
   tarMode?: InputMaybe<TarMode>;
+  thumbDurationInSeconds?: InputMaybe<Scalars['Int']>;
+  thumbGenerate?: InputMaybe<Scalars['Boolean']>;
+  thumbHeight?: InputMaybe<Scalars['Int']>;
+  thumbWidth?: InputMaybe<Scalars['Int']>;
   /**
    * @isTrimmed()
    * @maxLength(100)
@@ -2473,6 +2497,10 @@ export type EncodingProcessingProfilePatch = {
   /** @isTrimmed() */
   subtitleFileLanguageExpression?: InputMaybe<Scalars['String']>;
   tarMode?: InputMaybe<TarMode>;
+  thumbDurationInSeconds?: InputMaybe<Scalars['Int']>;
+  thumbGenerate?: InputMaybe<Scalars['Boolean']>;
+  thumbHeight?: InputMaybe<Scalars['Int']>;
+  thumbWidth?: InputMaybe<Scalars['Int']>;
   /**
    * @isTrimmed()
    * @maxLength(100)
@@ -2586,6 +2614,14 @@ export enum EncodingProcessingProfilesOrderBy {
   SubtitleFileLanguageExpressionDesc = 'SUBTITLE_FILE_LANGUAGE_EXPRESSION_DESC',
   TarModeAsc = 'TAR_MODE_ASC',
   TarModeDesc = 'TAR_MODE_DESC',
+  ThumbDurationInSecondsAsc = 'THUMB_DURATION_IN_SECONDS_ASC',
+  ThumbDurationInSecondsDesc = 'THUMB_DURATION_IN_SECONDS_DESC',
+  ThumbGenerateAsc = 'THUMB_GENERATE_ASC',
+  ThumbGenerateDesc = 'THUMB_GENERATE_DESC',
+  ThumbHeightAsc = 'THUMB_HEIGHT_ASC',
+  ThumbHeightDesc = 'THUMB_HEIGHT_DESC',
+  ThumbWidthAsc = 'THUMB_WIDTH_ASC',
+  ThumbWidthDesc = 'THUMB_WIDTH_DESC',
   TitleAsc = 'TITLE_ASC',
   TitleDesc = 'TITLE_DESC',
   UpdatedDateAsc = 'UPDATED_DATE_ASC',
@@ -3328,6 +3364,12 @@ export enum ErrorCodesEnum {
   CannotReEncodeProcessingVideos = 'CANNOT_RE_ENCODE_PROCESSING_VIDEOS',
   /** Encoding already succeeded. */
   CannotReEncodeSucceededVideos = 'CANNOT_RE_ENCODE_SUCCEEDED_VIDEOS',
+  /** The cue point was not found. */
+  CuePointNotFound = 'CUE_POINT_NOT_FOUND',
+  /** The cue point time cannot exceed the length of the video. */
+  CuePointTimeGtVideoLength = 'CUE_POINT_TIME_GT_VIDEO_LENGTH',
+  /** Cue points can only be created for videos where the length field is already filled. */
+  CuePointVideoLengthNotSet = 'CUE_POINT_VIDEO_LENGTH_NOT_SET',
   /** A database operation has failed because of a lock timeout. */
   DatabaseLockTimeoutError = 'DATABASE_LOCK_TIMEOUT_ERROR',
   /** An authorization database error has occurred. The user might not have enough permissions. */

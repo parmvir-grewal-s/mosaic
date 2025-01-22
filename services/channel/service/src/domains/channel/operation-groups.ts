@@ -38,6 +38,7 @@ export const ChannelsMutateOperations = [
   M.deletePlaylist,
   M.deleteProgram,
   M.deleteProgramCuePoint,
+  M.duplicatePlaylist,
   M.publishChannel,
   M.publishPlaylist,
   M.unpublishChannel,

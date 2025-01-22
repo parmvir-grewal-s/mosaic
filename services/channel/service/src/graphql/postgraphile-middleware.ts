@@ -45,6 +45,7 @@ import {
 import ConnectionFilterPlugin from 'postgraphile-plugin-connection-filter';
 import { Config, customPgErrorMapper } from '../common';
 import {
+  DuplicatePlaylistPlugin,
   permissionDefinition,
   PublishChannelPlugin,
   PublishPlaylistPlugin,
@@ -109,6 +110,7 @@ export function buildPostgraphileOptions(
       ValidationDirectivesPlugin,
       ConnectionFilterPlugin,
       PublishChannelPlugin,
+      DuplicatePlaylistPlugin,
       AllEntityPlugins,
       PublishPlaylistPlugin,
       UnpublishChannelPlugin,
