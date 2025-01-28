@@ -170,9 +170,24 @@ export const Program: React.FC<ProgramProps> = ({
     videoDurationInSeconds,
   );
 
-  const localStartTime = moment(startTime, moment.ISO_8601, true).format(
-    'hh:mm',
-  );
+  // 1 frame = 40 microseconds
+  // 25 frames = 1 second
+
+  const frameRate = 25;
+  const timeObject = moment(startTime, moment.ISO_8601, true);
+
+  const hours = timeObject.format('HH');
+  const minutes = timeObject.format('mm');
+  const seconds = timeObject.format('ss');
+
+  // Calculate frames from milliseconds
+  const milliseconds = timeObject.milliseconds();
+  const frames = Math.floor((milliseconds / 1000) * frameRate);
+
+  const localStartTime = `${hours}:${minutes}:${seconds}:${frames
+    .toString()
+    .padStart(2, '0')}`;
+
   const isLive = utc().isBetween(startTime, endTime);
 
   const onCuePointDragEnd = (result): void => {
