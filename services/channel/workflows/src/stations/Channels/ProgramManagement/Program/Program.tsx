@@ -94,6 +94,15 @@ export const Program: React.FC<ProgramProps> = ({
         ]
       : []),
     {
+      label: 'Duplicate Program Below',
+      icon: IconName.Copy,
+      onActionSelected: () =>
+        onChange({
+          type: 'PROGRAM',
+          action: 'DUPLICATE_BELOW',
+        } as ProgramAction),
+    },
+    {
       label: 'Unassign',
       icon: IconName.X,
       onActionSelected: () =>

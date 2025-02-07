@@ -117,6 +117,9 @@ export const ProgramManagementForm: React.FC<{
     };
 
     switch (action) {
+      case 'DUPLICATE_BELOW':
+        console.log('DUPLICATed');
+        break;
       case 'ADD':
         addProgram(programAction.data);
         break;
