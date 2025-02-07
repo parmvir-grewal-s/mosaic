@@ -293,6 +293,29 @@ export const ProgramManagement: React.FC = () => {
     [playlistId],
   );
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log('Autosaving playlist...');
+
+      if (!form) {
+        console.warn('Autosave skipped: No form data available.');
+        return;
+      }
+
+      // Ensure initialData includes all required fields
+      const initialData = {
+        data: form, // Use the current form data
+        loading: false, // Required field, assuming the form is already loaded
+        entityNotFound: false, // Default to false unless we detect otherwise
+        error: undefined, // No error during autosave
+      };
+
+      onSubmit(form, initialData); // Pass correct initialData
+    }, 15000); // Autosave every 30 seconds
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [form, onSubmit]); // Depend on form and onSubmit
+
   return (
     <ProgramManagementProvider>
       <Details<FormData>
