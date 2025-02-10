@@ -20,6 +20,8 @@ $closed-program: $dark-blue;
     @include columns;
   }
 
+
+
   .header {
     @include header;
 
@@ -35,6 +37,13 @@ $closed-program: $dark-blue;
     .header {
       background-color: $closed-program;
     }
+  }
+  &.interstitial {
+    .header {
+      @include header;
+      background-color:blueviolet;
+      color: black !important;
+    }    
   }
 
   .cell {
@@ -109,6 +118,7 @@ $closed-program: $dark-blue;
     color: $red;
   }
 }
+
 
 .timeSlot {
   display: grid;

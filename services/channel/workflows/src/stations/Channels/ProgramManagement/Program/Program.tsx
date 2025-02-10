@@ -251,6 +251,7 @@ export const Program: React.FC<ProgramProps> = ({
           <div
             className={clsx(classes.container, {
               [classes.closed]: !isOpen,
+              [classes.interstitial]: entityType === 'INTERSTITIAL',
             })}
           >
             <div className={clsx(classes.columns, classes.header)}>

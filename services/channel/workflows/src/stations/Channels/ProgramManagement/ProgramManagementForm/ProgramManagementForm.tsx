@@ -119,7 +119,6 @@ export const ProgramManagementForm: React.FC<{
 
     switch (action) {
       case 'DUPLICATE_BELOW':
-        // Find the program being duplicated
         // eslint-disable-next-line no-case-declarations
         const originalProgram = values?.programs?.nodes?.[programIndex];
         if (!originalProgram) {
