@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import {
   ActionData,
   ErrorType,
@@ -118,7 +119,33 @@ export const ProgramManagementForm: React.FC<{
 
     switch (action) {
       case 'DUPLICATE_BELOW':
-        console.log('DUPLICATed');
+        // Find the program being duplicated
+        // eslint-disable-next-line no-case-declarations
+        const originalProgram = values?.programs?.nodes?.[programIndex];
+        if (!originalProgram) {
+          return;
+        }
+
+        // Generate a unique sortIndex for the duplicate program
+        const newSortIndex = originalProgram.sortIndex + 1;
+
+        // Shift all programs below the duplicated program
+        const updatedPrograms =
+          values?.programs?.nodes?.map((p) => ({
+            ...p,
+            sortIndex:
+              p.sortIndex >= newSortIndex ? p.sortIndex + 1 : p.sortIndex,
+          })) || [];
+
+        // Create the duplicated program
+        const duplicatedProgram = {
+          ...originalProgram,
+          id: `dup-${originalProgram.id}-${Date.now()}`, // Temporary unique ID
+          sortIndex: newSortIndex,
+        };
+        updatedPrograms.splice(programIndex + 1, 0, duplicatedProgram);
+
+        setFieldValue(field, updatedPrograms);
         break;
       case 'ADD':
         addProgram(programAction.data);
