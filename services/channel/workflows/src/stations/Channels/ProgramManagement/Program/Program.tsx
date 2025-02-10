@@ -94,6 +94,15 @@ export const Program: React.FC<ProgramProps> = ({
         ]
       : []),
     {
+      label: 'Duplicate Program Below',
+      icon: IconName.Copy,
+      onActionSelected: () =>
+        onChange({
+          type: 'PROGRAM',
+          action: 'DUPLICATE_BELOW',
+        } as ProgramAction),
+    },
+    {
       label: 'Unassign',
       icon: IconName.X,
       onActionSelected: () =>
@@ -242,6 +251,7 @@ export const Program: React.FC<ProgramProps> = ({
           <div
             className={clsx(classes.container, {
               [classes.closed]: !isOpen,
+              [classes.interstitial]: entityType === 'INTERSTITIAL',
             })}
           >
             <div className={clsx(classes.columns, classes.header)}>

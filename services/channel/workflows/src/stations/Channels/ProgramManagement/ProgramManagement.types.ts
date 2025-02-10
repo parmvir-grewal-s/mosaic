@@ -50,6 +50,9 @@ export interface ScheduleReorderActionData {
 
 export type ProgramAction =
   | ({
+      action: 'DUPLICATE_BELOW';
+    } & ProgramActionBase)
+  | ({
       action: 'REMOVE';
     } & ProgramActionBase)
   | ({
@@ -80,6 +83,9 @@ export type CuePointAction =
     } & CuePointProgramBase);
 
 export type ScheduleAction =
+  | ({
+      action: 'DUPLICATE_BELOW';
+    } & ScheduleActionBase)
   | ({
       action: 'UNASSIGN';
     } & ScheduleActionBase)
