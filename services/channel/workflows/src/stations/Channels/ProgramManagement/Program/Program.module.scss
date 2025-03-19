@@ -45,6 +45,43 @@ $closed-program: $dark-blue;
       color: black !important;
     }    
   }
+  &.ident {
+    .header {
+      @include header;
+      background-color: rgb(79, 45, 5); 
+    }    
+  }
+  &.warning {
+    .header {
+      @include header;
+      background-color: rgb(39, 2, 4); 
+    }    
+  }
+  &.continuity {
+    .header {
+      @include header;
+      background-color: rgb(13, 49, 2); 
+    }    
+  }
+  &.channelbug {
+    .header {
+      @include header;
+      background-color: rgb(2, 84, 85); 
+    }    
+  }
+  &.dayslate {
+    .header {
+      @include header;
+      background-color: rgb(209, 15, 147); 
+    }    
+  }
+  &.promo {
+    .header {
+      @include header;
+      background-color: rgb(59, 57, 16); 
+    }    
+  }
+
 
   .cell {
     @include cell;
