@@ -103,6 +103,15 @@ export const Program: React.FC<ProgramProps> = ({
         } as ProgramAction),
     },
     {
+      label: 'Add Episode Below',
+      icon: IconName.Plus,
+      onActionSelected: () =>
+        onChange({
+          type: 'PROGRAM',
+          action: 'ADD_EP_BELOW',
+        } as ProgramAction),
+    },
+    {
       label: 'Unassign',
       icon: IconName.X,
       onActionSelected: () =>

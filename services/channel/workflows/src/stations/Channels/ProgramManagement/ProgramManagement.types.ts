@@ -50,6 +50,9 @@ export interface ScheduleReorderActionData {
 
 export type ProgramAction =
   | ({
+      action: 'ADD_EP_BELOW';
+    } & ProgramActionBase)
+  | ({
       action: 'DUPLICATE_BELOW';
     } & ProgramActionBase)
   | ({

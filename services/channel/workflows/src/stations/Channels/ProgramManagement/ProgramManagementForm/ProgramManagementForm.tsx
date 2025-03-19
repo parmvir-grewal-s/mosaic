@@ -146,6 +146,10 @@ export const ProgramManagementForm: React.FC<{
 
         setFieldValue(field, updatedPrograms);
         break;
+
+      case 'ADD_EP_BELOW':
+        setProvider(providerTypeMap['EPISODE']);
+        break;
       case 'ADD':
         addProgram(programAction.data);
         break;
