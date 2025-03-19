@@ -252,6 +252,12 @@ export const Program: React.FC<ProgramProps> = ({
             className={clsx(classes.container, {
               [classes.closed]: !isOpen,
               [classes.interstitial]: entityType === 'INTERSTITIAL',
+              [classes.dayslate]: title.includes('VTV UHD Daytime Slate'),
+              [classes.warning]: title.includes('VTV UHD Warning'),
+              [classes.ident]: title.includes('VTV GM Ident'),
+              [classes.promo]: title.startsWith('VTV UHD Promo'),
+              [classes.continuity]: title.includes('VTV UHD Continuity'),
+              [classes.channelbug]: title.includes('CHANNELBUG'),
             })}
           >
             <div className={clsx(classes.columns, classes.header)}>
