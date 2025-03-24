@@ -19,6 +19,8 @@ export type NewProgram = Pick<
   | 'title'
   | 'sortIndex'
   | 'entityId'
+  | 'externalId'
+  | 'originalTitle'
   | 'entityType'
   | 'videoId'
   | 'videoDurationInSeconds'
@@ -145,6 +147,8 @@ export type ProgramFormData = Pick<
   | 'id'
   | 'sortIndex'
   | 'title'
+  | 'externalId'
+  | 'originalTitle'
   | 'entityId'
   | 'entityType'
   | 'videoDurationInSeconds'
@@ -165,6 +169,8 @@ export type ProgramFormData = Pick<
 export type ProgramProps = ProgramFormData & {
   startTime: Timestamp;
   endTime: Timestamp;
+  externalId?: string;
+  originalTitle?: string;
   errors?: FormikErrors<ProgramFormData>;
   ImagePreview: React.FC<ImagePreviewProps>;
   resolver?: FastProviderData['detailsResolver'];
@@ -204,7 +210,13 @@ export interface ProgramManagementContextProps {
 
 export type ProgramEntity = Pick<
   Program,
-  'title' | 'videoId' | 'entityId' | 'entityType' | 'imageId'
+  | 'title'
+  | 'videoId'
+  | 'entityId'
+  | 'entityType'
+  | 'imageId'
+  | 'originalTitle'
+  | 'externalId'
 >;
 
 export type ProgramCuePointPayLoad = Pick<

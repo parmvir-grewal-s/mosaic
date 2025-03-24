@@ -2260,6 +2260,18 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `'Unknown'::text`
       */
       updated_user: string;
+      /**
+      * **programs.external_id**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      external_id: string | null;
+      /**
+      * **programs.original_title**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      original_title: string | null;
     }
     export interface JSONSelectable {
       /**
@@ -2340,6 +2352,18 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `'Unknown'::text`
       */
       updated_user: string;
+      /**
+      * **programs.external_id**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      external_id: string | null;
+      /**
+      * **programs.original_title**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      original_title: string | null;
     }
     export interface Whereable {
       /**
@@ -2420,6 +2444,18 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `'Unknown'::text`
       */
       updated_user?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **programs.external_id**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      external_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **programs.original_title**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      original_title?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
@@ -2500,6 +2536,18 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `'Unknown'::text`
       */
       updated_user?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **programs.external_id**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      external_id?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **programs.original_title**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      original_title?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
@@ -2580,6 +2628,18 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `'Unknown'::text`
       */
       updated_user?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **programs.external_id**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      external_id?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **programs.original_title**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      original_title?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
     }
     export type UniqueIndex = 'programs_pkey' | 'programs_sort_index_is_unique';
     export type Column = keyof Selectable;

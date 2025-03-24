@@ -1,6 +1,6 @@
 import { mosaicErrorMappingFactory } from '@axinom/mosaic-service-common';
 import { GraphQLClient } from 'graphql-request';
-import { DetailedVideo } from 'media-messages';
+import { DetailedVideo, StreamType } from 'media-messages';
 import urljoin from 'url-join';
 import { CommonErrors } from '../../../common';
 import {
@@ -204,7 +204,7 @@ export const toDetailedVideo = (video: GqlVideo): DetailedVideo => {
           label: s.label,
           language_code: s.languageCode,
           bitrate_in_kbps: s.bitrateInKbps,
-          type: s.type,
+          type: s.type === 'VIDEO' ? ('VIDEO' as StreamType) : undefined,
           file_template: s.fileTemplate,
           codecs: s.codecs,
           frame_rate: s.frameRate,

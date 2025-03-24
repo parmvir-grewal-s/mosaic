@@ -33,6 +33,15 @@ export type ActivateLocalePayload = {
   query?: Maybe<Query>;
 };
 
+export enum ApprovalBehavior {
+  /** Not Required */
+  NotRequired = 'NOT_REQUIRED',
+  /** Required */
+  Required = 'REQUIRED',
+  /** Required if not empty */
+  RequiredIfNotEmpty = 'REQUIRED_IF_NOT_EMPTY'
+}
+
 /** A filter to be used against Boolean fields. All fields are combined with a logical ‘and.’ */
 export type BooleanFilter = {
   /** Equal to the specified value. */
@@ -400,6 +409,7 @@ export type EntityDefinitionToManyLocalizationSourceEntityFilter = {
 /** @permissions: ENTITY_DEFINITIONS_VIEW,ENTITY_DEFINITIONS_EDIT,SOURCE_ENTITIES_VIEW,SOURCE_ENTITIES_EDIT,LOCALIZED_ENTITIES_VIEW,LOCALIZED_ENTITIES_EDIT,LOCALIZED_ENTITIES_REVIEW,ADMIN */
 export type EntityFieldDefinition = {
   __typename?: 'EntityFieldDefinition';
+  approvalBehavior: ApprovalBehavior;
   createdDate: Scalars['Datetime'];
   createdUser: Scalars['String'];
   description?: Maybe<Scalars['String']>;
@@ -437,6 +447,8 @@ export type EntityFieldDefinitionValidationRulesArgs = {
  * are tested for equality and combined with a logical ‘and.’
  */
 export type EntityFieldDefinitionCondition = {
+  /** Checks for equality with the object’s `approvalBehavior` field. */
+  approvalBehavior?: InputMaybe<ApprovalBehavior>;
   /** Checks for equality with the object’s `createdDate` field. */
   createdDate?: InputMaybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `createdUser` field. */
@@ -527,6 +539,8 @@ export type EntityFieldDefinitionsEdge = {
 
 /** Methods to use when ordering `EntityFieldDefinition`. */
 export enum EntityFieldDefinitionsOrderBy {
+  ApprovalBehaviorAsc = 'APPROVAL_BEHAVIOR_ASC',
+  ApprovalBehaviorDesc = 'APPROVAL_BEHAVIOR_DESC',
   CreatedDateAsc = 'CREATED_DATE_ASC',
   CreatedDateDesc = 'CREATED_DATE_DESC',
   CreatedUserAsc = 'CREATED_USER_ASC',
@@ -813,6 +827,8 @@ export enum ErrorCodesEnum {
   SubjectNotFound = 'SUBJECT_NOT_FOUND',
   /** The subject has no permissions. */
   Unauthorized = 'UNAUTHORIZED',
+  /** Locales [%s] used for the localization are not defined yet. Please make sure these locales are defined in Localization Service. */
+  UndefinedLocalesUsedForLocalization = 'UNDEFINED_LOCALES_USED_FOR_LOCALIZATION',
   /** Unexpected null or undefined value received. */
   UnexpectedNullUndefined = 'UNEXPECTED_NULL_UNDEFINED',
   /** An unhandled database-related error has occurred. Please contact the service support. */

@@ -1682,8 +1682,10 @@ export type Program = {
   createdUser: Scalars['String'];
   entityId: Scalars['String'];
   entityType: EntityType;
+  externalId?: Maybe<Scalars['String']>;
   id: Scalars['UUID'];
   imageId?: Maybe<Scalars['UUID']>;
+  originalTitle?: Maybe<Scalars['String']>;
   /** Reads a single `Playlist` that is related to this `Program`. */
   playlist?: Maybe<Playlist>;
   playlistId: Scalars['UUID'];
@@ -1755,10 +1757,14 @@ export type ProgramCondition = {
   entityId?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `entityType` field. */
   entityType?: InputMaybe<EntityType>;
+  /** Checks for equality with the object’s `externalId` field. */
+  externalId?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `id` field. */
   id?: InputMaybe<Scalars['UUID']>;
   /** Checks for equality with the object’s `imageId` field. */
   imageId?: InputMaybe<Scalars['UUID']>;
+  /** Checks for equality with the object’s `originalTitle` field. */
+  originalTitle?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `playlistId` field. */
   playlistId?: InputMaybe<Scalars['UUID']>;
   /** Checks for equality with the object’s `sortIndex` field. */
@@ -1962,6 +1968,8 @@ export type ProgramFilter = {
   entityId?: InputMaybe<StringFilter>;
   /** Filter by the object’s `entityType` field. */
   entityType?: InputMaybe<EntityTypeFilter>;
+  /** Filter by the object’s `externalId` field. */
+  externalId?: InputMaybe<StringFilter>;
   /** Filter by the object’s `id` field. */
   id?: InputMaybe<UuidFilter>;
   /** Filter by the object’s `imageId` field. */
@@ -1970,6 +1978,8 @@ export type ProgramFilter = {
   not?: InputMaybe<ProgramFilter>;
   /** Checks for any expressions in this list. */
   or?: InputMaybe<Array<ProgramFilter>>;
+  /** Filter by the object’s `originalTitle` field. */
+  originalTitle?: InputMaybe<StringFilter>;
   /** Filter by the object’s `playlist` relation. */
   playlist?: InputMaybe<PlaylistFilter>;
   /** Filter by the object’s `playlistId` field. */
@@ -1998,8 +2008,10 @@ export type ProgramInput = {
   createdUser?: InputMaybe<Scalars['String']>;
   entityId: Scalars['String'];
   entityType: EntityType;
+  externalId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['UUID']>;
   imageId?: InputMaybe<Scalars['UUID']>;
+  originalTitle?: InputMaybe<Scalars['String']>;
   playlistId: Scalars['UUID'];
   sortIndex: Scalars['Int'];
   title: Scalars['String'];
@@ -2015,8 +2027,10 @@ export type ProgramPatch = {
   createdUser?: InputMaybe<Scalars['String']>;
   entityId?: InputMaybe<Scalars['String']>;
   entityType?: InputMaybe<EntityType>;
+  externalId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['UUID']>;
   imageId?: InputMaybe<Scalars['UUID']>;
+  originalTitle?: InputMaybe<Scalars['String']>;
   playlistId?: InputMaybe<Scalars['UUID']>;
   sortIndex?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
@@ -2061,11 +2075,15 @@ export enum ProgramsOrderBy {
   EntityIdDesc = 'ENTITY_ID_DESC',
   EntityTypeAsc = 'ENTITY_TYPE_ASC',
   EntityTypeDesc = 'ENTITY_TYPE_DESC',
+  ExternalIdAsc = 'EXTERNAL_ID_ASC',
+  ExternalIdDesc = 'EXTERNAL_ID_DESC',
   IdAsc = 'ID_ASC',
   IdDesc = 'ID_DESC',
   ImageIdAsc = 'IMAGE_ID_ASC',
   ImageIdDesc = 'IMAGE_ID_DESC',
   Natural = 'NATURAL',
+  OriginalTitleAsc = 'ORIGINAL_TITLE_ASC',
+  OriginalTitleDesc = 'ORIGINAL_TITLE_DESC',
   PlaylistIdAsc = 'PLAYLIST_ID_ASC',
   PlaylistIdDesc = 'PLAYLIST_ID_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
@@ -2986,7 +3004,7 @@ export type ProgramQueryVariables = Exact<{
 }>;
 
 
-export type ProgramQuery = { __typename?: 'Query', program?: { __typename?: 'Program', id: any, title: string, updatedDate: any, updatedUser: string, createdDate: any, createdUser: string, imageId?: any | null } | null };
+export type ProgramQuery = { __typename?: 'Query', program?: { __typename?: 'Program', id: any, title: string, originalTitle?: string | null, externalId?: string | null, updatedDate: any, updatedUser: string, createdDate: any, createdUser: string, imageId?: any | null } | null };
 
 export type ProgramTitleQueryVariables = Exact<{
   id: Scalars['UUID'];
@@ -3014,7 +3032,7 @@ export type PlaylistProgramsQueryVariables = Exact<{
 }>;
 
 
-export type PlaylistProgramsQuery = { __typename?: 'Query', playlist?: { __typename?: 'Playlist', startDateTime: any, calculatedEndDateTime?: any | null, calculatedDurationInSeconds: number, programs: { __typename?: 'ProgramsConnection', nodes: Array<{ __typename?: 'Program', id: any, sortIndex: number, title: string, entityId: string, entityType: EntityType, videoDurationInSeconds: number, imageId?: any | null, videoId?: any | null, programCuePoints: { __typename?: 'ProgramCuePointsConnection', nodes: Array<{ __typename?: 'ProgramCuePoint', id: any, videoCuePointId?: any | null, type: ProgramBreakType, timeInSeconds?: number | null, cuePointSchedules: { __typename?: 'CuePointSchedulesConnection', nodes: Array<{ __typename?: 'CuePointSchedule', id: any, type: CuePointScheduleType, durationInSeconds: number, videoId?: any | null, sortIndex: number, programCuePointId: any }> } }> } }> } } | null, channel?: { __typename?: 'Playlist', channelId: any } | null };
+export type PlaylistProgramsQuery = { __typename?: 'Query', playlist?: { __typename?: 'Playlist', startDateTime: any, calculatedEndDateTime?: any | null, calculatedDurationInSeconds: number, programs: { __typename?: 'ProgramsConnection', nodes: Array<{ __typename?: 'Program', id: any, sortIndex: number, title: string, entityId: string, entityType: EntityType, originalTitle?: string | null, externalId?: string | null, videoDurationInSeconds: number, imageId?: any | null, videoId?: any | null, programCuePoints: { __typename?: 'ProgramCuePointsConnection', nodes: Array<{ __typename?: 'ProgramCuePoint', id: any, videoCuePointId?: any | null, type: ProgramBreakType, timeInSeconds?: number | null, cuePointSchedules: { __typename?: 'CuePointSchedulesConnection', nodes: Array<{ __typename?: 'CuePointSchedule', id: any, type: CuePointScheduleType, durationInSeconds: number, videoId?: any | null, sortIndex: number, programCuePointId: any }> } }> } }> } } | null, channel?: { __typename?: 'Playlist', channelId: any } | null };
 
 
 export const CreateChannelDocument = gql`
@@ -3867,6 +3885,8 @@ export const ProgramDocument = gql`
   program(id: $id) {
     id
     title
+    originalTitle
+    externalId
     updatedDate
     updatedUser
     createdDate
@@ -4027,6 +4047,8 @@ export const PlaylistProgramsDocument = gql`
         title
         entityId
         entityType
+        originalTitle
+        externalId
         videoDurationInSeconds
         imageId
         videoId

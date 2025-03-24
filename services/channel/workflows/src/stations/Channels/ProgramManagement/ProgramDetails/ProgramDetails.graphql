@@ -2,6 +2,8 @@ query Program($id: UUID!) {
   program(id: $id) {
     id
     title
+    originalTitle
+    externalId
     updatedDate
     updatedUser
     createdDate

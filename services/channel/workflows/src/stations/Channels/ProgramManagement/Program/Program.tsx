@@ -32,6 +32,8 @@ export const Program: React.FC<ProgramProps> = ({
   trackId,
   entityType,
   title,
+  originalTitle,
+  externalId,
   videoDurationInSeconds,
   imageId,
   programCuePoints,
@@ -278,6 +280,12 @@ export const Program: React.FC<ProgramProps> = ({
               <div className={clsx(classes.cell, classes.title)}>
                 <ImagePreview id={imageId} type={'thumbnail'} />
                 <p title={title}>{title}</p>
+              </div>
+              <div className={classes.cell}>
+                <p title="Os">{originalTitle}</p>
+              </div>
+              <div className={classes.cell}>
+                <p title="b">{externalId}</p>
               </div>
               <div className={classes.cell}>
                 <p title={entityType}>{entityType}</p>

@@ -170,7 +170,7 @@ export type AudioRepresentationCreateFilter = {
 };
 
 export enum AudioRepresentationSound {
-  /** Five Point One */
+  /** 5.1 */
   FivePointOne = 'FIVE_POINT_ONE',
   /** Mono */
   Mono = 'MONO',
@@ -2058,6 +2058,7 @@ export type EncodingProcessingProfile = {
   createdUser: Scalars['String'];
   dashManifestName?: Maybe<Scalars['String']>;
   deleteFilesFromSourceWhenDone: Scalars['Boolean'];
+  descriptiveAudioFileLanguageExpression?: Maybe<Scalars['String']>;
   drmProtection: DrmProtection;
   /** Reads and enables pagination through a set of `EncodingAudioRepresentation`. */
   encodingAudioRepresentations: EncodingAudioRepresentationsConnection;
@@ -2069,6 +2070,7 @@ export type EncodingProcessingProfile = {
   extractAndApplyHdr10Plus: Scalars['Boolean'];
   failOnNoAudioTracks: Scalars['Boolean'];
   failOnNoCaptionTracks: Scalars['Boolean'];
+  failOnNoDescriptiveAudioTracks: Scalars['Boolean'];
   failOnNoSubtitleTracks: Scalars['Boolean'];
   failOnNoVideoTracks: Scalars['Boolean'];
   forceAspectRatioToStandard: Scalars['Boolean'];
@@ -2081,8 +2083,10 @@ export type EncodingProcessingProfile = {
   optimizeFor: OptimizeFor;
   outputFormat: OutputFormat;
   searchForOptimalNearbyResolutions: Scalars['Boolean'];
+  segmentFormat: SegmentFormat;
   subtitleChunksPattern?: Maybe<Scalars['String']>;
   subtitleFileLanguageExpression?: Maybe<Scalars['String']>;
+  targetVmafScore?: Maybe<Scalars['Int']>;
   tarMode: TarMode;
   thumbDurationInSeconds?: Maybe<Scalars['Int']>;
   thumbGenerate: Scalars['Boolean'];
@@ -2171,6 +2175,11 @@ export type EncodingProcessingProfileCondition = {
   dashManifestName?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `deleteFilesFromSourceWhenDone` field. */
   deleteFilesFromSourceWhenDone?: InputMaybe<Scalars['Boolean']>;
+  /**
+   * Checks for equality with the object’s `descriptiveAudioFileLanguageExpression` field.
+   * @isTrimmed()
+   */
+  descriptiveAudioFileLanguageExpression?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `drmProtection` field. */
   drmProtection?: InputMaybe<DrmProtection>;
   /** Checks for equality with the object’s `encodingMode` field. */
@@ -2190,6 +2199,8 @@ export type EncodingProcessingProfileCondition = {
   failOnNoAudioTracks?: InputMaybe<Scalars['Boolean']>;
   /** Checks for equality with the object’s `failOnNoCaptionTracks` field. */
   failOnNoCaptionTracks?: InputMaybe<Scalars['Boolean']>;
+  /** Checks for equality with the object’s `failOnNoDescriptiveAudioTracks` field. */
+  failOnNoDescriptiveAudioTracks?: InputMaybe<Scalars['Boolean']>;
   /** Checks for equality with the object’s `failOnNoSubtitleTracks` field. */
   failOnNoSubtitleTracks?: InputMaybe<Scalars['Boolean']>;
   /** Checks for equality with the object’s `failOnNoVideoTracks` field. */
@@ -2220,6 +2231,8 @@ export type EncodingProcessingProfileCondition = {
   outputFormat?: InputMaybe<OutputFormat>;
   /** Checks for equality with the object’s `searchForOptimalNearbyResolutions` field. */
   searchForOptimalNearbyResolutions?: InputMaybe<Scalars['Boolean']>;
+  /** Checks for equality with the object’s `segmentFormat` field. */
+  segmentFormat?: InputMaybe<SegmentFormat>;
   /**
    * Checks for equality with the object’s `subtitleChunksPattern` field.
    * @matchesPattern()
@@ -2230,6 +2243,8 @@ export type EncodingProcessingProfileCondition = {
    * @isTrimmed()
    */
   subtitleFileLanguageExpression?: InputMaybe<Scalars['String']>;
+  /** Checks for equality with the object’s `targetVmafScore` field. */
+  targetVmafScore?: InputMaybe<Scalars['Int']>;
   /** Checks for equality with the object’s `tarMode` field. */
   tarMode?: InputMaybe<TarMode>;
   /** Checks for equality with the object’s `thumbDurationInSeconds` field. */
@@ -2296,6 +2311,8 @@ export type EncodingProcessingProfileFilter = {
   dashManifestName?: InputMaybe<StringFilter>;
   /** Filter by the object’s `deleteFilesFromSourceWhenDone` field. */
   deleteFilesFromSourceWhenDone?: InputMaybe<BooleanFilter>;
+  /** Filter by the object’s `descriptiveAudioFileLanguageExpression` field. */
+  descriptiveAudioFileLanguageExpression?: InputMaybe<StringFilter>;
   /** Filter by the object’s `drmProtection` field. */
   drmProtection?: InputMaybe<DrmProtectionFilter>;
   /** Filter by the object’s `encodingAudioRepresentations` relation. */
@@ -2318,6 +2335,8 @@ export type EncodingProcessingProfileFilter = {
   failOnNoAudioTracks?: InputMaybe<BooleanFilter>;
   /** Filter by the object’s `failOnNoCaptionTracks` field. */
   failOnNoCaptionTracks?: InputMaybe<BooleanFilter>;
+  /** Filter by the object’s `failOnNoDescriptiveAudioTracks` field. */
+  failOnNoDescriptiveAudioTracks?: InputMaybe<BooleanFilter>;
   /** Filter by the object’s `failOnNoSubtitleTracks` field. */
   failOnNoSubtitleTracks?: InputMaybe<BooleanFilter>;
   /** Filter by the object’s `failOnNoVideoTracks` field. */
@@ -2346,10 +2365,14 @@ export type EncodingProcessingProfileFilter = {
   outputFormat?: InputMaybe<OutputFormatFilter>;
   /** Filter by the object’s `searchForOptimalNearbyResolutions` field. */
   searchForOptimalNearbyResolutions?: InputMaybe<BooleanFilter>;
+  /** Filter by the object’s `segmentFormat` field. */
+  segmentFormat?: InputMaybe<SegmentFormatFilter>;
   /** Filter by the object’s `subtitleChunksPattern` field. */
   subtitleChunksPattern?: InputMaybe<StringFilter>;
   /** Filter by the object’s `subtitleFileLanguageExpression` field. */
   subtitleFileLanguageExpression?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `targetVmafScore` field. */
+  targetVmafScore?: InputMaybe<IntFilter>;
   /** Filter by the object’s `tarMode` field. */
   tarMode?: InputMaybe<TarModeFilter>;
   /** Filter by the object’s `thumbDurationInSeconds` field. */
@@ -2397,6 +2420,8 @@ export type EncodingProcessingProfileInput = {
   /** @matchesPattern() */
   dashManifestName?: InputMaybe<Scalars['String']>;
   deleteFilesFromSourceWhenDone?: InputMaybe<Scalars['Boolean']>;
+  /** @isTrimmed() */
+  descriptiveAudioFileLanguageExpression?: InputMaybe<Scalars['String']>;
   drmProtection?: InputMaybe<DrmProtection>;
   encodingMode?: InputMaybe<EncodingMode>;
   /**
@@ -2409,6 +2434,7 @@ export type EncodingProcessingProfileInput = {
   extractAndApplyHdr10Plus?: InputMaybe<Scalars['Boolean']>;
   failOnNoAudioTracks?: InputMaybe<Scalars['Boolean']>;
   failOnNoCaptionTracks?: InputMaybe<Scalars['Boolean']>;
+  failOnNoDescriptiveAudioTracks?: InputMaybe<Scalars['Boolean']>;
   failOnNoSubtitleTracks?: InputMaybe<Scalars['Boolean']>;
   failOnNoVideoTracks?: InputMaybe<Scalars['Boolean']>;
   forceAspectRatioToStandard?: InputMaybe<Scalars['Boolean']>;
@@ -2422,10 +2448,12 @@ export type EncodingProcessingProfileInput = {
   optimizeFor?: InputMaybe<OptimizeFor>;
   outputFormat?: InputMaybe<OutputFormat>;
   searchForOptimalNearbyResolutions?: InputMaybe<Scalars['Boolean']>;
+  segmentFormat?: InputMaybe<SegmentFormat>;
   /** @matchesPattern() */
   subtitleChunksPattern?: InputMaybe<Scalars['String']>;
   /** @isTrimmed() */
   subtitleFileLanguageExpression?: InputMaybe<Scalars['String']>;
+  targetVmafScore?: InputMaybe<Scalars['Int']>;
   tarMode?: InputMaybe<TarMode>;
   thumbDurationInSeconds?: InputMaybe<Scalars['Int']>;
   thumbGenerate?: InputMaybe<Scalars['Boolean']>;
@@ -2467,6 +2495,8 @@ export type EncodingProcessingProfilePatch = {
   /** @matchesPattern() */
   dashManifestName?: InputMaybe<Scalars['String']>;
   deleteFilesFromSourceWhenDone?: InputMaybe<Scalars['Boolean']>;
+  /** @isTrimmed() */
+  descriptiveAudioFileLanguageExpression?: InputMaybe<Scalars['String']>;
   drmProtection?: InputMaybe<DrmProtection>;
   encodingMode?: InputMaybe<EncodingMode>;
   /**
@@ -2479,6 +2509,7 @@ export type EncodingProcessingProfilePatch = {
   extractAndApplyHdr10Plus?: InputMaybe<Scalars['Boolean']>;
   failOnNoAudioTracks?: InputMaybe<Scalars['Boolean']>;
   failOnNoCaptionTracks?: InputMaybe<Scalars['Boolean']>;
+  failOnNoDescriptiveAudioTracks?: InputMaybe<Scalars['Boolean']>;
   failOnNoSubtitleTracks?: InputMaybe<Scalars['Boolean']>;
   failOnNoVideoTracks?: InputMaybe<Scalars['Boolean']>;
   forceAspectRatioToStandard?: InputMaybe<Scalars['Boolean']>;
@@ -2492,10 +2523,12 @@ export type EncodingProcessingProfilePatch = {
   optimizeFor?: InputMaybe<OptimizeFor>;
   outputFormat?: InputMaybe<OutputFormat>;
   searchForOptimalNearbyResolutions?: InputMaybe<Scalars['Boolean']>;
+  segmentFormat?: InputMaybe<SegmentFormat>;
   /** @matchesPattern() */
   subtitleChunksPattern?: InputMaybe<Scalars['String']>;
   /** @isTrimmed() */
   subtitleFileLanguageExpression?: InputMaybe<Scalars['String']>;
+  targetVmafScore?: InputMaybe<Scalars['Int']>;
   tarMode?: InputMaybe<TarMode>;
   thumbDurationInSeconds?: InputMaybe<Scalars['Int']>;
   thumbGenerate?: InputMaybe<Scalars['Boolean']>;
@@ -2567,6 +2600,8 @@ export enum EncodingProcessingProfilesOrderBy {
   DashManifestNameDesc = 'DASH_MANIFEST_NAME_DESC',
   DeleteFilesFromSourceWhenDoneAsc = 'DELETE_FILES_FROM_SOURCE_WHEN_DONE_ASC',
   DeleteFilesFromSourceWhenDoneDesc = 'DELETE_FILES_FROM_SOURCE_WHEN_DONE_DESC',
+  DescriptiveAudioFileLanguageExpressionAsc = 'DESCRIPTIVE_AUDIO_FILE_LANGUAGE_EXPRESSION_ASC',
+  DescriptiveAudioFileLanguageExpressionDesc = 'DESCRIPTIVE_AUDIO_FILE_LANGUAGE_EXPRESSION_DESC',
   DrmProtectionAsc = 'DRM_PROTECTION_ASC',
   DrmProtectionDesc = 'DRM_PROTECTION_DESC',
   EncodingModeAsc = 'ENCODING_MODE_ASC',
@@ -2581,6 +2616,8 @@ export enum EncodingProcessingProfilesOrderBy {
   FailOnNoAudioTracksDesc = 'FAIL_ON_NO_AUDIO_TRACKS_DESC',
   FailOnNoCaptionTracksAsc = 'FAIL_ON_NO_CAPTION_TRACKS_ASC',
   FailOnNoCaptionTracksDesc = 'FAIL_ON_NO_CAPTION_TRACKS_DESC',
+  FailOnNoDescriptiveAudioTracksAsc = 'FAIL_ON_NO_DESCRIPTIVE_AUDIO_TRACKS_ASC',
+  FailOnNoDescriptiveAudioTracksDesc = 'FAIL_ON_NO_DESCRIPTIVE_AUDIO_TRACKS_DESC',
   FailOnNoSubtitleTracksAsc = 'FAIL_ON_NO_SUBTITLE_TRACKS_ASC',
   FailOnNoSubtitleTracksDesc = 'FAIL_ON_NO_SUBTITLE_TRACKS_DESC',
   FailOnNoVideoTracksAsc = 'FAIL_ON_NO_VIDEO_TRACKS_ASC',
@@ -2608,12 +2645,16 @@ export enum EncodingProcessingProfilesOrderBy {
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
   SearchForOptimalNearbyResolutionsAsc = 'SEARCH_FOR_OPTIMAL_NEARBY_RESOLUTIONS_ASC',
   SearchForOptimalNearbyResolutionsDesc = 'SEARCH_FOR_OPTIMAL_NEARBY_RESOLUTIONS_DESC',
+  SegmentFormatAsc = 'SEGMENT_FORMAT_ASC',
+  SegmentFormatDesc = 'SEGMENT_FORMAT_DESC',
   SubtitleChunksPatternAsc = 'SUBTITLE_CHUNKS_PATTERN_ASC',
   SubtitleChunksPatternDesc = 'SUBTITLE_CHUNKS_PATTERN_DESC',
   SubtitleFileLanguageExpressionAsc = 'SUBTITLE_FILE_LANGUAGE_EXPRESSION_ASC',
   SubtitleFileLanguageExpressionDesc = 'SUBTITLE_FILE_LANGUAGE_EXPRESSION_DESC',
   TarModeAsc = 'TAR_MODE_ASC',
   TarModeDesc = 'TAR_MODE_DESC',
+  TargetVmafScoreAsc = 'TARGET_VMAF_SCORE_ASC',
+  TargetVmafScoreDesc = 'TARGET_VMAF_SCORE_DESC',
   ThumbDurationInSecondsAsc = 'THUMB_DURATION_IN_SECONDS_ASC',
   ThumbDurationInSecondsDesc = 'THUMB_DURATION_IN_SECONDS_DESC',
   ThumbGenerateAsc = 'THUMB_GENERATE_ASC',
@@ -4181,6 +4222,7 @@ export type PlaybackVideoPayload = {
   fairplayStreamingCertificateUrl?: Maybe<Scalars['String']>;
   hlsManifestUrl?: Maybe<Scalars['String']>;
   playreadyLicenseServiceUrl?: Maybe<Scalars['String']>;
+  thumbnailsVttUrl?: Maybe<Scalars['String']>;
   widevineLicenseServiceUrl?: Maybe<Scalars['String']>;
 };
 
@@ -4553,6 +4595,41 @@ export type RetryEncodeVideoPayload = {
   __typename?: 'RetryEncodeVideoPayload';
   query?: Maybe<Query>;
   video?: Maybe<Video>;
+};
+
+export enum SegmentFormat {
+  /** Automatic */
+  Automatic = 'AUTOMATIC',
+  /** Byte Range */
+  ByteRange = 'BYTE_RANGE',
+  /** File */
+  File = 'FILE'
+}
+
+/** A filter to be used against SegmentFormat fields. All fields are combined with a logical ‘and.’ */
+export type SegmentFormatFilter = {
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  distinctFrom?: InputMaybe<SegmentFormat>;
+  /** Equal to the specified value. */
+  equalTo?: InputMaybe<SegmentFormat>;
+  /** Greater than the specified value. */
+  greaterThan?: InputMaybe<SegmentFormat>;
+  /** Greater than or equal to the specified value. */
+  greaterThanOrEqualTo?: InputMaybe<SegmentFormat>;
+  /** Included in the specified list. */
+  in?: InputMaybe<Array<SegmentFormat>>;
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  isNull?: InputMaybe<Scalars['Boolean']>;
+  /** Less than the specified value. */
+  lessThan?: InputMaybe<SegmentFormat>;
+  /** Less than or equal to the specified value. */
+  lessThanOrEqualTo?: InputMaybe<SegmentFormat>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  notDistinctFrom?: InputMaybe<SegmentFormat>;
+  /** Not equal to the specified value. */
+  notEqualTo?: InputMaybe<SegmentFormat>;
+  /** Not included in the specified list. */
+  notIn?: InputMaybe<Array<SegmentFormat>>;
 };
 
 export type SetAmazonS3AcquisitionProfileInput = {
@@ -5272,12 +5349,15 @@ export type Video = {
   overallProgress: Scalars['Float'];
   previewComment?: Maybe<Scalars['String']>;
   previewStatus: PreviewStatus;
+  segmentFormat: SegmentFormat;
   sourceFileExtension?: Maybe<Scalars['String']>;
   sourceFileName?: Maybe<Scalars['String']>;
   sourceFullFileName?: Maybe<Scalars['String']>;
   sourceLocation: Scalars['String'];
   sourceSizeInBytes?: Maybe<Scalars['BigInt']>;
   subtitleLanguages: Array<Maybe<Scalars['String']>>;
+  thumbnailsEnabled: Scalars['Boolean'];
+  thumbnailsVttPath?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   updatedDate: Scalars['Datetime'];
   updatedUser: Scalars['String'];
@@ -5387,6 +5467,8 @@ export type VideoCondition = {
   previewComment?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `previewStatus` field. */
   previewStatus?: InputMaybe<PreviewStatus>;
+  /** Checks for equality with the object’s `segmentFormat` field. */
+  segmentFormat?: InputMaybe<SegmentFormat>;
   /** Checks for equality with the object’s `sourceFileExtension` field. */
   sourceFileExtension?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `sourceFileName` field. */
@@ -5397,6 +5479,10 @@ export type VideoCondition = {
   sourceSizeInBytes?: InputMaybe<Scalars['BigInt']>;
   /** Checks for equality with the object’s `subtitleLanguages` field. */
   subtitleLanguages?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Checks for equality with the object’s `thumbnailsEnabled` field. */
+  thumbnailsEnabled?: InputMaybe<Scalars['Boolean']>;
+  /** Checks for equality with the object’s `thumbnailsVttPath` field. */
+  thumbnailsVttPath?: InputMaybe<Scalars['String']>;
   /**
    * Checks for equality with the object’s `title` field.
    * @maxLength(100)
@@ -5506,6 +5592,8 @@ export type VideoFilter = {
   previewComment?: InputMaybe<StringFilter>;
   /** Filter by the object’s `previewStatus` field. */
   previewStatus?: InputMaybe<PreviewStatusFilter>;
+  /** Filter by the object’s `segmentFormat` field. */
+  segmentFormat?: InputMaybe<SegmentFormatFilter>;
   /** Filter by the object’s `sourceFileExtension` field. */
   sourceFileExtension?: InputMaybe<StringFilter>;
   /** Filter by the object’s `sourceFileName` field. */
@@ -5518,6 +5606,10 @@ export type VideoFilter = {
   sourceSizeInBytes?: InputMaybe<BigIntFilter>;
   /** Filter by the object’s `subtitleLanguages` field. */
   subtitleLanguages?: InputMaybe<StringListFilter>;
+  /** Filter by the object’s `thumbnailsEnabled` field. */
+  thumbnailsEnabled?: InputMaybe<BooleanFilter>;
+  /** Filter by the object’s `thumbnailsVttPath` field. */
+  thumbnailsVttPath?: InputMaybe<StringFilter>;
   /** Filter by the object’s `title` field. */
   title?: InputMaybe<StringFilter>;
   /** Filter by the object’s `updatedDate` field. */
@@ -5578,6 +5670,7 @@ export type VideoPatch = {
   isArchived?: InputMaybe<Scalars['Boolean']>;
   previewComment?: InputMaybe<Scalars['String']>;
   previewStatus?: InputMaybe<PreviewStatus>;
+  segmentFormat?: InputMaybe<SegmentFormat>;
   /**
    * @maxLength(100)
    * @notEmpty()
@@ -5659,6 +5752,8 @@ export enum VideosOrderBy {
   PreviewStatusDesc = 'PREVIEW_STATUS_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  SegmentFormatAsc = 'SEGMENT_FORMAT_ASC',
+  SegmentFormatDesc = 'SEGMENT_FORMAT_DESC',
   SourceFileExtensionAsc = 'SOURCE_FILE_EXTENSION_ASC',
   SourceFileExtensionDesc = 'SOURCE_FILE_EXTENSION_DESC',
   SourceFileNameAsc = 'SOURCE_FILE_NAME_ASC',
@@ -5671,6 +5766,10 @@ export enum VideosOrderBy {
   SourceSizeInBytesDesc = 'SOURCE_SIZE_IN_BYTES_DESC',
   SubtitleLanguagesAsc = 'SUBTITLE_LANGUAGES_ASC',
   SubtitleLanguagesDesc = 'SUBTITLE_LANGUAGES_DESC',
+  ThumbnailsEnabledAsc = 'THUMBNAILS_ENABLED_ASC',
+  ThumbnailsEnabledDesc = 'THUMBNAILS_ENABLED_DESC',
+  ThumbnailsVttPathAsc = 'THUMBNAILS_VTT_PATH_ASC',
+  ThumbnailsVttPathDesc = 'THUMBNAILS_VTT_PATH_DESC',
   TitleAsc = 'TITLE_ASC',
   TitleDesc = 'TITLE_DESC',
   UpdatedDateAsc = 'UPDATED_DATE_ASC',
@@ -6015,6 +6114,8 @@ export enum VideoStreamType {
   Audio = 'AUDIO',
   /** Closed caption */
   ClosedCaption = 'CLOSED_CAPTION',
+  /** Descriptive Audio */
+  DescriptiveAudio = 'DESCRIPTIVE_AUDIO',
   /** Subtitle */
   Subtitle = 'SUBTITLE',
   /** Video */
