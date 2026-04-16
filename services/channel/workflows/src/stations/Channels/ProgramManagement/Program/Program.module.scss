@@ -48,8 +48,7 @@ $closed-program: $dark-blue;
   &.ident {
     .header {
       @include header;
-      color: black;
-      background-color: rgb(255, 249, 149); 
+      background-color: rgb(23, 23, 22); 
     }    
   }
   &.warning {
@@ -79,8 +78,7 @@ $closed-program: $dark-blue;
   &.promo {
     .header {
       @include header;
-      color: black;
-      background-color: rgb(177, 221, 140); 
+      background-color: rgb(106, 2, 2); 
     }    
   }
 
