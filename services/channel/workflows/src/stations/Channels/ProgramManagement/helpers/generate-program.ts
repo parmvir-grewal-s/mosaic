@@ -43,7 +43,8 @@ export const generateProgram = async (
   }, -1); // Start with -1 to handle an empty currentPrograms array
 
   return newPrograms.map((newProgram, index) => {
-    const { title, entityId, entityType, imageId, videoId } = newProgram;
+    const { title, entityId, entityType, imageId, videoId, externalId } =
+      newProgram;
 
     const video: VideoData = {
       id: '', // dummy video id
@@ -79,6 +80,7 @@ export const generateProgram = async (
       sortIndex: maxSortIndex + index + 1,
       entityId,
       entityType,
+      externalId,
       imageId,
       videoDurationInSeconds: video.lengthInSeconds as number,
       videoId,
@@ -106,10 +108,11 @@ export const generateProgram = async (
 };
 
 function createInvalidVideoError(programItem: ProgramEntity): StationError {
-  const { title, entityId, entityType, imageId, videoId } = programItem;
+  const { title, entityId, entityType, imageId, videoId, externalId } =
+    programItem;
   return {
     title: `Invalid video. Please ensure a video has been assigned to the entity.`,
-    body: { title, entityId, entityType, imageId, videoId },
+    body: { title, entityId, entityType, imageId, videoId, externalId },
   };
 }
 

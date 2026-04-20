@@ -21,6 +21,7 @@ export type NewProgram = Pick<
   | 'entityId'
   | 'entityType'
   | 'videoId'
+  | 'externalId'
   | 'videoDurationInSeconds'
   | 'imageId'
 > & { trackId: string };
@@ -146,6 +147,7 @@ export type ProgramFormData = Pick<
   | 'sortIndex'
   | 'title'
   | 'entityId'
+  | 'externalId'
   | 'entityType'
   | 'videoDurationInSeconds'
   | 'imageId'
@@ -204,7 +206,7 @@ export interface ProgramManagementContextProps {
 
 export type ProgramEntity = Pick<
   Program,
-  'title' | 'videoId' | 'entityId' | 'entityType' | 'imageId'
+  'title' | 'videoId' | 'entityId' | 'entityType' | 'imageId' | 'externalId'
 >;
 
 export type ProgramCuePointPayLoad = Pick<

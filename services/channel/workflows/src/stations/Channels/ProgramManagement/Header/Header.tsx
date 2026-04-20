@@ -31,6 +31,9 @@ export const Header: React.FC<HeaderProps> = ({
             <p>Title</p>
           </div>
           <div className={label}>
+            <p>External ID</p>
+          </div>
+          <div className={label}>
             <p>Entity Type</p>
           </div>
           <div className={label}>

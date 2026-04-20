@@ -1080,6 +1080,9 @@ input ProgramFilter {
   """Filter by the object’s `updatedUser` field."""
   updatedUser: StringFilter
 
+  """Filter by the object’s `externalId` field."""
+  externalId: StringFilter
+
   """Filter by the object’s `programCuePoints` relation."""
   programCuePoints: ProgramToManyProgramCuePointFilter
 
@@ -1546,6 +1549,7 @@ type Program {
   updatedDate: Datetime!
   createdUser: String!
   updatedUser: String!
+  externalId: String
 
   """Reads a single `Playlist` that is related to this `Program`."""
   playlist: Playlist
@@ -1899,6 +1903,8 @@ enum ProgramsOrderBy {
   CREATED_USER_DESC
   UPDATED_USER_ASC
   UPDATED_USER_DESC
+  EXTERNAL_ID_ASC
+  EXTERNAL_ID_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -1945,6 +1951,9 @@ input ProgramCondition {
 
   """Checks for equality with the object’s `updatedUser` field."""
   updatedUser: String
+
+  """Checks for equality with the object’s `externalId` field."""
+  externalId: String
 }
 
 """A `Playlist` edge in the connection."""
@@ -2670,6 +2679,7 @@ input ProgramInput {
   updatedDate: Datetime
   createdUser: String
   updatedUser: String
+  externalId: String
 }
 
 """The output of our update `ChannelImage` mutation."""
@@ -2972,6 +2982,7 @@ input ProgramPatch {
   updatedDate: Datetime
   createdUser: String
   updatedUser: String
+  externalId: String
 }
 
 """The output of our delete `ChannelImage` mutation."""

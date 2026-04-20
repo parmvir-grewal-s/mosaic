@@ -10,6 +10,7 @@ query PlaylistPrograms($id: UUID!) {
         title
         entityId
         entityType
+        externalId
         videoDurationInSeconds
         imageId
         videoId
