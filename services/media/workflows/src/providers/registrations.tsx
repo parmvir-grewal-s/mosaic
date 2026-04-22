@@ -37,6 +37,7 @@ export function register(app: PiletApi): void {
               videoId: e.mainVideoId,
               entityId: String(e.id),
               imageId: e.moviesImages?.nodes?.[0]?.imageId,
+              externalId: e.externalId,
             })),
           );
         }}
@@ -76,6 +77,7 @@ export function register(app: PiletApi): void {
               videoId: e.mainVideoId,
               entityId: String(e.id),
               imageId: e.episodesImages?.nodes?.[0]?.imageId,
+              externalId: e.externalId,
             })),
           );
         }}
