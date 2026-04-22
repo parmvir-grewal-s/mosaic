@@ -1,5 +1,3 @@
---! Message: adding-external_id-tp-programs-table
+--! Message: replace-with-migration-name
 
-ALTER TABLE app_public.programs ADD COLUMN IF NOT EXISTS external_id TEXT;
-GRANT INSERT (external_id) ON app_public.programs TO ":DATABASE_GQL_ROLE";
-GRANT UPDATE (external_id) ON app_public.programs TO ":DATABASE_GQL_ROLE";
+-- Remove this comment line and write your migration here. Make sure to keep one empty line between 'Message' header and first migration line to properly name future migration file.
