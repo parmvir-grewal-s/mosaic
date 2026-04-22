@@ -32,6 +32,7 @@ export const generateProgramMutations = (
       videoId,
       videoDurationInSeconds,
       entityId,
+      externalId,
       entityType,
       imageId,
     }) =>
@@ -48,6 +49,7 @@ export const generateProgramMutations = (
               videoId,
               videoDurationInSeconds,
               entityId,
+              externalId,
               entityType: { type: 'enum', value: entityType },
               playlistId,
               imageId,

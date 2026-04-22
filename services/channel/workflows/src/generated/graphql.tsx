@@ -1682,6 +1682,7 @@ export type Program = {
   createdUser: Scalars['String'];
   entityId: Scalars['String'];
   entityType: EntityType;
+  externalId?: Maybe<Scalars['String']>;
   id: Scalars['UUID'];
   imageId?: Maybe<Scalars['UUID']>;
   /** Reads a single `Playlist` that is related to this `Program`. */
@@ -1755,6 +1756,8 @@ export type ProgramCondition = {
   entityId?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `entityType` field. */
   entityType?: InputMaybe<EntityType>;
+  /** Checks for equality with the object’s `externalId` field. */
+  externalId?: InputMaybe<Scalars['String']>;
   /** Checks for equality with the object’s `id` field. */
   id?: InputMaybe<Scalars['UUID']>;
   /** Checks for equality with the object’s `imageId` field. */
@@ -1962,6 +1965,8 @@ export type ProgramFilter = {
   entityId?: InputMaybe<StringFilter>;
   /** Filter by the object’s `entityType` field. */
   entityType?: InputMaybe<EntityTypeFilter>;
+  /** Filter by the object’s `externalId` field. */
+  externalId?: InputMaybe<StringFilter>;
   /** Filter by the object’s `id` field. */
   id?: InputMaybe<UuidFilter>;
   /** Filter by the object’s `imageId` field. */
@@ -1998,6 +2003,7 @@ export type ProgramInput = {
   createdUser?: InputMaybe<Scalars['String']>;
   entityId: Scalars['String'];
   entityType: EntityType;
+  externalId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['UUID']>;
   imageId?: InputMaybe<Scalars['UUID']>;
   playlistId: Scalars['UUID'];
@@ -2015,6 +2021,7 @@ export type ProgramPatch = {
   createdUser?: InputMaybe<Scalars['String']>;
   entityId?: InputMaybe<Scalars['String']>;
   entityType?: InputMaybe<EntityType>;
+  externalId?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['UUID']>;
   imageId?: InputMaybe<Scalars['UUID']>;
   playlistId?: InputMaybe<Scalars['UUID']>;
@@ -2061,6 +2068,8 @@ export enum ProgramsOrderBy {
   EntityIdDesc = 'ENTITY_ID_DESC',
   EntityTypeAsc = 'ENTITY_TYPE_ASC',
   EntityTypeDesc = 'ENTITY_TYPE_DESC',
+  ExternalIdAsc = 'EXTERNAL_ID_ASC',
+  ExternalIdDesc = 'EXTERNAL_ID_DESC',
   IdAsc = 'ID_ASC',
   IdDesc = 'ID_DESC',
   ImageIdAsc = 'IMAGE_ID_ASC',
@@ -2986,7 +2995,7 @@ export type ProgramQueryVariables = Exact<{
 }>;
 
 
-export type ProgramQuery = { __typename?: 'Query', program?: { __typename?: 'Program', id: any, title: string, updatedDate: any, updatedUser: string, createdDate: any, createdUser: string, imageId?: any | null } | null };
+export type ProgramQuery = { __typename?: 'Query', program?: { __typename?: 'Program', id: any, title: string, updatedDate: any, updatedUser: string, externalId?: string | null, createdDate: any, createdUser: string, imageId?: any | null } | null };
 
 export type ProgramTitleQueryVariables = Exact<{
   id: Scalars['UUID'];
@@ -3014,7 +3023,7 @@ export type PlaylistProgramsQueryVariables = Exact<{
 }>;
 
 
-export type PlaylistProgramsQuery = { __typename?: 'Query', playlist?: { __typename?: 'Playlist', startDateTime: any, calculatedEndDateTime?: any | null, calculatedDurationInSeconds: number, programs: { __typename?: 'ProgramsConnection', nodes: Array<{ __typename?: 'Program', id: any, sortIndex: number, title: string, entityId: string, entityType: EntityType, videoDurationInSeconds: number, imageId?: any | null, videoId?: any | null, programCuePoints: { __typename?: 'ProgramCuePointsConnection', nodes: Array<{ __typename?: 'ProgramCuePoint', id: any, videoCuePointId?: any | null, type: ProgramBreakType, timeInSeconds?: number | null, cuePointSchedules: { __typename?: 'CuePointSchedulesConnection', nodes: Array<{ __typename?: 'CuePointSchedule', id: any, type: CuePointScheduleType, durationInSeconds: number, videoId?: any | null, sortIndex: number, programCuePointId: any }> } }> } }> } } | null, channel?: { __typename?: 'Playlist', channelId: any } | null };
+export type PlaylistProgramsQuery = { __typename?: 'Query', playlist?: { __typename?: 'Playlist', startDateTime: any, calculatedEndDateTime?: any | null, calculatedDurationInSeconds: number, programs: { __typename?: 'ProgramsConnection', nodes: Array<{ __typename?: 'Program', id: any, sortIndex: number, title: string, entityId: string, entityType: EntityType, externalId?: string | null, videoDurationInSeconds: number, imageId?: any | null, videoId?: any | null, programCuePoints: { __typename?: 'ProgramCuePointsConnection', nodes: Array<{ __typename?: 'ProgramCuePoint', id: any, videoCuePointId?: any | null, type: ProgramBreakType, timeInSeconds?: number | null, cuePointSchedules: { __typename?: 'CuePointSchedulesConnection', nodes: Array<{ __typename?: 'CuePointSchedule', id: any, type: CuePointScheduleType, durationInSeconds: number, videoId?: any | null, sortIndex: number, programCuePointId: any }> } }> } }> } } | null, channel?: { __typename?: 'Playlist', channelId: any } | null };
 
 
 export const CreateChannelDocument = gql`
@@ -3869,6 +3878,7 @@ export const ProgramDocument = gql`
     title
     updatedDate
     updatedUser
+    externalId
     createdDate
     createdUser
     imageId
@@ -4027,6 +4037,7 @@ export const PlaylistProgramsDocument = gql`
         title
         entityId
         entityType
+        externalId
         videoDurationInSeconds
         imageId
         videoId
