@@ -101,6 +101,7 @@ export const ProgramManagement: React.FC = () => {
             'Video duration is required',
           ),
           externalId: Yup.string().nullable(),
+          originalTitle: Yup.string().nullable(),
           imageId: Yup.string().nullable(),
           programCuePoints: Yup.object().shape({
             nodes: Yup.array().of(

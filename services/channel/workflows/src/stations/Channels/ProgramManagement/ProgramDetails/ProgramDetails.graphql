@@ -5,6 +5,7 @@ query Program($id: UUID!) {
     updatedDate
     updatedUser
     externalId
+    originalTitle
     createdDate
     createdUser
     imageId
