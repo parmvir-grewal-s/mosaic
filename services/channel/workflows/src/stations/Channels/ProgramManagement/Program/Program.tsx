@@ -34,6 +34,7 @@ export const Program: React.FC<ProgramProps> = ({
   title,
   videoDurationInSeconds,
   externalId,
+  originalTitle,
   imageId,
   programCuePoints,
   startTime,
@@ -279,6 +280,11 @@ export const Program: React.FC<ProgramProps> = ({
               <div className={clsx(classes.cell, classes.title)}>
                 <ImagePreview id={imageId} type={'thumbnail'} />
                 <p title={title}>{title}</p>
+              </div>
+              <div className={classes.cell}>
+                <p title={originalTitle || undefined}>
+                  {originalTitle || undefined}
+                </p>
               </div>
               <div className={classes.cell}>
                 <p title={externalId || undefined}>{externalId || undefined}</p>

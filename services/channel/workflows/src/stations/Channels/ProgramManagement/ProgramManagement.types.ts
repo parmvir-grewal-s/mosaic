@@ -148,6 +148,7 @@ export type ProgramFormData = Pick<
   | 'title'
   | 'entityId'
   | 'externalId'
+  | 'originalTitle'
   | 'entityType'
   | 'videoDurationInSeconds'
   | 'imageId'
@@ -206,7 +207,13 @@ export interface ProgramManagementContextProps {
 
 export type ProgramEntity = Pick<
   Program,
-  'title' | 'videoId' | 'entityId' | 'entityType' | 'imageId' | 'externalId'
+  | 'title'
+  | 'videoId'
+  | 'entityId'
+  | 'entityType'
+  | 'imageId'
+  | 'externalId'
+  | 'originalTitle'
 >;
 
 export type ProgramCuePointPayLoad = Pick<

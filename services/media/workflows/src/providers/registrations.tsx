@@ -38,6 +38,7 @@ export function register(app: PiletApi): void {
               entityId: String(e.id),
               imageId: e.moviesImages?.nodes?.[0]?.imageId,
               externalId: e.externalId,
+              originalTitle: e.originalTitle,
             })),
           );
         }}
@@ -78,6 +79,7 @@ export function register(app: PiletApi): void {
               entityId: String(e.id),
               imageId: e.episodesImages?.nodes?.[0]?.imageId,
               externalId: e.externalId,
+              originalTitle: e.originalTitle,
             })),
           );
         }}
