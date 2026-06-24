@@ -45,6 +45,7 @@ export const Program: React.FC<ProgramProps> = ({
   sortIndex,
   entityId,
   resolver,
+  addProviders = [],
   onChange,
   onToggle,
 }) => {
@@ -104,6 +105,16 @@ export const Program: React.FC<ProgramProps> = ({
           action: 'DUPLICATE_BELOW',
         } as ProgramAction),
     },
+    ...addProviders.map((provider) => ({
+      label: `Add ${provider.label} Below`,
+      icon: IconName.Plus,
+      onActionSelected: () =>
+        onChange({
+          type: 'PROGRAM',
+          action: 'ADD_BELOW',
+          entityType: provider.type,
+        } as ProgramAction),
+    })),
     {
       label: 'Unassign',
       icon: IconName.X,

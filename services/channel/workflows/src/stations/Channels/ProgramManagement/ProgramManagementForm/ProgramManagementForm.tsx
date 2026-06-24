@@ -55,6 +55,9 @@ export const ProgramManagementForm: React.FC<{
 
   const [provider, setProvider] = useState<FastProviderData | undefined>();
   const [videoSelect, setVideoSelect] = useState<CuePointSelect>();
+  const [insertAfterIndex, setInsertAfterIndex] = useState<
+    number | undefined
+  >();
   const [isNewProgramLoading, setIsNewProgramLoading] =
     useState<boolean>(false);
 
@@ -80,8 +83,17 @@ export const ProgramManagementForm: React.FC<{
   const headerAddActions: ActionData[] = allProviders.map((p) => ({
     label: `Select Source ${p.label}`,
     icon: IconName.Plus,
-    onActionSelected: () => setProvider(p),
+    onActionSelected: () => {
+      setInsertAfterIndex(undefined);
+      setProvider(p);
+    },
   }));
+
+  // Closes the source selection modal and clears any pending insert target
+  const closeProvider = (): void => {
+    setProvider(undefined);
+    setInsertAfterIndex(undefined);
+  };
 
   const onHeaderToggleHandler = useCallback((): void => {
     isAnyOpen ? toggleAll(false) : toggleAll(true);
@@ -100,20 +112,36 @@ export const ProgramManagementForm: React.FC<{
     const addProgram = async (data: ProgramEntity[]): Promise<void> => {
       setIsNewProgramLoading(true);
 
+      const currentNodes = (values?.programs?.nodes ??
+        []) as ProgramsConnection['nodes'];
+
       let newPrograms: ProgramEntity[];
       try {
-        newPrograms = await generateProgram(
-          data,
-          values?.programs?.nodes as ProgramsConnection['nodes'],
-        );
+        newPrograms = await generateProgram(data, currentNodes);
         // remove station error if a program was successfully created
         onStationError(undefined);
-        setFieldValue(field, [...programs, ...newPrograms]);
+        if (insertAfterIndex === undefined) {
+          // Header "+" add: append to the end of the playlist
+          setFieldValue(field, [...programs, ...newPrograms]);
+        } else {
+          // Row "Add … Below": insert directly beneath the selected program
+          // and re-map sortIndex to the new array order
+          const updatedPrograms = [
+            ...currentNodes.slice(0, insertAfterIndex + 1),
+            ...newPrograms,
+            ...currentNodes.slice(insertAfterIndex + 1),
+          ];
+          setFieldValue(
+            field,
+            updatedPrograms.map((p, idx) => ({ ...p, sortIndex: idx })),
+          );
+        }
       } catch (error) {
         const stationError = ErrorTypeToStationError(error as ErrorType);
         onStationError(stationError);
       } finally {
         setIsNewProgramLoading(false);
+        setInsertAfterIndex(undefined);
       }
     };
 
@@ -148,6 +176,13 @@ export const ProgramManagementForm: React.FC<{
         break;
       case 'ADD':
         addProgram(programAction.data);
+        break;
+      case 'ADD_BELOW':
+        // Open the chosen source explorer and remember where to insert
+        setInsertAfterIndex(programIndex);
+        setProvider(
+          allProviders.find((p) => p.type === programAction.entityType),
+        );
         break;
       case 'REMOVE':
         setFieldValue(
@@ -353,6 +388,7 @@ export const ProgramManagementForm: React.FC<{
                       <Program
                         key={trackId}
                         {...program}
+                        addProviders={allProviders}
                         resolver={
                           providerTypeMap?.[program?.entityType]
                             ?.detailsResolver
@@ -381,7 +417,7 @@ export const ProgramManagementForm: React.FC<{
       </DragDropContext>
       <EntityProvider
         provider={provider}
-        setProvider={setProvider}
+        setProvider={closeProvider}
         onNewSelection={(selectedEntities) =>
           onProgramChangeHandler({
             type: 'PROGRAM',

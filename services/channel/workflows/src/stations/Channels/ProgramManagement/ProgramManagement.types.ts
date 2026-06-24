@@ -54,6 +54,10 @@ export type ProgramAction =
       action: 'DUPLICATE_BELOW';
     } & ProgramActionBase)
   | ({
+      action: 'ADD_BELOW';
+      entityType: string;
+    } & ProgramActionBase)
+  | ({
       action: 'REMOVE';
     } & ProgramActionBase)
   | ({
@@ -173,6 +177,7 @@ export type ProgramProps = ProgramFormData & {
   resolver?: FastProviderData['detailsResolver'];
   isOpen: boolean;
   trackId?: string;
+  addProviders?: Pick<FastProviderData, 'type' | 'label'>[];
   onToggle: (uuid: string, isOpen: boolean | null) => void;
   onChange: (action: ProgramFormAction) => void;
 };
