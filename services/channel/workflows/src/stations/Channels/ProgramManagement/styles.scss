@@ -17,7 +17,7 @@ $drop-position-border-style: dashed;
 
 @mixin columns {
   display: grid;
-  grid: 1fr / #{$column-small} 1fr #{$column-large} #{$column-large} #{$column-medium} #{$column-medium} #{$column-medium} #{$column-medium};
+  grid: 1fr / #{$column-small} minmax(200px, 1fr) minmax(200px, 1fr) #{$column-large} #{$column-medium} #{$column-medium} #{$column-medium};
   column-gap: $column-gap;
 }
 

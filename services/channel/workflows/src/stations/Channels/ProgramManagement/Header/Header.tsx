@@ -42,9 +42,6 @@ export const Header: React.FC<HeaderProps> = ({
           <div className={label}>
             <p>Duration</p>
           </div>
-          <div className={label}>
-            <p>Cue Points</p>
-          </div>
           <div className={label}></div>
         </div>
       </div>

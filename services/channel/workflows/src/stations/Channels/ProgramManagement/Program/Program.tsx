@@ -116,7 +116,6 @@ export const Program: React.FC<ProgramProps> = ({
   ];
 
   const cuePointAmt: number = programCuePoints?.nodes?.length ?? 0;
-  let usedCuePoints = 0;
   const preNodes: ProgramCuePointProps[] = [];
   const midNodes: ProgramCuePointProps[] = [];
   const postNodes: ProgramCuePointProps[] = [];
@@ -127,9 +126,6 @@ export const Program: React.FC<ProgramProps> = ({
   for (let i = 0; i < programCuePoints?.nodes?.length ?? []; i++) {
     let totalCuePointDuration = 0;
     const node = programCuePoints?.nodes[i];
-    if (node?.cuePointSchedules?.nodes?.length) {
-      usedCuePoints++;
-    }
     for (const cpSchedule of node?.cuePointSchedules?.nodes ?? []) {
       totalCuePointDuration += cpSchedule.durationInSeconds;
     }
@@ -176,7 +172,6 @@ export const Program: React.FC<ProgramProps> = ({
 
   const cuePoints = [...preNodes, ...midNodes, ...postNodes];
 
-  const midNodesAmt = `${usedCuePoints}/${cuePointAmt}`;
   const programDuration: Timestamp = formatSecondsToTimestamp(
     videoDurationInSeconds,
   );
@@ -294,9 +289,6 @@ export const Program: React.FC<ProgramProps> = ({
               </div>
               <div className={classes.cell}>
                 <p title={programDuration}>{programDuration}</p>
-              </div>
-              <div className={classes.cell}>
-                <p title={midNodesAmt}>{midNodesAmt}</p>
               </div>
               <div className={clsx(classes.cell, classes.ellipses)}>
                 <InlineMenu
